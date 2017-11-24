@@ -16,7 +16,7 @@ const Api = {
       .then(res => res.data)
   },
   getRaw(url, opts) {
-    return axios.get(url, opts)
+    return axios.get(url, opts).then(res => res.data)
   },
   post(url, data, opts) {
     return axios

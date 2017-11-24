@@ -17,7 +17,11 @@ import {
 function* login(action) {
   try {
     const token = action.params.tokenId
-    const response = yield call(Api.get, 'api/auth/login')
+    const response = yield call(Api.getRaw, 'api/auth/login', {
+      headers: {
+        Authorization: token,
+      },
+    })
     if (response.level === 2) {
       localStorage.setItem('hamsteri-token', token)
       localStorage.setItem('hamsteri-email', response.email)
