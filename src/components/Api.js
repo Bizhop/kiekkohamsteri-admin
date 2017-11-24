@@ -10,8 +10,8 @@ const Api = {
           {
             headers: { Authorization: localStorage.getItem('hamsteri-token') },
           },
-          opts
-        )
+          opts,
+        ),
       )
       .then(res => res.data)
   },
@@ -27,8 +27,8 @@ const Api = {
           {
             headers: { Authorization: localStorage.getItem('hamsteri-token') },
           },
-          opts
-        )
+          opts,
+        ),
       )
       .then(res => res.data)
   },
@@ -41,8 +41,22 @@ const Api = {
           {
             headers: { Authorization: localStorage.getItem('hamsteri-token') },
           },
-          opts
-        )
+          opts,
+        ),
+      )
+      .then(res => res.data)
+  },
+  patch(url, data, opts) {
+    return axios
+      .patch(
+        url,
+        data,
+        R.merge(
+          {
+            headers: { Authorization: localStorage.getItem('hamsteri-token') },
+          },
+          opts,
+        ),
       )
       .then(res => res.data)
   },
@@ -53,8 +67,8 @@ const Api = {
         {
           headers: { Authorization: localStorage.getItem('hamsteri-token') },
         },
-        opts
-      )
+        opts,
+      ),
     )
   },
 }

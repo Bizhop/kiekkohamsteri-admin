@@ -20,11 +20,17 @@ const DashContainer = props => (
         onFailure={responseGoogle}
       />
     )}
+    {props.error && (
+      <div>
+        <h1>{props.error}</h1>
+      </div>
+    )}
   </div>
 )
 
 const mapStateToProps = state => ({
   loggedIn: R.path(['user', 'token'], state),
+  error: R.path(['user', 'error'], state),
 })
 
 const mapDispatchToProps = dispatch => ({
