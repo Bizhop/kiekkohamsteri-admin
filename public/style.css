@@ -1,0 +1,15 @@
+table.custom-table {
+  width: auto;
+  table-layout: fixed;
+  word-wrap: normal;
+  white-space: nowrap;
+}
+
+.smaller {
+  font-size: 75%;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td,
+.table-striped > tbody > tr:nth-child(odd) > th {
+  background-color: lightgray;
+}
