@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom'
 import Header from './shared/Header'
 import DashContainer from './dash/DashContainer'
 import UserContainer from './user/UserContainer'
+import MoldContainer from './mold/MoldContainer'
 
 const NotFound = () => (
   <div className="container">
@@ -18,6 +19,7 @@ const Routes = () => (
     <Switch>
       <Route exact path="/" component={DashContainer} />
       <Route exact path="/users" component={UserContainer} />
+      <Route exact path="/molds" component={MoldContainer} />
       <Route component={NotFound} />
     </Switch>
   </div>
