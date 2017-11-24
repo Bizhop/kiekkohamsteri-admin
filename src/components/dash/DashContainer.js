@@ -3,11 +3,7 @@ import R from 'ramda'
 import { connect } from 'react-redux'
 import GoogleLogin from 'react-google-login'
 
-import { login } from '../user/userActions'
-
-const responseGoogle = response => {
-  console.log(response)
-}
+import { login, loginError } from '../user/userActions'
 
 const DashContainer = props => (
   <div className="container">
@@ -17,7 +13,7 @@ const DashContainer = props => (
         buttonText="Kirjaudu sisään"
         className="btn btn-danger"
         onSuccess={props.login}
-        onFailure={responseGoogle}
+        onFailure={props.loginError}
       />
     )}
     {props.error && (
@@ -35,6 +31,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   login: response => dispatch(login(response)),
+  loginError: response => dispatch(loginError(response)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashContainer)

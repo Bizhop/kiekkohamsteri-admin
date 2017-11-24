@@ -6,7 +6,6 @@ import {
   USERS_SUCCESS,
   USERS_FAILURE,
   TOGGLE_EDIT_MODAL,
-  UPDATE_SUCCESS,
   UPDATE_FAILURE,
   LOGOUT,
 } from './userActions'
@@ -57,6 +56,11 @@ const userReducer = (state = initialState, action) => {
         ...state,
         isEditModalOpen: !state.isEditModalOpen,
         userInEdit: action.user,
+      }
+    case UPDATE_FAILURE:
+      return {
+        ...state,
+        error: action.error,
       }
     case LOGOUT:
       localStorage.removeItem('hamsteri-token')
