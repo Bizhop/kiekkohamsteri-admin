@@ -1,14 +1,25 @@
-import { MOLDS_REQUEST, MOLDS_SUCCESS, MOLDS_FAILURE } from './moldActions'
+import {
+  MOLDS_BY_VALMISTAJA_REQUEST,
+  MOLDS_SUCCESS,
+  MOLDS_FAILURE,
+  TOGGLE_CREATE_MODAL,
+} from './moldActions'
 
 const initialState = {
-  molds: [],
+  molds: {
+    content: [],
+  },
+  isCreateOpen: false,
+  valmId: null,
 }
 
-const moldsReducer = (state = initialState, action) => {
+const moldReducer = (state = initialState, action) => {
   switch (action.type) {
-    case MOLDS_REQUEST:
+    case MOLDS_BY_VALMISTAJA_REQUEST:
       return {
         ...state,
+        valmId: action.valmId,
+        isCreateOpen: false,
       }
     case MOLDS_FAILURE:
       return {
@@ -20,9 +31,14 @@ const moldsReducer = (state = initialState, action) => {
         ...state,
         molds: action.molds,
       }
+    case TOGGLE_CREATE_MODAL:
+      return {
+        ...state,
+        isCreateOpen: !state.isCreateOpen,
+      }
     default:
       return state
   }
 }
 
-export default moldsReducer
+export default moldReducer

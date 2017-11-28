@@ -12,6 +12,7 @@ import {
   UPDATE_REQUEST,
   updateUserError,
   getUsers,
+  logout,
 } from './userActions'
 
 function* login(action) {
@@ -31,7 +32,9 @@ function* login(action) {
           token,
         }),
       )
-    } else yield put(loginError('Unauthorized'))
+    } else {
+      yield put(loginError('Unauthorized'))
+    }
   } catch (e) {
     yield put(loginError(e))
   }
@@ -42,7 +45,11 @@ function* getUsersSaga() {
     const response = yield call(Api.get, 'api/user')
     yield put(usersSuccess(response))
   } catch (e) {
-    yield put(usersError(e))
+    if (e.response.status === 403) {
+      yield put(logout())
+    } else {
+      yield put(usersError(e))
+    }
   }
 }
 
