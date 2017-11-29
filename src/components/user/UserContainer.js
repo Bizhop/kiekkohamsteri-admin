@@ -3,7 +3,13 @@ import R from 'ramda'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
-import { getUsers, toggleEditModal, requestUpdateUser } from './userActions'
+import {
+  getUsers,
+  toggleEditModal,
+  requestUpdateUser,
+  promoteUser,
+  demoteUser,
+} from './userActions'
 import Modal from '../shared/Modal'
 import UserEditForm from './UserEditForm'
 
@@ -26,10 +32,20 @@ const UserContainer = props => (
           <th>Sukunimi</th>
           <th>PDGA numero</th>
           <th>Oikeudet</th>
+          <th />
+          <th />
         </tr>
       </thead>
       <tbody>
-        {props.users.map(p => <User key={p.id} user={p} toggleEditModal={props.toggleEditModal} />)}
+        {props.users.map(p => (
+          <User
+            key={p.id}
+            user={p}
+            toggleEditModal={props.toggleEditModal}
+            promote={props.promote}
+            demote={props.demote}
+          />
+        ))}
       </tbody>
     </table>
     {!props.loggedIn && <Redirect to="/" />}
@@ -64,6 +80,19 @@ const User = props => {
           </button>
         </div>
       </td>
+      <td>
+        <div className="btn-group">
+          {user.level === 1 ? (
+            <button className="btn btn-success" onClick={() => props.promote(user.id)}>
+              Lisää admin
+            </button>
+          ) : (
+            <button className="btn btn-danger" onClick={() => props.demote(user.id)}>
+              Poista admin
+            </button>
+          )}
+        </div>
+      </td>
     </tr>
   )
 }
@@ -79,6 +108,8 @@ const mapDispatchToProps = dispatch => ({
   getUsers: dispatch(getUsers()),
   toggleEditModal: user => dispatch(toggleEditModal(user)),
   editUser: user => dispatch(requestUpdateUser(user)),
+  promote: userId => dispatch(promoteUser(userId)),
+  demote: userId => dispatch(demoteUser(userId)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserContainer)

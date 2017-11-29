@@ -8,6 +8,8 @@ export const TOGGLE_EDIT_MODAL = 'TOGGLE_EDIT_MODAL'
 export const UPDATE_REQUEST = 'UPDATE_REQUEST'
 export const UPDATE_FAILURE = 'UPDATE_FAILURE'
 export const LOGOUT = 'LOGOUT'
+export const PROMOTE_USER = 'PROMOTE_USER'
+export const DEMOTE_USER = 'DEMOTE_USER'
 
 export const login = params => ({
   type: LOGIN_REQUEST,
@@ -56,4 +58,14 @@ export const requestUpdateUser = user => ({
 export const updateUserError = error => ({
   type: UPDATE_FAILURE,
   error,
+})
+
+export const promoteUser = userId => ({
+  type: PROMOTE_USER,
+  userId,
+})
+
+export const demoteUser = userId => ({
+  type: DEMOTE_USER,
+  userId,
 })

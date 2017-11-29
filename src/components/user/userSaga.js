@@ -13,6 +13,8 @@ import {
   updateUserError,
   getUsers,
   logout,
+  PROMOTE_USER,
+  DEMOTE_USER,
 } from './userActions'
 
 function* login(action) {
@@ -66,11 +68,31 @@ function* update(action) {
   }
 }
 
+function* promoteUserSaga(action) {
+  try {
+    yield call(Api.patch, `api/user/${action.userId}/level/2`)
+    yield put(getUsers())
+  } catch (e) {
+    yield put(updateUserError(e))
+  }
+}
+
+function* demoteUserSaga(action) {
+  try {
+    yield call(Api.patch, `api/user/${action.userId}/level/1`)
+    yield put(getUsers())
+  } catch (e) {
+    yield put(updateUserError(e))
+  }
+}
+
 function* userSaga() {
   yield [
     takeEvery(LOGIN_REQUEST, login),
     takeEvery(USERS_REQUEST, getUsersSaga),
     takeEvery(UPDATE_REQUEST, update),
+    takeEvery(PROMOTE_USER, promoteUserSaga),
+    takeEvery(DEMOTE_USER, demoteUserSaga),
   ]
 }
 

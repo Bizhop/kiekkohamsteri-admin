@@ -1,8 +1,6 @@
 import {
-  LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  USERS_REQUEST,
   USERS_SUCCESS,
   USERS_FAILURE,
   TOGGLE_EDIT_MODAL,
@@ -21,10 +19,6 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case LOGIN_REQUEST:
-      return {
-        ...state,
-      }
     case LOGIN_FAILURE:
       return {
         ...state,
@@ -35,10 +29,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         token: action.token,
         email: action.email,
-      }
-    case USERS_REQUEST:
-      return {
-        ...state,
+        error: null,
       }
     case USERS_FAILURE:
       return {
