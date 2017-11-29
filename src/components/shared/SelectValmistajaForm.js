@@ -16,11 +16,11 @@ const SelectValmistajaForm = props => (
           type="select"
           component={RenderSelectInput}
           options={valmistajaDropdown(props.valmistajat)}
-          onChange={(e, newValue) => props.getMoldsByValmistaja(newValue)}
+          onChange={(e, newValue) => props.getByValmistaja(newValue)}
         />
       </form>
     </div>
   </div>
 )
 
-export default reduxForm({ form: 'selectPlayerForm' })(SelectValmistajaForm)
+export default reduxForm({ form: 'selectValmistajaForm' })(SelectValmistajaForm)

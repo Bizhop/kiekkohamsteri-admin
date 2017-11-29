@@ -5,6 +5,7 @@ import Header from './shared/Header'
 import DashContainer from './dash/DashContainer'
 import UserContainer from './user/UserContainer'
 import MoldContainer from './mold/MoldContainer'
+import MuoviContainer from './muovi/MuoviContainer'
 
 const NotFound = () => (
   <div className="container">
@@ -20,6 +21,7 @@ const Routes = () => (
       <Route exact path="/" component={DashContainer} />
       <Route exact path="/users" component={UserContainer} />
       <Route exact path="/molds" component={MoldContainer} />
+      <Route exact path="/muovit" component={MuoviContainer} />
       <Route component={NotFound} />
     </Switch>
   </div>

@@ -27,7 +27,12 @@ const Header = props => (
                   Moldit
                 </NavLink>
               </div>
-              <div className="col-md-8 col-xs-6 text-right">{props.loggedEmail}</div>
+              <div className="col-md-1 col-xs-12">
+                <NavLink to="/muovit" className="nav-link nav-item" activeClassName="active">
+                  Muovit
+                </NavLink>
+              </div>
+              <div className="col-md-7 col-xs-6 text-right">{props.loggedEmail}</div>
               <div className="col-md-1 col-xs-6">
                 <button onClick={() => props.logout()} className="btn btn-primary">
                   Kirjaudu ulos
