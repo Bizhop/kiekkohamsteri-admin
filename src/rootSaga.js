@@ -4,9 +4,10 @@ import userSaga from './components/user/userSaga'
 import moldSaga from './components/mold/moldSaga'
 import dropdownSaga from './components/dropdown/dropdownSaga'
 import muoviSaga from './components/muovi/muoviSaga'
+import kiekkoSaga from './components/kiekko/kiekkoSaga'
 
 function* rootSaga() {
-  yield [fork(userSaga), fork(moldSaga), fork(dropdownSaga), fork(muoviSaga)]
+  yield [fork(userSaga), fork(moldSaga), fork(dropdownSaga), fork(muoviSaga), fork(kiekkoSaga)]
 }
 
 export default rootSaga

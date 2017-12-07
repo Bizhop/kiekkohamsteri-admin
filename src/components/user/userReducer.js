@@ -9,8 +9,7 @@ import {
 } from './userActions'
 
 const initialState = {
-  token: localStorage.getItem('hamsteri-token'),
-  email: localStorage.getItem('hamsteri-email'),
+  user: null,
   users: [],
   error: null,
   isEditModalOpen: false,
@@ -27,8 +26,7 @@ const userReducer = (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        token: action.token,
-        email: action.email,
+        user: action.user,
         error: null,
       }
     case USERS_FAILURE:
@@ -58,8 +56,7 @@ const userReducer = (state = initialState, action) => {
       localStorage.removeItem('hamsteri-email')
       return {
         ...state,
-        token: null,
-        email: null,
+        user: null,
       }
     default:
       return state

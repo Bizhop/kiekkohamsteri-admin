@@ -25,18 +25,9 @@ function* login(action) {
         Authorization: token,
       },
     })
-    if (response.level === 2) {
-      localStorage.setItem('hamsteri-token', token)
-      localStorage.setItem('hamsteri-email', response.email)
-      yield put(
-        loginSuccess({
-          email: response.email,
-          token,
-        }),
-      )
-    } else {
-      yield put(loginError('Unauthorized'))
-    }
+    localStorage.setItem('hamsteri-token', token)
+    localStorage.setItem('hamsteri-email', response.email)
+    yield put(loginSuccess(response))
   } catch (e) {
     yield put(loginError(e))
   }

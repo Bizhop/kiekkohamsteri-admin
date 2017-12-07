@@ -6,6 +6,7 @@ import DashContainer from './dash/DashContainer'
 import UserContainer from './user/UserContainer'
 import MoldContainer from './mold/MoldContainer'
 import MuoviContainer from './muovi/MuoviContainer'
+import KiekkoContainer from './kiekko/KiekkoContainer'
 
 const NotFound = () => (
   <div className="container">
@@ -20,6 +21,7 @@ const Routes = () => (
     <Switch>
       <Route exact path="/" component={DashContainer} />
       <Route exact path="/users" component={UserContainer} />
+      <Route exact path="/kiekot" component={KiekkoContainer} />
       <Route exact path="/molds" component={MoldContainer} />
       <Route exact path="/muovit" component={MuoviContainer} />
       <Route component={NotFound} />

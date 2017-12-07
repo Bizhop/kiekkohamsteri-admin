@@ -16,10 +16,9 @@ export const login = params => ({
   params,
 })
 
-export const loginSuccess = params => ({
+export const loginSuccess = user => ({
   type: LOGIN_SUCCESS,
-  token: params.token,
-  email: params.email,
+  user,
 })
 
 export const loginError = error => ({

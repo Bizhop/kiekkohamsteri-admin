@@ -98,7 +98,7 @@ const User = props => {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: R.path(['user', 'token'], state),
+  loggedIn: R.path(['user', 'user'], state),
   users: R.pathOr([], ['user', 'users'], state),
   isEditOpen: R.path(['user', 'isEditModalOpen'], state),
   userInEdit: R.path(['user', 'userInEdit'], state),

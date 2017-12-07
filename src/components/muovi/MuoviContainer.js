@@ -67,7 +67,7 @@ const Muovi = props => {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: R.path(['user', 'token'], state),
+  loggedIn: R.path(['user', 'user'], state),
   muovit: R.path(['muovi', 'muovit', 'content'], state),
   dropdowns: R.path(['dropdowns', 'dropdowns'], state),
   isCreateOpen: R.path(['muovi', 'isCreateOpen'], state),

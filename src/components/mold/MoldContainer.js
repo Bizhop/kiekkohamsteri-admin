@@ -75,7 +75,7 @@ const Mold = props => {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: R.path(['user', 'token'], state),
+  loggedIn: R.path(['user', 'user'], state),
   molds: R.path(['mold', 'molds', 'content'], state),
   dropdowns: R.path(['dropdowns', 'dropdowns'], state),
   isCreateOpen: R.path(['mold', 'isCreateOpen'], state),

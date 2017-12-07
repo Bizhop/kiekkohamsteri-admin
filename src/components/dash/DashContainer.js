@@ -25,7 +25,7 @@ const DashContainer = props => (
 )
 
 const mapStateToProps = state => ({
-  loggedIn: R.path(['user', 'token'], state),
+  loggedIn: R.path(['user', 'user'], state),
   error: R.path(['user', 'error'], state),
 })
 
