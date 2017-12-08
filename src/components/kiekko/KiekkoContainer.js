@@ -3,13 +3,22 @@ import R from 'ramda'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
-import { getKiekot } from './kiekkoActions'
-import { edit } from '../shared/images'
-
-const imageUrl = 'https://res.cloudinary.com/djc4j4dcs/'
+import { getKiekot, toggleEditModal, updateDisc } from './kiekkoActions'
+import { getDropdowns, getDropdownsByValmistaja } from '../dropdown/dropdownActions'
+import { edit, imageUrl } from '../shared/images'
+import Modal from '../shared/Modal'
+import KiekkoEditForm from './KiekkoEditForm'
 
 const KiekkoContainer = props => (
   <div className="container">
+    <KiekkoEditModal
+      isOpen={props.isEditOpen}
+      toggleModal={props.toggleEditModal}
+      updateDisc={props.updateDisc}
+      kiekkoInEdit={props.kiekkoInEdit}
+      dropdowns={props.dropdowns}
+      getDropdownsByValmistaja={props.getDropdownsByValmistaja}
+    />
     <h1>Kiekot</h1>
     {!props.loggedIn && <Redirect to="/" />}
     <table className="table table-striped custom-table">
@@ -28,9 +37,28 @@ const KiekkoContainer = props => (
           <th />
         </tr>
       </thead>
-      <tbody>{props.kiekot.map(p => <Kiekko key={p.id} kiekko={p} />)}</tbody>
+      <tbody>
+        {props.kiekot.map(p => (
+          <Kiekko key={p.id} kiekko={p} toggleEditModal={props.toggleEditModal} />
+        ))}
+      </tbody>
     </table>
   </div>
+)
+
+const KiekkoEditModal = props => (
+  <Modal
+    isOpen={props.isOpen}
+    onRequestClose={() => props.toggleModal(null)}
+    contentLabel="Kiekon muokkaus"
+  >
+    <KiekkoEditForm
+      onSubmit={props.updateDisc}
+      initialValues={props.kiekkoInEdit}
+      dropdowns={props.dropdowns}
+      getDropdownsByValmistaja={props.getDropdownsByValmistaja}
+    />
+  </Modal>
 )
 
 const Kiekko = props => {
@@ -49,7 +77,16 @@ const Kiekko = props => {
       <td>{kiekko.vakaus}</td>
       <td>{kiekko.feidi}</td>
       <td>{kiekko.paino}</td>
-      <td>{/* <img alt="edit" src={edit} height="15" width="15" /> */}</td>
+      <td>
+        <input
+          type="image"
+          alt="edit"
+          src={edit}
+          height="15"
+          width="15"
+          onClick={() => props.toggleEditModal(kiekko)}
+        />
+      </td>
     </tr>
   )
 }
@@ -57,10 +94,17 @@ const Kiekko = props => {
 const mapStateToProps = state => ({
   loggedIn: R.path(['user', 'user'], state),
   kiekot: R.pathOr([], ['kiekko', 'kiekot', 'content'], state),
+  isEditOpen: R.path(['kiekko', 'isEditOpen'], state),
+  kiekkoInEdit: R.path(['kiekko', 'kiekkoInEdit'], state),
+  dropdowns: R.path(['dropdowns', 'dropdowns'], state),
 })
 
 const mapDispatchToProps = dispatch => ({
   getKiekot: dispatch(getKiekot()),
+  getDropdowns: dispatch(getDropdowns()),
+  getDropdownsByValmistaja: valmId => dispatch(getDropdownsByValmistaja(valmId)),
+  updateDisc: kiekko => dispatch(updateDisc(kiekko)),
+  toggleEditModal: kiekko => dispatch(toggleEditModal(kiekko)),
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(KiekkoContainer)

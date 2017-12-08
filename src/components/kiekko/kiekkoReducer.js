@@ -1,9 +1,11 @@
-import { KIEKOT_SUCCESS } from './kiekkoActions'
+import { KIEKOT_SUCCESS, TOGGLE_KIEKKO_EDIT_MODAL } from './kiekkoActions'
 
 const initialState = {
   kiekot: {
     content: [],
   },
+  isEditOpen: false,
+  kiekkoInEdit: null,
 }
 
 const kiekkoReducer = (state = initialState, action) => {
@@ -12,6 +14,14 @@ const kiekkoReducer = (state = initialState, action) => {
       return {
         ...state,
         kiekot: action.kiekot,
+        isEditOpen: false,
+        kiekkoInEdit: null,
+      }
+    case TOGGLE_KIEKKO_EDIT_MODAL:
+      return {
+        ...state,
+        isEditOpen: !state.isEditOpen,
+        kiekkoInEdit: action.kiekko,
       }
     default:
       return state
