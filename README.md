@@ -1,6 +1,7 @@
-## Kiekkohamsteri admin
+# Kiekkohamsteri admin
 
-# Sovelluksen käynnistys
+## Sovelluksen käynnistys
+```
 npm install
 npm start
-
+```
