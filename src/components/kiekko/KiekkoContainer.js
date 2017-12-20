@@ -1,13 +1,13 @@
-import React from 'react'
-import R from 'ramda'
-import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import React from "react"
+import R from "ramda"
+import { connect } from "react-redux"
+import { Redirect } from "react-router-dom"
 
-import { getKiekot, toggleEditModal, updateDisc } from './kiekkoActions'
-import { getDropdowns, getDropdownsByValmistaja } from '../dropdown/dropdownActions'
-import { edit, imageUrl } from '../shared/images'
-import Modal from '../shared/Modal'
-import KiekkoEditForm from './KiekkoEditForm'
+import { getKiekot, toggleEditModal, updateDisc } from "./kiekkoActions"
+import { getDropdowns, getDropdownsByValmistaja } from "../dropdown/dropdownActions"
+import { edit, imageUrl } from "../shared/images"
+import Modal from "../shared/Modal"
+import KiekkoEditForm from "./KiekkoEditForm"
 
 const KiekkoContainer = props => (
   <div className="container">
@@ -18,6 +18,7 @@ const KiekkoContainer = props => (
       kiekkoInEdit={props.kiekkoInEdit}
       dropdowns={props.dropdowns}
       getDropdownsByValmistaja={props.getDropdownsByValmistaja}
+      editFormValues={props.editFormValues}
     />
     <h1>Kiekot</h1>
     {!props.loggedIn && <Redirect to="/" />}
@@ -57,6 +58,7 @@ const KiekkoEditModal = props => (
       initialValues={props.kiekkoInEdit}
       dropdowns={props.dropdowns}
       getDropdownsByValmistaja={props.getDropdownsByValmistaja}
+      editFormValues={props.editFormValues}
     />
   </Modal>
 )
@@ -92,11 +94,12 @@ const Kiekko = props => {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: R.path(['user', 'user'], state),
-  kiekot: R.pathOr([], ['kiekko', 'kiekot', 'content'], state),
-  isEditOpen: R.path(['kiekko', 'isEditOpen'], state),
-  kiekkoInEdit: R.path(['kiekko', 'kiekkoInEdit'], state),
-  dropdowns: R.path(['dropdowns', 'dropdowns'], state),
+  loggedIn: R.path(["user", "user"], state),
+  kiekot: R.pathOr([], ["kiekko", "kiekot", "content"], state),
+  isEditOpen: R.path(["kiekko", "isEditOpen"], state),
+  kiekkoInEdit: R.path(["kiekko", "kiekkoInEdit"], state),
+  dropdowns: R.path(["dropdowns", "dropdowns"], state),
+  editFormValues: R.path(["form", "kiekkoEditForm", "values"], state)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -104,7 +107,7 @@ const mapDispatchToProps = dispatch => ({
   getDropdowns: dispatch(getDropdowns()),
   getDropdownsByValmistaja: valmId => dispatch(getDropdownsByValmistaja(valmId)),
   updateDisc: kiekko => dispatch(updateDisc(kiekko)),
-  toggleEditModal: kiekko => dispatch(toggleEditModal(kiekko)),
+  toggleEditModal: kiekko => dispatch(toggleEditModal(kiekko))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(KiekkoContainer)

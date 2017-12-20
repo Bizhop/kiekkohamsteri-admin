@@ -1,7 +1,7 @@
-import React from 'react'
-import { Field, reduxForm } from 'redux-form'
+import React from "react"
+import { Field, reduxForm } from "redux-form"
 
-import { RenderTextInput, RenderSelectInput } from '../shared/FormInput'
+import { RenderTextInput, RenderSelectInput, RenderCheckbox } from "../shared/FormInput"
 
 const valmistajaDropdown = valms => valms.map(v => ({ name: v.valmistaja, value: v.id }))
 const moldDropdown = molds => molds.map(m => ({ name: m.kiekko, value: m.id }))
@@ -41,6 +41,59 @@ const KiekkoEditForm = props => (
     />
     <Field name="paino" label="Paino" component={RenderTextInput} type="text" />
     <Field name="muuta" label="Muuta" component={RenderTextInput} type="text" />
+    <Field
+      name="dyed"
+      label="Dyed"
+      component={RenderCheckbox}
+      type="checkbox"
+      normalize={v => !!v}
+    />
+    <Field
+      name="hohto"
+      label="Hohtava"
+      component={RenderCheckbox}
+      type="checkbox"
+      normalize={v => !!v}
+    />
+    <Field
+      name="itb"
+      label="In The Bag"
+      component={RenderCheckbox}
+      type="checkbox"
+      normalize={v => !!v}
+    />
+    <Field
+      name="loytokiekko"
+      label="Löytökiekko"
+      component={RenderCheckbox}
+      type="checkbox"
+      normalize={v => !!v}
+    />
+    <Field
+      name="spessu"
+      label="Spesiaali"
+      component={RenderCheckbox}
+      type="checkbox"
+      normalize={v => !!v}
+    />
+    <Field
+      name="swirly"
+      label="Swirly"
+      component={RenderCheckbox}
+      type="checkbox"
+      normalize={v => !!v}
+    />
+    <Field
+      name="myynnissa"
+      label="Myynnissä"
+      component={RenderCheckbox}
+      type="checkbox"
+      normalize={v => !!v}
+    />
+    {props.editFormValues &&
+      props.editFormValues.myynnissa && (
+        <Field name="hinta" label="Hinta" component={RenderTextInput} type="text" />
+      )}
     <button
       type="submit"
       className="btn btn-primary btn-block"
@@ -52,5 +105,5 @@ const KiekkoEditForm = props => (
 )
 
 export default reduxForm({
-  form: 'kiekkoEdiForm',
+  form: "kiekkoEditForm"
 })(KiekkoEditForm)

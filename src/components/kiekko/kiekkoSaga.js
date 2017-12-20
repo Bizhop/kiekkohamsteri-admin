@@ -14,6 +14,8 @@ import {
 import { logout } from '../user/userActions'
 import { getDropdownsByValmistaja } from '../dropdown/dropdownActions'
 
+const updateFields = ['valmId', 'moldId', 'muoviId', 'variId', 'paino', 'muuta', 'dyed', 'hohto', 'itb', 'loytokiekko', 'myynnissa', 'spessu', 'swirly', 'hinta']
+
 function* getKiekotSaga() {
   try {
     const response = yield call(Api.get, 'api/kiekot', {
@@ -37,7 +39,7 @@ function* updateKiekkoSaga(action) {
     yield call(
       Api.put,
       `api/kiekot/${action.kiekko.id}`,
-      R.pick(['valmId', 'moldId', 'muoviId', 'variId', 'paino', 'muuta'], action.kiekko),
+      R.pick(updateFields, action.kiekko),
     )
     yield put(getKiekot())
   } catch (e) {
