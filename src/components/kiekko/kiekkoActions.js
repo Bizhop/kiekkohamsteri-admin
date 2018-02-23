@@ -1,35 +1,71 @@
-export const KIEKOT_REQUEST = 'KIEKOT_REQUEST'
-export const KIEKOT_SUCCESS = 'KIEKOT_SUCCESS'
-export const KIEKOT_FAILURE = 'KIEKOT_FAILURE'
-export const TOGGLE_KIEKKO_EDIT_MODAL = 'TOGGLE_KIEKKO_EDIT_MODAL'
-export const UPDATE_KIEKKO_REQUEST = 'UPDATE_KIEKKO_REQUEST'
-export const UPDATE_KIEKKO_FAILURE = 'UPDATE_KIEKKO_FAILURE'
+export const KIEKOT_REQUEST = "KIEKOT_REQUEST"
+export const KIEKOT_SUCCESS = "KIEKOT_SUCCESS"
+export const KIEKOT_FAILURE = "KIEKOT_FAILURE"
+export const TOGGLE_KIEKKO_EDIT_MODAL = "TOGGLE_KIEKKO_EDIT_MODAL"
+export const UPDATE_KIEKKO_REQUEST = "UPDATE_KIEKKO_REQUEST"
+export const UPDATE_KIEKKO_FAILURE = "UPDATE_KIEKKO_FAILURE"
+export const CHOOSE_IMAGE = "CHOOSE_IMAGE"
+export const UPLOAD_IMAGE = "UPLOAD_IMAGE"
+export const UPLOAD_SUCCESS = "UPLOAD_SUCCESS"
+export const UPLOAD_FAILURE = "UPLOAD_FAILURE"
+export const DELETE_DISC = "DELETE_DISC"
+export const DELETE_DISC_FAILURE = "DELETE_DISC_FAILURE"
 
 export const getKiekot = () => ({
-  type: KIEKOT_REQUEST,
+  type: KIEKOT_REQUEST
 })
 
 export const kiekotSuccess = kiekot => ({
   type: KIEKOT_SUCCESS,
-  kiekot,
+  kiekot
 })
 
 export const kiekotError = error => ({
   type: KIEKOT_FAILURE,
-  error,
+  error
 })
 
 export const updateDisc = kiekko => ({
   type: UPDATE_KIEKKO_REQUEST,
-  kiekko,
+  kiekko
 })
 
 export const updateKiekkoFailure = error => ({
   type: UPDATE_KIEKKO_FAILURE,
-  error,
+  error
 })
 
 export const toggleEditModal = kiekko => ({
   type: TOGGLE_KIEKKO_EDIT_MODAL,
-  kiekko,
+  kiekko
+})
+
+export const chooseImage = image => ({
+  type: CHOOSE_IMAGE,
+  image
+})
+
+export const uploadImage = data => ({
+  type: UPLOAD_IMAGE,
+  data
+})
+
+export const uploadSuccess = response => ({
+  type: UPLOAD_SUCCESS,
+  response
+})
+
+export const uploadFailure = error => ({
+  type: UPLOAD_FAILURE,
+  error
+})
+
+export const deleteDisc = id => ({
+  type: DELETE_DISC,
+  id
+})
+
+export const deleteDiscFailure = error => ({
+  type: DELETE_DISC_FAILURE,
+  error
 })
