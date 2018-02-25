@@ -125,7 +125,8 @@ const Kiekko = props => {
             smallImage: {
               alt: "kuva",
               src: `${imageUrl}t_thumb/${kiekko.kuva}`,
-              isFluidWidth: true
+              width: 30,
+              height: 30
             },
             isHintEnabled: false,
             enlargedImageContainerDimensions: {
