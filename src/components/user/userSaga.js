@@ -1,7 +1,7 @@
-import { call, put, takeEvery } from 'redux-saga/effects'
-import R from 'ramda'
+import { call, put, takeEvery } from "redux-saga/effects"
+import R from "ramda"
 
-import Api from '../Api'
+import Api from "../Api"
 import {
   LOGIN_REQUEST,
   loginSuccess,
@@ -15,18 +15,35 @@ import {
   logout,
   PROMOTE_USER,
   DEMOTE_USER,
-} from './userActions'
+  GET_USER_DETAILS
+} from "./userActions"
 
 function* login(action) {
   try {
     const token = action.params.tokenId
-    const response = yield call(Api.getRaw, 'api/auth/login', {
+    const response = yield call(Api.getRaw, "api/auth/login", {
       headers: {
-        Authorization: token,
-      },
+        Authorization: token
+      }
     })
-    localStorage.setItem('hamsteri-token', token)
-    localStorage.setItem('hamsteri-email', response.email)
+    localStorage.setItem("hamsteri-token", token)
+    localStorage.setItem("hamsteri-email", response.email)
+    yield put(loginSuccess(response))
+  } catch (e) {
+    yield put(loginError(e))
+  }
+}
+
+function* getUserDetailsSaga() {
+  try {
+    const token = localStorage.getItem("hamsteri-token")
+    const response = yield call(Api.getRaw, "api/auth/login", {
+      headers: {
+        Authorization: token
+      }
+    })
+    localStorage.setItem("hamsteri-token", token)
+    localStorage.setItem("hamsteri-email", response.email)
     yield put(loginSuccess(response))
   } catch (e) {
     yield put(loginError(e))
@@ -35,7 +52,7 @@ function* login(action) {
 
 function* getUsersSaga() {
   try {
-    const response = yield call(Api.get, 'api/user')
+    const response = yield call(Api.get, "api/user")
     yield put(usersSuccess(response))
   } catch (e) {
     if (e.response.status === 403) {
@@ -51,7 +68,7 @@ function* update(action) {
     yield call(
       Api.patch,
       `api/user/${action.user.id}`,
-      R.pick(['username', 'etunimi', 'sukunimi', 'pdga_num'], action.user),
+      R.pick(["username", "etunimi", "sukunimi", "pdga_num"], action.user)
     )
     yield put(getUsers())
   } catch (e) {
@@ -84,6 +101,7 @@ function* userSaga() {
     takeEvery(UPDATE_REQUEST, update),
     takeEvery(PROMOTE_USER, promoteUserSaga),
     takeEvery(DEMOTE_USER, demoteUserSaga),
+    takeEvery(GET_USER_DETAILS, getUserDetailsSaga)
   ]
 }
 

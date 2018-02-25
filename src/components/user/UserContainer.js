@@ -1,17 +1,17 @@
-import React from 'react'
-import R from 'ramda'
-import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import React from "react"
+import R from "ramda"
+import { connect } from "react-redux"
+import { Redirect } from "react-router-dom"
 
 import {
   getUsers,
   toggleEditModal,
   requestUpdateUser,
   promoteUser,
-  demoteUser,
-} from './userActions'
-import Modal from '../shared/Modal'
-import UserEditForm from './UserEditForm'
+  demoteUser
+} from "./userActions"
+import Modal from "../shared/Modal"
+import UserEditForm from "./UserEditForm"
 
 const UserContainer = props => (
   <div className="container">
@@ -98,10 +98,10 @@ const User = props => {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: R.path(['user', 'user'], state),
-  users: R.pathOr([], ['user', 'users'], state),
-  isEditOpen: R.path(['user', 'isEditModalOpen'], state),
-  userInEdit: R.path(['user', 'userInEdit'], state),
+  loggedIn: R.path(["user", "token"], state),
+  users: R.pathOr([], ["user", "users"], state),
+  isEditOpen: R.path(["user", "isEditModalOpen"], state),
+  userInEdit: R.path(["user", "userInEdit"], state)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -109,7 +109,7 @@ const mapDispatchToProps = dispatch => ({
   toggleEditModal: user => dispatch(toggleEditModal(user)),
   editUser: user => dispatch(requestUpdateUser(user)),
   promote: userId => dispatch(promoteUser(userId)),
-  demote: userId => dispatch(demoteUser(userId)),
+  demote: userId => dispatch(demoteUser(userId))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserContainer)

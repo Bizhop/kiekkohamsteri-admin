@@ -1,13 +1,13 @@
-import React from 'react'
-import R from 'ramda'
-import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import React from "react"
+import R from "ramda"
+import { connect } from "react-redux"
+import { Redirect } from "react-router-dom"
 
-import { getMuovit, getMuovitByValmistaja, toggleCreateModal, createMuovi } from './muoviActions'
-import { getDropdowns } from '../dropdown/dropdownActions'
-import SelectValmistajaForm from '../shared/SelectValmistajaForm'
-import Modal from '../shared/Modal'
-import CreateMuoviForm from './CreateMuoviForm'
+import { getMuovit, getMuovitByValmistaja, toggleCreateModal, createMuovi } from "./muoviActions"
+import { getDropdowns } from "../dropdown/dropdownActions"
+import SelectValmistajaForm from "../shared/SelectValmistajaForm"
+import Modal from "../shared/Modal"
+import CreateMuoviForm from "./CreateMuoviForm"
 
 const MuoviContainer = props => (
   <div className="container">
@@ -19,7 +19,7 @@ const MuoviContainer = props => (
     />
     <h1>Muovit</h1>
     <SelectValmistajaForm
-      valmistajat={R.pathOr([], ['dropdowns', 'valms'], props)}
+      valmistajat={R.pathOr([], ["dropdowns", "valms"], props)}
       getByValmistaja={props.getMuovitByValmistaja}
     />
     <div className="row">
@@ -28,7 +28,7 @@ const MuoviContainer = props => (
           <button
             className="btn btn-primary"
             onClick={() => props.toggleCreateModal()}
-            disabled={props.valmId === null || props.valmId === ''}
+            disabled={props.valmId === null || props.valmId === ""}
           >
             Uusi muovi
           </button>
@@ -67,11 +67,11 @@ const Muovi = props => {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: R.path(['user', 'user'], state),
-  muovit: R.path(['muovi', 'muovit', 'content'], state),
-  dropdowns: R.path(['dropdowns', 'dropdowns'], state),
-  isCreateOpen: R.path(['muovi', 'isCreateOpen'], state),
-  valmId: R.path(['muovi', 'valmId'], state),
+  loggedIn: R.path(["user", "token"], state),
+  muovit: R.path(["muovi", "muovit", "content"], state),
+  dropdowns: R.path(["dropdowns", "dropdowns"], state),
+  isCreateOpen: R.path(["muovi", "isCreateOpen"], state),
+  valmId: R.path(["muovi", "valmId"], state)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -79,7 +79,7 @@ const mapDispatchToProps = dispatch => ({
   getDropdowns: dispatch(getDropdowns()),
   getMuovitByValmistaja: valmId => dispatch(getMuovitByValmistaja(valmId)),
   toggleCreateModal: () => dispatch(toggleCreateModal()),
-  createMuovi: muovi => dispatch(createMuovi(muovi)),
+  createMuovi: muovi => dispatch(createMuovi(muovi))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MuoviContainer)

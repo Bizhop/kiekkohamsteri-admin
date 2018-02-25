@@ -1,70 +1,75 @@
-export const LOGIN_REQUEST = 'LOGIN_REQUEST'
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
-export const LOGIN_FAILURE = 'LOGIN_FAILURE'
-export const USERS_REQUEST = 'USERS_REQUEST'
-export const USERS_SUCCESS = 'USERS_SUCCESS'
-export const USERS_FAILURE = 'USERS_FAILURE'
-export const TOGGLE_EDIT_MODAL = 'TOGGLE_EDIT_MODAL'
-export const UPDATE_REQUEST = 'UPDATE_REQUEST'
-export const UPDATE_FAILURE = 'UPDATE_FAILURE'
-export const LOGOUT = 'LOGOUT'
-export const PROMOTE_USER = 'PROMOTE_USER'
-export const DEMOTE_USER = 'DEMOTE_USER'
+export const LOGIN_REQUEST = "LOGIN_REQUEST"
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
+export const LOGIN_FAILURE = "LOGIN_FAILURE"
+export const USERS_REQUEST = "USERS_REQUEST"
+export const USERS_SUCCESS = "USERS_SUCCESS"
+export const USERS_FAILURE = "USERS_FAILURE"
+export const TOGGLE_EDIT_MODAL = "TOGGLE_EDIT_MODAL"
+export const UPDATE_REQUEST = "UPDATE_REQUEST"
+export const UPDATE_FAILURE = "UPDATE_FAILURE"
+export const LOGOUT = "LOGOUT"
+export const PROMOTE_USER = "PROMOTE_USER"
+export const DEMOTE_USER = "DEMOTE_USER"
+export const GET_USER_DETAILS = "GET_USER_DETAILS"
 
 export const login = params => ({
   type: LOGIN_REQUEST,
-  params,
+  params
 })
 
 export const loginSuccess = user => ({
   type: LOGIN_SUCCESS,
-  user,
+  user
 })
 
 export const loginError = error => ({
   type: LOGIN_FAILURE,
-  error,
+  error
 })
 
 export const logout = () => ({
-  type: LOGOUT,
+  type: LOGOUT
 })
 
 export const getUsers = () => ({
-  type: USERS_REQUEST,
+  type: USERS_REQUEST
 })
 
 export const usersSuccess = users => ({
   type: USERS_SUCCESS,
-  users,
+  users
 })
 
 export const usersError = error => ({
   type: USERS_FAILURE,
-  error,
+  error
 })
 
 export const toggleEditModal = user => ({
   type: TOGGLE_EDIT_MODAL,
-  user,
+  user
 })
 
 export const requestUpdateUser = user => ({
   type: UPDATE_REQUEST,
-  user,
+  user
 })
 
 export const updateUserError = error => ({
   type: UPDATE_FAILURE,
-  error,
+  error
 })
 
 export const promoteUser = userId => ({
   type: PROMOTE_USER,
-  userId,
+  userId
 })
 
 export const demoteUser = userId => ({
   type: DEMOTE_USER,
-  userId,
+  userId
+})
+
+export const getUserDetails = () => ({
+  type: GET_USER_DETAILS
 })

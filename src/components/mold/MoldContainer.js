@@ -1,13 +1,13 @@
-import React from 'react'
-import R from 'ramda'
-import { connect } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import React from "react"
+import R from "ramda"
+import { connect } from "react-redux"
+import { Redirect } from "react-router-dom"
 
-import { getMolds, getMoldsByValmistaja, toggleCreateModal, createMold } from './moldActions'
-import { getDropdowns } from '../dropdown/dropdownActions'
-import SelectValmistajaForm from '../shared/SelectValmistajaForm'
-import Modal from '../shared/Modal'
-import CreateMoldForm from './CreateMoldForm'
+import { getMolds, getMoldsByValmistaja, toggleCreateModal, createMold } from "./moldActions"
+import { getDropdowns } from "../dropdown/dropdownActions"
+import SelectValmistajaForm from "../shared/SelectValmistajaForm"
+import Modal from "../shared/Modal"
+import CreateMoldForm from "./CreateMoldForm"
 
 const MoldContainer = props => (
   <div className="container">
@@ -19,7 +19,7 @@ const MoldContainer = props => (
     />
     <h1>Moldit</h1>
     <SelectValmistajaForm
-      valmistajat={R.pathOr([], ['dropdowns', 'valms'], props)}
+      valmistajat={R.pathOr([], ["dropdowns", "valms"], props)}
       getByValmistaja={props.getMoldsByValmistaja}
     />
     <div className="row">
@@ -28,7 +28,7 @@ const MoldContainer = props => (
           <button
             className="btn btn-primary"
             onClick={() => props.toggleCreateModal()}
-            disabled={props.valmId === null || props.valmId === ''}
+            disabled={props.valmId === null || props.valmId === ""}
           >
             Uusi moldi
           </button>
@@ -75,11 +75,11 @@ const Mold = props => {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: R.path(['user', 'user'], state),
-  molds: R.path(['mold', 'molds', 'content'], state),
-  dropdowns: R.path(['dropdowns', 'dropdowns'], state),
-  isCreateOpen: R.path(['mold', 'isCreateOpen'], state),
-  valmId: R.path(['mold', 'valmId'], state),
+  loggedIn: R.path(["user", "token"], state),
+  molds: R.path(["mold", "molds", "content"], state),
+  dropdowns: R.path(["dropdowns", "dropdowns"], state),
+  isCreateOpen: R.path(["mold", "isCreateOpen"], state),
+  valmId: R.path(["mold", "valmId"], state)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -87,7 +87,7 @@ const mapDispatchToProps = dispatch => ({
   getDropdowns: dispatch(getDropdowns()),
   getMoldsByValmistaja: valmId => dispatch(getMoldsByValmistaja(valmId)),
   toggleCreateModal: () => dispatch(toggleCreateModal()),
-  createMold: mold => dispatch(createMold(mold)),
+  createMold: mold => dispatch(createMold(mold))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MoldContainer)

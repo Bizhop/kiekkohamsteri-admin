@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom"
 import FileBase64 from "react-file-base64"
 import { confirmAlert } from "react-confirm-alert"
 import "react-confirm-alert/src/react-confirm-alert.css"
+import ReactImageMagnify from "react-image-magnify"
 
 import {
   getKiekot,
@@ -40,7 +41,9 @@ const KiekkoContainer = props => (
       getDropdownsByValmistaja={props.getDropdownsByValmistaja}
       editFormValues={props.editFormValues}
     />
+    <h1>Uusi kiekko</h1>
     <div className="row">
+      <div className="col-md-1">Kuva</div>
       <div className="col-md-3">
         <FileBase64 multiple={false} onDone={props.chooseImage} />
       </div>
@@ -58,11 +61,11 @@ const KiekkoContainer = props => (
     <table className="table table-striped custom-table">
       <thead>
         <tr>
-          <th>Kuva</th>
           <th>Id</th>
           <th>Valmistaja</th>
           <th>Mold</th>
           <th>Muovi</th>
+          <th>Kuva</th>
           <th>Nopeus</th>
           <th>Liito</th>
           <th>Vakaus</th>
@@ -106,13 +109,32 @@ const Kiekko = props => {
   const kiekko = props.kiekko
   return (
     <tr>
-      <td>
-        <img alt="kuva" src={`${imageUrl}t_lista/${kiekko.kuva}`} height="30" width="30" />
-      </td>
       <td>{kiekko.id}</td>
       <td>{kiekko.valmistaja}</td>
       <td>{kiekko.mold}</td>
       <td>{kiekko.muovi}</td>
+      <td>
+        <ReactImageMagnify
+          {...{
+            largeImage: {
+              alt: "",
+              src: `${imageUrl}t_kiekko/${kiekko.kuva}`,
+              width: 600,
+              height: 600
+            },
+            smallImage: {
+              alt: "kuva",
+              src: `${imageUrl}t_thumb/${kiekko.kuva}`,
+              isFluidWidth: true
+            },
+            isHintEnabled: false,
+            enlargedImageContainerDimensions: {
+              width: 600,
+              height: 600
+            }
+          }}
+        />
+      </td>
       <td>{kiekko.nopeus}</td>
       <td>{kiekko.liito}</td>
       <td>{kiekko.vakaus}</td>
@@ -147,7 +169,7 @@ const Kiekko = props => {
 }
 
 const mapStateToProps = state => ({
-  loggedIn: R.path(["user", "user"], state),
+  loggedIn: R.path(["user", "token"], state),
   kiekot: R.pathOr([], ["kiekko", "kiekot", "content"], state),
   isEditOpen: R.path(["kiekko", "isEditOpen"], state),
   kiekkoInEdit: R.path(["kiekko", "kiekkoInEdit"], state),

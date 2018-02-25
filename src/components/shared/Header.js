@@ -1,9 +1,9 @@
-import React from 'react'
-import R from 'ramda'
-import { NavLink } from 'react-router-dom'
-import { connect } from 'react-redux'
+import React from "react"
+import R from "ramda"
+import { NavLink } from "react-router-dom"
+import { connect } from "react-redux"
 
-import { logout } from '../user/userActions'
+import { logout } from "../user/userActions"
 
 const Header = props => (
   <div>
@@ -23,7 +23,7 @@ const Header = props => (
             </div>
           )}
           {props.loggedIn &&
-            props.loggedIn.level === 2 && (
+            props.level === 2 && (
               <div>
                 <div className="col-md-1 col-xs-12">
                   <NavLink to="/users" className="nav-link nav-item" activeClassName="active">
@@ -61,11 +61,12 @@ const Header = props => (
 )
 
 const mapStateToProps = state => ({
-  loggedIn: R.path(['user', 'user'], state),
+  loggedIn: R.path(["user", "token"], state),
+  level: R.path(["user", "user", "level"], state)
 })
 
 const mapDispatchToProps = dispatch => ({
-  logout: () => dispatch(logout()),
+  logout: () => dispatch(logout())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header)

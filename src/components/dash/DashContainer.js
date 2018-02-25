@@ -1,9 +1,9 @@
-import React from 'react'
-import R from 'ramda'
-import { connect } from 'react-redux'
-import GoogleLogin from 'react-google-login'
+import React from "react"
+import R from "ramda"
+import { connect } from "react-redux"
+import GoogleLogin from "react-google-login"
 
-import { login, loginError } from '../user/userActions'
+import { login, loginError, getUserDetails } from "../user/userActions"
 
 const DashContainer = props => (
   <div className="container">
@@ -25,13 +25,14 @@ const DashContainer = props => (
 )
 
 const mapStateToProps = state => ({
-  loggedIn: R.path(['user', 'user'], state),
-  error: R.path(['user', 'error'], state),
+  loggedIn: R.path(["user", "token"], state),
+  error: R.path(["user", "error"], state)
 })
 
 const mapDispatchToProps = dispatch => ({
+  getUserDetails: dispatch(getUserDetails()),
   login: response => dispatch(login(response)),
-  loginError: response => dispatch(loginError(response)),
+  loginError: response => dispatch(loginError(response))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(DashContainer)
