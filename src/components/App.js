@@ -1,12 +1,13 @@
-import React from 'react'
-import { Route, Switch } from 'react-router-dom'
+import React from "react"
+import { Route, Switch } from "react-router-dom"
 
-import Header from './shared/Header'
-import DashContainer from './dash/DashContainer'
-import UserContainer from './user/UserContainer'
-import MoldContainer from './mold/MoldContainer'
-import MuoviContainer from './muovi/MuoviContainer'
-import KiekkoContainer from './kiekko/KiekkoContainer'
+import Header from "./shared/Header"
+import DashContainer from "./dash/DashContainer"
+import UserContainer from "./user/UserContainer"
+import MoldContainer from "./mold/MoldContainer"
+import MuoviContainer from "./muovi/MuoviContainer"
+import KiekkoContainer from "./kiekko/KiekkoContainer"
+import MyytavatContainer from "./myytavat/MyytavatContainer"
 
 const NotFound = () => (
   <div className="container">
@@ -24,6 +25,7 @@ const Routes = () => (
       <Route exact path="/kiekot" component={KiekkoContainer} />
       <Route exact path="/molds" component={MoldContainer} />
       <Route exact path="/muovit" component={MuoviContainer} />
+      <Route exact path="/myytavat" component={MyytavatContainer} />
       <Route component={NotFound} />
     </Switch>
   </div>

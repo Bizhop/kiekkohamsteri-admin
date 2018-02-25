@@ -16,10 +16,17 @@ const Header = props => (
             </NavLink>
           </div>
           {props.loggedIn && (
-            <div className="col-md-1 col-xs-12">
-              <NavLink to="/kiekot" className="nav-link nav-item" activeClassName="active">
-                Kiekot
-              </NavLink>
+            <div>
+              <div className="col-md-1 col-xs-12">
+                <NavLink to="/kiekot" className="nav-link nav-item" activeClassName="active">
+                  Kiekot
+                </NavLink>
+              </div>
+              <div className="col-md-1 col-xs-12">
+                <NavLink to="/myytavat" className="nav-link nav-item" activeClassName="active">
+                  Myytävät
+                </NavLink>
+              </div>
             </div>
           )}
           {props.loggedIn &&
