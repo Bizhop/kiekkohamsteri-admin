@@ -2,8 +2,6 @@
   "root": "dist/",
   "https_only": true,
   "routes": {
-    "/*.css": "style.css",
-    "/*.json": "manifest.json",
     "/**": "index.html"
   },
   "proxies": {
