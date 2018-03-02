@@ -90,7 +90,7 @@ const KiekkoContainer = props => (
             newSortColumn="muovi"
           />
           <th>
-            <button className="btn btn-link" disabled>
+            <button className="btn btn-link btn-th" disabled>
               Kuva
             </button>
           </th>
@@ -166,7 +166,7 @@ const KiekkoEditModal = props => (
 const ThWithButton = props => (
   <th>
     <button
-      className="btn btn-link"
+      className="btn btn-link btn-th"
       onClick={() =>
         props.updateKiekot({
           sort: props.sort,
