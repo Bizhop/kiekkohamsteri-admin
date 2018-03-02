@@ -5,7 +5,8 @@ import {
   USERS_FAILURE,
   TOGGLE_EDIT_MODAL,
   UPDATE_FAILURE,
-  LOGOUT
+  LOGOUT,
+  LOGIN_ERROR
 } from "./userActions"
 
 const initialState = {
@@ -56,6 +57,7 @@ const userReducer = (state = initialState, action) => {
         error: action.error
       }
     case LOGOUT:
+    case LOGIN_ERROR:
       localStorage.removeItem("hamsteri-token")
       localStorage.removeItem("hamsteri-email")
       return {

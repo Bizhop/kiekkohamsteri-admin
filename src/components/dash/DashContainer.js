@@ -16,11 +16,7 @@ const DashContainer = props => (
         onFailure={props.loginError}
       />
     )}
-    {props.error && (
-      <div>
-        <h1>{props.error}</h1>
-      </div>
-    )}
+    {props.error && console.log(props.error)}
   </div>
 )
 
