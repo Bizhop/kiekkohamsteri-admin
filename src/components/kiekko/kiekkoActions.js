@@ -11,13 +11,14 @@ export const UPLOAD_FAILURE = "UPLOAD_FAILURE"
 export const DELETE_DISC = "DELETE_DISC"
 export const DELETE_DISC_FAILURE = "DELETE_DISC_FAILURE"
 
-export const getKiekot = () => ({
-  type: KIEKOT_REQUEST
+export const getKiekot = params => ({
+  type: KIEKOT_REQUEST,
+  params
 })
 
-export const kiekotSuccess = kiekot => ({
+export const kiekotSuccess = params => ({
   type: KIEKOT_SUCCESS,
-  kiekot
+  params
 })
 
 export const kiekotError = error => ({

@@ -36,15 +36,20 @@ const updateFields = [
   "hinta"
 ]
 
-function* getKiekotSaga() {
+function* getKiekotSaga(action) {
   try {
     const response = yield call(Api.get, "api/kiekot", {
       params: {
         size: 1000,
-        sort: "id,asc"
+        sort: R.path(["params", "sort"], action)
       }
     })
-    yield put(kiekotSuccess(response))
+    yield put(
+      kiekotSuccess({
+        kiekot: response.content,
+        newSortColumn: action.params.newSortColumn
+      })
+    )
   } catch (e) {
     if (e.response.status === 403) {
       yield put(logout())
@@ -57,7 +62,12 @@ function* getKiekotSaga() {
 function* updateKiekkoSaga(action) {
   try {
     yield call(Api.put, `api/kiekot/${action.kiekko.id}`, R.pick(updateFields, action.kiekko))
-    yield put(getKiekot())
+    yield put(
+      getKiekot({
+        sort: "id,asc",
+        newSortColumn: "id"
+      })
+    )
   } catch (e) {
     if (e.response.status === 403) {
       yield put(logout())
@@ -92,7 +102,12 @@ function* uploadImageSaga(action) {
 function* deleteDiscSaga(action) {
   try {
     yield call(Api.delete, `api/kiekot/${action.id}`)
-    yield put(getKiekot())
+    yield put(
+      getKiekot({
+        sort: "id,asc",
+        newSortColumn: "id"
+      })
+    )
   } catch (e) {
     if (e.response.status === 403) {
       yield put(logout())

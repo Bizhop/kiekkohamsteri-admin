@@ -61,16 +61,74 @@ const KiekkoContainer = props => (
     <table className="table table-striped custom-table">
       <thead>
         <tr>
-          <th>Id</th>
-          <th>Valmistaja</th>
-          <th>Mold</th>
-          <th>Muovi</th>
-          <th>Kuva</th>
-          <th>Nopeus</th>
-          <th>Liito</th>
-          <th>Vakaus</th>
-          <th>Feidi</th>
-          <th>Paino</th>
+          <ThWithButton
+            updateKiekot={props.updateKiekot}
+            sort="id,asc"
+            label="Id"
+            sortColumn={props.sortColumn}
+            newSortColumn="id"
+          />
+          <ThWithButton
+            updateKiekot={props.updateKiekot}
+            sort="mold.valmistaja.valmistaja,asc"
+            label="Valmistaja"
+            sortColumn={props.sortColumn}
+            newSortColumn="valmistaja"
+          />
+          <ThWithButton
+            updateKiekot={props.updateKiekot}
+            sort="mold.kiekko,asc"
+            label="Mold"
+            sortColumn={props.sortColumn}
+            newSortColumn="mold"
+          />
+          <ThWithButton
+            updateKiekot={props.updateKiekot}
+            sort="muovi.muovi,asc"
+            label="Muovi"
+            sortColumn={props.sortColumn}
+            newSortColumn="muovi"
+          />
+          <th>
+            <button className="btn btn-link" disabled>
+              Kuva
+            </button>
+          </th>
+          <ThWithButton
+            updateKiekot={props.updateKiekot}
+            sort="mold.nopeus,desc"
+            label="Nopeus"
+            sortColumn={props.sortColumn}
+            newSortColumn="nopeus"
+          />
+          <ThWithButton
+            updateKiekot={props.updateKiekot}
+            sort="mold.liito,desc"
+            label="Liito"
+            sortColumn={props.sortColumn}
+            newSortColumn="liito"
+          />
+          <ThWithButton
+            updateKiekot={props.updateKiekot}
+            sort="mold.vakaus,asc"
+            label="Vakaus"
+            sortColumn={props.sortColumn}
+            newSortColumn="vakaus"
+          />
+          <ThWithButton
+            updateKiekot={props.updateKiekot}
+            sort="mold.feidi,asc"
+            label="Feidi"
+            sortColumn={props.sortColumn}
+            newSortColumn="feidi"
+          />
+          <ThWithButton
+            updateKiekot={props.updateKiekot}
+            sort="paino,desc"
+            label="Paino"
+            sortColumn={props.sortColumn}
+            newSortColumn="paino"
+          />
           <th />
           <th />
         </tr>
@@ -105,6 +163,22 @@ const KiekkoEditModal = props => (
   </Modal>
 )
 
+const ThWithButton = props => (
+  <th>
+    <button
+      className="btn btn-link"
+      onClick={() =>
+        props.updateKiekot({
+          sort: props.sort,
+          newSortColumn: props.newSortColumn
+        })}
+      disabled={props.sortColumn === props.newSortColumn}
+    >
+      {props.label}
+    </button>
+  </th>
+)
+
 const Kiekko = props => {
   const kiekko = props.kiekko
   return (
@@ -129,6 +203,11 @@ const Kiekko = props => {
               height: 30
             },
             isHintEnabled: false,
+            enlargedImageContainerStyle: {
+              position: "absolute",
+              left: "50px",
+              top: "-300px"
+            },
             enlargedImageContainerDimensions: {
               width: 600,
               height: 600
@@ -171,7 +250,8 @@ const Kiekko = props => {
 
 const mapStateToProps = state => ({
   loggedIn: R.path(["user", "token"], state),
-  kiekot: R.pathOr([], ["kiekko", "kiekot", "content"], state),
+  kiekot: R.pathOr([], ["kiekko", "kiekot"], state),
+  sortColumn: R.path(["kiekko", "sortColumn"], state),
   isEditOpen: R.path(["kiekko", "isEditOpen"], state),
   kiekkoInEdit: R.path(["kiekko", "kiekkoInEdit"], state),
   dropdowns: R.path(["dropdowns", "dropdowns"], state),
@@ -180,7 +260,13 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getKiekot: dispatch(getKiekot()),
+  getKiekot: dispatch(
+    getKiekot({
+      sort: "id,asc",
+      newSortColumn: "id"
+    })
+  ),
+  updateKiekot: params => dispatch(getKiekot(params)),
   getDropdowns: dispatch(getDropdowns()),
   getDropdownsByValmistaja: valmId => dispatch(getDropdownsByValmistaja(valmId)),
   updateDisc: kiekko => dispatch(updateDisc(kiekko)),

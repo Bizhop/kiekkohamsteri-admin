@@ -3,6 +3,7 @@ table.custom-table {
   table-layout: fixed;
   word-wrap: normal;
   white-space: nowrap;
+  margin-bottom: 300px;
 }
 
 .smaller {
@@ -12,4 +13,10 @@ table.custom-table {
 .table-striped > tbody > tr:nth-child(odd) > td,
 .table-striped > tbody > tr:nth-child(odd) > th {
   background-color: lightgray;
+}
+
+.iso-kuva {
+  position: sticky;
+  left: 100px;
+  top: 100px;
 }

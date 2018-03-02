@@ -6,12 +6,11 @@ import {
 } from "./kiekkoActions"
 
 const initialState = {
-  kiekot: {
-    content: []
-  },
+  kiekot: [],
   isEditOpen: false,
   kiekkoInEdit: null,
-  image: null
+  image: null,
+  sortColumn: "id"
 }
 
 const kiekkoReducer = (state = initialState, action) => {
@@ -19,7 +18,8 @@ const kiekkoReducer = (state = initialState, action) => {
     case KIEKOT_SUCCESS:
       return {
         ...state,
-        kiekot: action.kiekot,
+        kiekot: action.params.kiekot,
+        sortColumn: action.params.newSortColumn,
         isEditOpen: false,
         kiekkoInEdit: null
       }
