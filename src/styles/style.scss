@@ -3,7 +3,7 @@ table.custom-table {
   table-layout: fixed;
   word-wrap: normal;
   white-space: nowrap;
-  margin-bottom: 300px;
+  margin-bottom: 450px;
 }
 
 .btn-th {
@@ -19,8 +19,7 @@ table.custom-table {
   background-color: lightgray;
 }
 
-.iso-kuva {
-  position: sticky;
-  left: 100px;
-  top: 100px;
+img.on-table {
+  width: 20px;
+  height: 20px;
 }

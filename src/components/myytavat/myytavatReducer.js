@@ -1,9 +1,8 @@
 import { MYYTAVAT_SUCCESS } from "./myytavatActions"
 
 const initialState = {
-  kiekot: {
-    content: []
-  }
+  kiekot: [],
+  sortColumn: "Id"
 }
 
 const myytavatReducer = (state = initialState, action) => {
@@ -11,7 +10,8 @@ const myytavatReducer = (state = initialState, action) => {
     case MYYTAVAT_SUCCESS:
       return {
         ...state,
-        kiekot: action.myytavat
+        kiekot: action.params.myytavat,
+        sortColumn: action.params.newSortColumn
       }
     default:
       return state

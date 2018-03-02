@@ -5,15 +5,20 @@ import Api from "../Api"
 import { MYYTAVAT_REQUEST, myytavatSuccess, myytavatError } from "./myytavatActions"
 import { logout } from "../user/userActions"
 
-function* getMyytavatSaga() {
+function* getMyytavatSaga(action) {
   try {
     const response = yield call(Api.get, "api/kiekot/myytavat", {
       params: {
         size: 1000,
-        sort: "id,asc"
+        sort: R.path(["params", "sort"], action)
       }
     })
-    yield put(myytavatSuccess(response))
+    yield put(
+      myytavatSuccess({
+        myytavat: response.content,
+        newSortColumn: action.params.newSortColumn
+      })
+    )
   } catch (e) {
     if (e.response.status === 403) {
       yield put(logout())

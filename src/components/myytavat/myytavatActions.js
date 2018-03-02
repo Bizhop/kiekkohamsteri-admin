@@ -2,13 +2,14 @@ export const MYYTAVAT_REQUEST = "MYYTAVAT_REQUEST"
 export const MYYTAVAT_SUCCESS = "MYYTAVAT_SUCCESS"
 export const MYYTAVAT_FAILURE = "MYYTAVAT_FAILURE"
 
-export const getMyytavat = () => ({
-  type: MYYTAVAT_REQUEST
+export const getMyytavat = params => ({
+  type: MYYTAVAT_REQUEST,
+  params
 })
 
-export const myytavatSuccess = myytavat => ({
+export const myytavatSuccess = params => ({
   type: MYYTAVAT_SUCCESS,
-  myytavat
+  params
 })
 
 export const myytavatError = error => ({

@@ -10,7 +10,7 @@ const initialState = {
   isEditOpen: false,
   kiekkoInEdit: null,
   image: null,
-  sortColumn: "id"
+  sortColumn: "Id"
 }
 
 const kiekkoReducer = (state = initialState, action) => {

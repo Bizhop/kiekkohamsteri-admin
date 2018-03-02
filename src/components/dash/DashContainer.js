@@ -3,7 +3,7 @@ import R from "ramda"
 import { connect } from "react-redux"
 import GoogleLogin from "react-google-login"
 
-import { login, loginError, getUserDetails } from "../user/userActions"
+import { login, loginError } from "../user/userActions"
 
 const DashContainer = props => (
   <div className="container">
@@ -26,7 +26,6 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getUserDetails: dispatch(getUserDetails()),
   login: response => dispatch(login(response)),
   loginError: response => dispatch(loginError(response))
 })

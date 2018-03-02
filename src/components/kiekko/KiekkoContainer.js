@@ -16,9 +16,10 @@ import {
   deleteDisc
 } from "./kiekkoActions"
 import { getDropdowns, getDropdownsByValmistaja } from "../dropdown/dropdownActions"
-import { edit, imageUrl, del } from "../shared/images"
+import { edit, imageUrl, del, magnify } from "../shared/images"
 import Modal from "../shared/Modal"
 import KiekkoEditForm from "./KiekkoEditForm"
+import ThWithButton from "../shared/ThWithButton"
 
 const handleDelete = params => {
   confirmAlert({
@@ -29,6 +30,48 @@ const handleDelete = params => {
     onConfirm: () => params.confirm(params.id)
   })
 }
+
+const tableHeaders = [
+  {
+    label: "Kuva"
+  },
+  {
+    label: "Id",
+    sort: "id,asc"
+  },
+  {
+    label: "Valmistaja",
+    sort: "mold.valmistaja.valmistaja,asc"
+  },
+  {
+    label: "Mold",
+    sort: "mold.kiekko,asc"
+  },
+  {
+    label: "Muovi",
+    sort: "muovi.muovi,asc"
+  },
+  {
+    label: "Nopeus",
+    sort: "mold.nopeus,desc"
+  },
+  {
+    label: "Liito",
+    sort: "mold.liito,desc"
+  },
+  {
+    label: "Vakaus",
+    sort: "mold.vakaus,asc"
+  },
+  {
+    label: "Feidi",
+    sort: "mold.feidi,asc"
+  },
+  {
+    label: "Paino",
+    sort: "paino,desc"
+  }
+]
 
 const KiekkoContainer = props => (
   <div className="container">
@@ -61,74 +104,9 @@ const KiekkoContainer = props => (
     <table className="table table-striped custom-table">
       <thead>
         <tr>
-          <ThWithButton
-            updateKiekot={props.updateKiekot}
-            sort="id,asc"
-            label="Id"
-            sortColumn={props.sortColumn}
-            newSortColumn="id"
-          />
-          <ThWithButton
-            updateKiekot={props.updateKiekot}
-            sort="mold.valmistaja.valmistaja,asc"
-            label="Valmistaja"
-            sortColumn={props.sortColumn}
-            newSortColumn="valmistaja"
-          />
-          <ThWithButton
-            updateKiekot={props.updateKiekot}
-            sort="mold.kiekko,asc"
-            label="Mold"
-            sortColumn={props.sortColumn}
-            newSortColumn="mold"
-          />
-          <ThWithButton
-            updateKiekot={props.updateKiekot}
-            sort="muovi.muovi,asc"
-            label="Muovi"
-            sortColumn={props.sortColumn}
-            newSortColumn="muovi"
-          />
-          <th>
-            <button className="btn btn-link btn-th" disabled>
-              Kuva
-            </button>
-          </th>
-          <ThWithButton
-            updateKiekot={props.updateKiekot}
-            sort="mold.nopeus,desc"
-            label="Nopeus"
-            sortColumn={props.sortColumn}
-            newSortColumn="nopeus"
-          />
-          <ThWithButton
-            updateKiekot={props.updateKiekot}
-            sort="mold.liito,desc"
-            label="Liito"
-            sortColumn={props.sortColumn}
-            newSortColumn="liito"
-          />
-          <ThWithButton
-            updateKiekot={props.updateKiekot}
-            sort="mold.vakaus,asc"
-            label="Vakaus"
-            sortColumn={props.sortColumn}
-            newSortColumn="vakaus"
-          />
-          <ThWithButton
-            updateKiekot={props.updateKiekot}
-            sort="mold.feidi,asc"
-            label="Feidi"
-            sortColumn={props.sortColumn}
-            newSortColumn="feidi"
-          />
-          <ThWithButton
-            updateKiekot={props.updateKiekot}
-            sort="paino,desc"
-            label="Paino"
-            sortColumn={props.sortColumn}
-            newSortColumn="paino"
-          />
+          {tableHeaders.map(t => (
+            <ThWithButton {...t} update={props.updateKiekot} sortColumn={props.sortColumn} />
+          ))}
           <th />
           <th />
         </tr>
@@ -163,58 +141,17 @@ const KiekkoEditModal = props => (
   </Modal>
 )
 
-const ThWithButton = props => (
-  <th>
-    <button
-      className="btn btn-link btn-th"
-      onClick={() =>
-        props.updateKiekot({
-          sort: props.sort,
-          newSortColumn: props.newSortColumn
-        })}
-      disabled={props.sortColumn === props.newSortColumn}
-    >
-      {props.label}
-    </button>
-  </th>
-)
-
 const Kiekko = props => {
   const kiekko = props.kiekko
   return (
     <tr>
+      <td>
+        <ReactImageMagnify {...magnify(kiekko.kuva)} />
+      </td>
       <td>{kiekko.id}</td>
       <td>{kiekko.valmistaja}</td>
       <td>{kiekko.mold}</td>
       <td>{kiekko.muovi}</td>
-      <td>
-        <ReactImageMagnify
-          {...{
-            largeImage: {
-              alt: "",
-              src: `${imageUrl}t_kiekko/${kiekko.kuva}`,
-              width: 600,
-              height: 600
-            },
-            smallImage: {
-              alt: "kuva",
-              src: `${imageUrl}t_thumb/${kiekko.kuva}`,
-              width: 30,
-              height: 30
-            },
-            isHintEnabled: false,
-            enlargedImageContainerStyle: {
-              position: "absolute",
-              left: "50px",
-              top: "-300px"
-            },
-            enlargedImageContainerDimensions: {
-              width: 600,
-              height: 600
-            }
-          }}
-        />
-      </td>
       <td>{kiekko.nopeus}</td>
       <td>{kiekko.liito}</td>
       <td>{kiekko.vakaus}</td>
@@ -263,7 +200,7 @@ const mapDispatchToProps = dispatch => ({
   getKiekot: dispatch(
     getKiekot({
       sort: "id,asc",
-      newSortColumn: "id"
+      newSortColumn: "Id"
     })
   ),
   updateKiekot: params => dispatch(getKiekot(params)),

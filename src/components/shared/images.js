@@ -5,3 +5,37 @@ export const edit =
 
 export const del =
   "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAABYElEQVRYR92Y0Q3CMAxErxswCiuwCYzAJIwAm7ACozACykek0jbxne1Ihfy1is6vl8SOO2HnY9o5HxjAA4AbgCuAd9IH0ZoWYBF6AjgCeAE4JUBKmj3AuVA1Lgopa7YAt4SikC7NLcCekBfSrbkEZIRUyJDmHFARYiHDmnPAO4CzI420Do4HroZ/ALiUh6iDLScjcF8fHNmDS7OrcHlfc6e6IKvV8J7iVuASoIyS2NWxuVU8eVANzMxvFgC1kjDB1Dnd6qTUYjUwM98snRZgCRI5kT1IE26ZZnpi2ZAUnAKY6SQNpwJmQEpwfweYtQ8lF5lTnLG0rbJo9jgMYJZzLkgLcBRc6xa0SnU/W+pGO0cv989dtyLODb+wZsDVtJGm9fdNk1UVPE6mNU0WXD2pCmRa08TCKZBpTZMKx0CmNU1euB5kWtMUhduCNDWty0K9au32FzDTOg6dwzg4FMAS/wCCTKIpRugyiAAAAABJRU5ErkJggg=="
+
+export const check =
+  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAH0SURBVGhD7dhPSBRxFMDxldKsSKiDFwlMsIN6EaFIvQQdhC6K524KnvQkXQURBBERDIwItEMn8WbHOmWXBA+RUkGkEiQWEiKaf79PXPjx47XOtM7um/h94XNw2GXe2x2c3c2EQqFQKM+uYQTTaJEDaawEczg6dYAxXEaq6kZ2CdcS7iIV3cJvaIuIXTTDdHJJvYG2gGsCpuuDNrivB2a7jW1og7ve4yJMdgHz0AZ37aAeZnsMbXBfP8zWAHmltcFdbyHvnMlKsQBtcNcWamG2AWiD+3phtib8gTa46zXk/mKyS/gAbXCX3OGrYbZhaIP7umC2e9iHNrjrFcxeUlfwCdrgrl+oQmLdhNyU2k/+it84tMF9j5BYjdhA9mSTiPPW38ch3IE1s0gsf4msp4iyjHxt/Qr/+b51VCKRZImf0E4soizzDNpzfZ1IJPmOvArtpK5cy7QhyiX1EolVB+2kGm2Z61iD9njXd9xAYpVhGdrJNf4yL6A9zvcQiVeDFWgDaLLLdDjHcnmOghV3mSn88I5pvqECBS3uMmeRfwAPUJTOc5knKGrnscwXXEXRy2cZ+eTbCjP96zKjMFfcZT6iHCaLuswe7sB0UZYZRCrKtcwi5ONOapJlPsNdYhOmf6/9W3J/GMI7zEB+Eg2FQqHQ/1wmcwyYwLcPtgh5KQAAAABJRU5ErkJggg=="
+
+export const magnify = image => {
+  return {
+    largeImage: {
+      alt: "",
+      src: `${imageUrl}t_kiekko/${image}`,
+      width: 600,
+      height: 600
+    },
+    smallImage: {
+      alt: "kuva",
+      src: `${imageUrl}t_thumb/${image}`,
+      width: 30,
+      height: 30
+    },
+    isHintEnabled: false,
+    enlargedImageContainerStyle: {
+      position: "absolute",
+      left: "50px",
+      top: "-150px",
+      border: "1px solid black"
+    },
+    imageStyle: {
+      border: "1px solid black"
+    },
+    enlargedImageContainerDimensions: {
+      width: 600,
+      height: 600
+    }
+  }
+}
