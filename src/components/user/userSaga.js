@@ -15,7 +15,9 @@ import {
   logout,
   PROMOTE_USER,
   DEMOTE_USER,
-  GET_USER_DETAILS
+  GET_USER_DETAILS,
+  getUserDetails,
+  UPDATE_ME
 } from "./userActions"
 
 function* login(action) {
@@ -76,6 +78,19 @@ function* update(action) {
   }
 }
 
+function* updateMe(action) {
+  try {
+    yield call(
+      Api.patch,
+      `api/user/${action.user.id}`,
+      R.pick(["username", "etunimi", "sukunimi", "pdga_num"], action.user)
+    )
+    yield put(getUserDetails())
+  } catch (e) {
+    yield put(updateUserError(e))
+  }
+}
+
 function* promoteUserSaga(action) {
   try {
     yield call(Api.patch, `api/user/${action.userId}/level/2`)
@@ -101,7 +116,8 @@ function* userSaga() {
     takeEvery(UPDATE_REQUEST, update),
     takeEvery(PROMOTE_USER, promoteUserSaga),
     takeEvery(DEMOTE_USER, demoteUserSaga),
-    takeEvery(GET_USER_DETAILS, getUserDetailsSaga)
+    takeEvery(GET_USER_DETAILS, getUserDetailsSaga),
+    takeEvery(UPDATE_ME, updateMe)
   ]
 }
 

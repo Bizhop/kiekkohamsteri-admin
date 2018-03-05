@@ -32,7 +32,8 @@ const userReducer = (state = initialState, action) => {
         ...state,
         user: action.user,
         token: localStorage.getItem("hamsteri-token"),
-        error: null
+        error: null,
+        isEditModalOpen: false
       }
     case USERS_FAILURE:
       return {

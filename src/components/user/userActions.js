@@ -11,6 +11,7 @@ export const LOGOUT = "LOGOUT"
 export const PROMOTE_USER = "PROMOTE_USER"
 export const DEMOTE_USER = "DEMOTE_USER"
 export const GET_USER_DETAILS = "GET_USER_DETAILS"
+export const UPDATE_ME = "UPDATE_ME"
 
 export const login = params => ({
   type: LOGIN_REQUEST,
@@ -52,6 +53,11 @@ export const toggleEditModal = user => ({
 
 export const requestUpdateUser = user => ({
   type: UPDATE_REQUEST,
+  user
+})
+
+export const requestUpdateMe = user => ({
+  type: UPDATE_ME,
   user
 })
 

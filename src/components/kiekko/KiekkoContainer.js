@@ -105,7 +105,12 @@ const KiekkoContainer = props => (
       <thead>
         <tr>
           {tableHeaders.map(t => (
-            <ThWithButton {...t} update={props.updateKiekot} sortColumn={props.sortColumn} />
+            <ThWithButton
+              {...t}
+              key={t.label}
+              update={props.updateKiekot}
+              sortColumn={props.sortColumn}
+            />
           ))}
           <th />
           <th />

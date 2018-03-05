@@ -10,8 +10,7 @@ import {
   promoteUser,
   demoteUser
 } from "./userActions"
-import Modal from "../shared/Modal"
-import UserEditForm from "./UserEditForm"
+import UserEditModal from "./UserEditModal"
 
 const UserContainer = props => (
   <div className="container">
@@ -20,6 +19,7 @@ const UserContainer = props => (
       toggleModal={props.toggleEditModal}
       user={props.userInEdit}
       editUser={props.editUser}
+      label="Muokkaa käyttäjää"
     />
     <h1>Käyttäjät</h1>
     <table className="table table-striped custom-table">
@@ -50,16 +50,6 @@ const UserContainer = props => (
     </table>
     {!props.loggedIn && <Redirect to="/" />}
   </div>
-)
-
-const UserEditModal = props => (
-  <Modal
-    isOpen={props.isOpen}
-    onRequestClose={() => props.toggleModal(null)}
-    contentLabel="Muokkaa käyttäjää"
-  >
-    <UserEditForm onSubmit={props.editUser} initialValues={props.user} user={props.user} />
-  </Modal>
 )
 
 const User = props => {
