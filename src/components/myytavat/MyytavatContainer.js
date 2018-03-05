@@ -43,7 +43,7 @@ const tableHeaders = [
     sort: "hohto,desc"
   },
   {
-    label: "Swirty",
+    label: "Swirly",
     sort: "swirly,desc"
   },
   {
