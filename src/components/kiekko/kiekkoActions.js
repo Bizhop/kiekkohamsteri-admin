@@ -10,6 +10,8 @@ export const UPLOAD_SUCCESS = "UPLOAD_SUCCESS"
 export const UPLOAD_FAILURE = "UPLOAD_FAILURE"
 export const DELETE_DISC = "DELETE_DISC"
 export const DELETE_DISC_FAILURE = "DELETE_DISC_FAILURE"
+export const APPLY_PREDICATES = "APPLY_PREDICATES"
+export const FILTER_KIEKOT = "FILTER_KIEKOT"
 
 export const getKiekot = params => ({
   type: KIEKOT_REQUEST,
@@ -69,4 +71,13 @@ export const deleteDisc = id => ({
 export const deleteDiscFailure = error => ({
   type: DELETE_DISC_FAILURE,
   error
+})
+
+export const applyPredicates = form => ({
+  type: APPLY_PREDICATES,
+  form
+})
+
+export const filterKiekot = () => ({
+  type: FILTER_KIEKOT
 })

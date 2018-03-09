@@ -1,16 +1,22 @@
+import R from "ramda"
+
 import {
   KIEKOT_SUCCESS,
   TOGGLE_KIEKKO_EDIT_MODAL,
   CHOOSE_IMAGE,
-  UPLOAD_SUCCESS
+  UPLOAD_SUCCESS,
+  APPLY_PREDICATES,
+  FILTER_KIEKOT
 } from "./kiekkoActions"
 
 const initialState = {
   kiekot: [],
+  kiekotFiltered: [],
   isEditOpen: false,
   kiekkoInEdit: null,
   image: null,
-  sortColumn: "Id"
+  sortColumn: "Id",
+  predicates: null
 }
 
 const kiekkoReducer = (state = initialState, action) => {
@@ -19,6 +25,10 @@ const kiekkoReducer = (state = initialState, action) => {
       return {
         ...state,
         kiekot: action.params.kiekot,
+        kiekotFiltered:
+          state.predicates === null
+            ? action.params.kiekot
+            : R.filter(R.allPass(state.predicates), action.params.kiekot),
         sortColumn: action.params.newSortColumn,
         isEditOpen: false,
         kiekkoInEdit: null
@@ -40,6 +50,16 @@ const kiekkoReducer = (state = initialState, action) => {
         kiekkoInEdit: action.response,
         isEditOpen: true,
         image: null
+      }
+    case APPLY_PREDICATES:
+      return {
+        ...state,
+        predicates: R.keys(R.filter(n => n, action.form)).map(p => d => R.prop(p, d))
+      }
+    case FILTER_KIEKOT:
+      return {
+        ...state,
+        kiekotFiltered: R.filter(R.allPass(state.predicates), state.kiekot)
       }
     default:
       return state

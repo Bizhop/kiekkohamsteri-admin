@@ -13,65 +13,15 @@ import {
   updateDisc,
   chooseImage,
   uploadImage,
-  deleteDisc
+  deleteDisc,
+  applyPredicates
 } from "./kiekkoActions"
 import { getDropdowns, getDropdownsByValmistaja } from "../dropdown/dropdownActions"
 import { edit, imageUrl, del, magnify } from "../shared/images"
 import Modal from "../shared/Modal"
 import KiekkoEditForm from "./KiekkoEditForm"
 import ThWithButton from "../shared/ThWithButton"
-
-const handleDelete = params => {
-  confirmAlert({
-    title: "Varoitus",
-    message: "Haluatko varmasti poistaa kiekon?",
-    confirmLabel: "Poista",
-    cancelLabel: "Peruuta",
-    onConfirm: () => params.confirm(params.id)
-  })
-}
-
-const tableHeaders = [
-  {
-    label: "Kuva"
-  },
-  {
-    label: "Id",
-    sort: "id,asc"
-  },
-  {
-    label: "Valmistaja",
-    sort: "mold.valmistaja.valmistaja,asc"
-  },
-  {
-    label: "Mold",
-    sort: "mold.kiekko,asc"
-  },
-  {
-    label: "Muovi",
-    sort: "muovi.muovi,asc"
-  },
-  {
-    label: "Nopeus",
-    sort: "mold.nopeus,desc"
-  },
-  {
-    label: "Liito",
-    sort: "mold.liito,desc"
-  },
-  {
-    label: "Vakaus",
-    sort: "mold.vakaus,asc"
-  },
-  {
-    label: "Feidi",
-    sort: "mold.feidi,asc"
-  },
-  {
-    label: "Paino",
-    sort: "paino,desc"
-  }
-]
+import PredicatesForm from "./PredicatesForm"
 
 const KiekkoContainer = props => (
   <div className="container">
@@ -100,6 +50,7 @@ const KiekkoContainer = props => (
       </div>
     </div>
     <h1>Kiekot</h1>
+    <PredicatesForm onSubmit={props.applyPredicates} />
     {!props.loggedIn && <Redirect to="/" />}
     <table className="table table-striped custom-table">
       <thead>
@@ -190,15 +141,68 @@ const Kiekko = props => {
   )
 }
 
+const handleDelete = params => {
+  confirmAlert({
+    title: "Varoitus",
+    message: "Haluatko varmasti poistaa kiekon?",
+    confirmLabel: "Poista",
+    cancelLabel: "Peruuta",
+    onConfirm: () => params.confirm(params.id)
+  })
+}
+
+const tableHeaders = [
+  {
+    label: "Kuva"
+  },
+  {
+    label: "Id",
+    sort: "id,asc"
+  },
+  {
+    label: "Valmistaja",
+    sort: "mold.valmistaja.valmistaja,asc"
+  },
+  {
+    label: "Mold",
+    sort: "mold.kiekko,asc"
+  },
+  {
+    label: "Muovi",
+    sort: "muovi.muovi,asc"
+  },
+  {
+    label: "Nopeus",
+    sort: "mold.nopeus,desc"
+  },
+  {
+    label: "Liito",
+    sort: "mold.liito,desc"
+  },
+  {
+    label: "Vakaus",
+    sort: "mold.vakaus,asc"
+  },
+  {
+    label: "Feidi",
+    sort: "mold.feidi,asc"
+  },
+  {
+    label: "Paino",
+    sort: "paino,desc"
+  }
+]
+
 const mapStateToProps = state => ({
   loggedIn: R.path(["user", "token"], state),
-  kiekot: R.pathOr([], ["kiekko", "kiekot"], state),
+  kiekot: R.pathOr([], ["kiekko", "kiekotFiltered"], state),
   sortColumn: R.path(["kiekko", "sortColumn"], state),
   isEditOpen: R.path(["kiekko", "isEditOpen"], state),
   kiekkoInEdit: R.path(["kiekko", "kiekkoInEdit"], state),
   dropdowns: R.path(["dropdowns", "dropdowns"], state),
   editFormValues: R.path(["form", "kiekkoEditForm", "values"], state),
-  imageData: R.path(["kiekko", "image", "base64"], state)
+  imageData: R.path(["kiekko", "image", "base64"], state),
+  predicates: R.path(["kiekko", "predicates"], state)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -215,7 +219,8 @@ const mapDispatchToProps = dispatch => ({
   toggleEditModal: kiekko => dispatch(toggleEditModal(kiekko)),
   chooseImage: image => dispatch(chooseImage(image)),
   uploadImage: data => dispatch(uploadImage(data)),
-  deleteDisc: id => dispatch(deleteDisc(id))
+  deleteDisc: id => dispatch(deleteDisc(id)),
+  applyPredicates: form => dispatch(applyPredicates(form))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(KiekkoContainer)

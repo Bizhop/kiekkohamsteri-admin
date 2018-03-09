@@ -14,7 +14,9 @@ import {
   uploadSuccess,
   uploadFailure,
   deleteKiekkoFailure,
-  DELETE_DISC
+  DELETE_DISC,
+  APPLY_PREDICATES,
+  filterKiekot
 } from "./kiekkoActions"
 import { logout } from "../user/userActions"
 import { getDropdownsByValmistaja } from "../dropdown/dropdownActions"
@@ -117,13 +119,18 @@ function* deleteDiscSaga(action) {
   }
 }
 
+function* applyPredicatesSaga() {
+  yield put(filterKiekot())
+}
+
 function* kiekkoSaga() {
   yield [
     takeEvery(KIEKOT_REQUEST, getKiekotSaga),
     takeEvery(UPDATE_KIEKKO_REQUEST, updateKiekkoSaga),
     takeEvery(TOGGLE_KIEKKO_EDIT_MODAL, toggleEditModalSaga),
     takeEvery(UPLOAD_IMAGE, uploadImageSaga),
-    takeEvery(DELETE_DISC, deleteDiscSaga)
+    takeEvery(DELETE_DISC, deleteDiscSaga),
+    takeEvery(APPLY_PREDICATES, applyPredicatesSaga)
   ]
 }
 
