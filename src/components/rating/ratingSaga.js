@@ -5,7 +5,7 @@ import { RATING_REQUEST, ratingSuccess, ratingError } from "./ratingActions"
 
 function* getRatingSaga(action) {
   try {
-    const response = yield call(Api.get, `api/rating/${action.pdga}/rounds`)
+    const response = yield call(Api.get, `api/rating/${action.pdga}`)
     yield put(ratingSuccess(response))
   } catch (e) {
     yield put(ratingError(e))
