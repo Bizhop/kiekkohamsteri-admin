@@ -27,6 +27,11 @@ const Header = props => (
                   Myytävät
                 </NavLink>
               </div>
+              <div className="col-md-1 col-xs-12">
+                <NavLink to="/rating" className="nav-link nav-item" activeClassName="active">
+                  Rating
+                </NavLink>
+              </div>
             </div>
           )}
           {props.loggedIn &&

@@ -8,6 +8,7 @@ import MoldContainer from "./mold/MoldContainer"
 import MuoviContainer from "./muovi/MuoviContainer"
 import KiekkoContainer from "./kiekko/KiekkoContainer"
 import MyytavatContainer from "./myytavat/MyytavatContainer"
+import RatingContainer from "./rating/RatingContainer"
 
 const NotFound = () => (
   <div className="container">
@@ -26,6 +27,7 @@ const Routes = () => (
       <Route exact path="/molds" component={MoldContainer} />
       <Route exact path="/muovit" component={MuoviContainer} />
       <Route exact path="/myytavat" component={MyytavatContainer} />
+      <Route exact path="/rating" component={RatingContainer} />
       <Route component={NotFound} />
     </Switch>
   </div>
