@@ -10,11 +10,21 @@ const RatingContainer = props => (
     <h1>Rating noppa</h1>
     <div className="row">
       <div className="col-md-2">
-        <button className="btn btn-primary btn-block" onClick={() => props.getRating(90313)}>
+        <button
+          className="btn btn-primary btn-block"
+          onClick={() => props.getRating(props.user.pdga_num)}
+        >
           Hae kierrokset
         </button>
       </div>
     </div>
+    {props.error && (
+      <div className="row">
+        <div className="col-md-4">
+          <div className="alert alert-danger">{props.error}</div>
+        </div>
+      </div>
+    )}
     <table className="table table-striped custom-table">
       <thead>
         <tr>
@@ -58,7 +68,8 @@ const pad = number => {
 const mapStateToProps = state => ({
   loggedIn: R.path(["user", "token"], state),
   rounds: R.path(["rating", "rounds"], state),
-  user: R.path(["user", "user"], state)
+  user: R.path(["user", "user"], state),
+  error: R.path(["rating", "error"], state)
 })
 
 const mapDispatchToProps = dispatch => ({

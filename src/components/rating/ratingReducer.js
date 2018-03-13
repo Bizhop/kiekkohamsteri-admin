@@ -1,7 +1,8 @@
-import { RATING_SUCCESS } from "./ratingActions"
+import { RATING_SUCCESS, RATING_FAILURE } from "./ratingActions"
 
 const initialState = {
-  rounds: []
+  rounds: [],
+  error: null
 }
 
 const ratingReducer = (state = initialState, action) => {
@@ -11,6 +12,13 @@ const ratingReducer = (state = initialState, action) => {
         ...state,
         rounds: action.response
       }
+    case RATING_FAILURE:
+      return {
+        ...state,
+        rounds: [],
+        error: "Tietojen haku ei onnistunut"
+      }
+      return
     default:
       return state
   }
