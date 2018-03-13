@@ -25,6 +25,14 @@ const RatingContainer = props => (
         </div>
       </div>
     )}
+    {props.nextRating && (
+      <div className="row">
+        <div className="col-md-2">
+          <strong>Uusi rating</strong>
+        </div>
+        <div className="col-md-2">{props.nextRating}</div>
+      </div>
+    )}
     <table className="table table-striped custom-table">
       <thead>
         <tr>
@@ -69,7 +77,8 @@ const mapStateToProps = state => ({
   loggedIn: R.path(["user", "token"], state),
   rounds: R.path(["rating", "rounds"], state),
   user: R.path(["user", "user"], state),
-  error: R.path(["rating", "error"], state)
+  error: R.path(["rating", "error"], state),
+  nextRating: R.path(["rating", "nextRating"], state)
 })
 
 const mapDispatchToProps = dispatch => ({
