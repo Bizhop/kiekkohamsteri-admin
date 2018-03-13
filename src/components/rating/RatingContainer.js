@@ -21,7 +21,7 @@ const RatingContainer = props => (
       </div>
     </div>
     {props.error && (
-      <div className="row">
+      <div className="row rating">
         <div className="col-md-4">
           <div className="alert alert-danger">{props.error}</div>
         </div>
