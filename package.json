@@ -38,6 +38,7 @@
     "prettier": "1.7.0",
     "ramda": "0.24.1",
     "react": "15.6.1",
+    "react-activity": "^1.2.1",
     "react-autocomplete": "1.7.1",
     "react-confirm-alert": "^1.0.8",
     "react-cursor-zoom": "^1.2.2",

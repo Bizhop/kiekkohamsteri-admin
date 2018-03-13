@@ -1,25 +1,33 @@
-import { RATING_SUCCESS, RATING_FAILURE } from "./ratingActions"
+import { RATING_SUCCESS, RATING_FAILURE, RATING_REQUEST } from "./ratingActions"
 
 const initialState = {
-  rounds: [],
   nextRating: null,
-  error: null
+  error: null,
+  fetching: false
 }
 
 const ratingReducer = (state = initialState, action) => {
   switch (action.type) {
+    case RATING_REQUEST:
+      return {
+        ...state,
+        nextRating: null,
+        error: null,
+        fetching: true
+      }
     case RATING_SUCCESS:
       return {
         ...state,
-        rounds: action.response.rounds,
         nextRating: action.response.nextRating,
-        error: null
+        error: null,
+        fetching: false
       }
     case RATING_FAILURE:
       return {
         ...state,
-        rounds: [],
-        error: "Tietojen haku ei onnistunut"
+        nextRating: null,
+        error: "Tietojen haku ei onnistunut",
+        fetching: false
       }
       return
     default:
