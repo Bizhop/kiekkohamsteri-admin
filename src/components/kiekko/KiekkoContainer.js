@@ -43,7 +43,8 @@ const KiekkoContainer = props => (
       <div className="col-md-2">
         <button
           className="btn btn-primary btn-block"
-          onClick={() => props.uploadImage(props.imageData)}
+          onClick={() => props.uploadImage(props.image.base64)}
+          disabled={props.image === null}
         >
           Luo uusi
         </button>
@@ -201,8 +202,8 @@ const mapStateToProps = state => ({
   kiekkoInEdit: R.path(["kiekko", "kiekkoInEdit"], state),
   dropdowns: R.path(["dropdowns", "dropdowns"], state),
   editFormValues: R.path(["form", "kiekkoEditForm", "values"], state),
-  imageData: R.path(["kiekko", "image", "base64"], state),
-  predicates: R.path(["kiekko", "predicates"], state)
+  predicates: R.path(["kiekko", "predicates"], state),
+  image: R.path(["kiekko", "image"], state)
 })
 
 const mapDispatchToProps = dispatch => ({

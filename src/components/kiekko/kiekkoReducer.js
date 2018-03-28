@@ -31,7 +31,8 @@ const kiekkoReducer = (state = initialState, action) => {
             : R.filter(R.allPass(state.predicates), action.params.kiekot),
         sortColumn: action.params.newSortColumn,
         isEditOpen: false,
-        kiekkoInEdit: null
+        kiekkoInEdit: null,
+        image: null
       }
     case TOGGLE_KIEKKO_EDIT_MODAL:
       return {
