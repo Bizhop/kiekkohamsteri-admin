@@ -3,12 +3,12 @@ import React from "react"
 export const RenderTextInput = ({ input, label, type, meta: { touched, error } }) => (
   <div className="form-group form-inline">
     <div className="row">
-      <div className="col-md-2">
-        <label className="form-control-label" htmlFor={input.name}>
+      <div className="col-md-3">
+        <label className="form-control-label pull-right" htmlFor={input.name}>
           {label}
         </label>
       </div>
-      <div className="col-md-10">
+      <div className="col-md-9">
         <input className="form-control" {...input} type={type} />
         {touched && error && <span className="text-danger">{error}</span>}
       </div>
@@ -25,12 +25,12 @@ export const RenderSelectInput = ({ input, label, type, options, meta: { touched
   return (
     <div className="form-group form-inline">
       <div className="row">
-        <div className="col-md-2">
-          <label className="form-control-label" htmlFor={input.name}>
+        <div className="col-md-3">
+          <label className="form-control-label pull-right" htmlFor={input.name}>
             {label}
           </label>
         </div>
-        <div className="col-md-10">
+        <div className="col-md-9">
           <select className="form-control" {...input} type={type}>
             <option value="">Valitse...</option>
             {optionList}
@@ -44,11 +44,16 @@ export const RenderSelectInput = ({ input, label, type, options, meta: { touched
 
 export const RenderCheckbox = ({ input, label, type, meta: { touched, error } }) => (
   <div className="form-check form-check-inline">
-    <label className="form-check-label" htmlFor={input.name}>
-      <input className="form-check-input" {...input} type={type} />
-      {label}
-    </label>
-
-    {touched && error && <span className="text-danger">{error}</span>}
+    <div className="row">
+      <div className="col-md-3">
+        <label className="form-check-label pull-right" htmlFor={input.name}>
+          {label}
+        </label>
+      </div>
+      <div className="col-md-9">
+        <input className="form-check-input" {...input} type={type} />
+        {touched && error && <span className="text-danger">{error}</span>}
+      </div>
+    </div>
   </div>
 )
