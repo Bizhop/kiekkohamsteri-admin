@@ -31,6 +31,9 @@ const tableHeaders = [
     label: "Lentonumerot"
   },
   {
+    label: "Kunto"
+  },
+  {
     label: "Paino",
     sort: "paino,asc"
   },
@@ -90,6 +93,7 @@ const Kiekko = props => {
       <td>
         {kiekko.nopeus} / {kiekko.liito} / {kiekko.vakaus} / {kiekko.feidi}
       </td>
+      <td>{kiekko.kunto} / 10</td>
       <td>{kiekko.paino}</td>
       <td>{kiekko.dyed ? <img className="on-table" src={check} alt="" /> : ""}</td>
       <td>{kiekko.hohto ? <img className="on-table" src={check} alt="" /> : ""}</td>

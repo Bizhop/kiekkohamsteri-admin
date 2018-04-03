@@ -26,6 +26,8 @@ const updateFields = [
   "moldId",
   "muoviId",
   "variId",
+  "kunto",
+  "tussit",
   "paino",
   "muuta",
   "dyed",

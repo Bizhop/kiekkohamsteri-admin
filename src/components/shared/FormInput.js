@@ -1,12 +1,18 @@
-import React from 'react'
+import React from "react"
 
 export const RenderTextInput = ({ input, label, type, meta: { touched, error } }) => (
-  <div className="form-group">
-    <label className="form-control-label" htmlFor={input.name}>
-      {label}
-    </label>
-    <input className="form-control" {...input} type={type} />
-    {touched && error && <span className="text-danger">{error}</span>}
+  <div className="form-group form-inline">
+    <div className="row">
+      <div className="col-md-2">
+        <label className="form-control-label" htmlFor={input.name}>
+          {label}
+        </label>
+      </div>
+      <div className="col-md-10">
+        <input className="form-control" {...input} type={type} />
+        {touched && error && <span className="text-danger">{error}</span>}
+      </div>
+    </div>
   </div>
 )
 
@@ -17,15 +23,21 @@ export const RenderSelectInput = ({ input, label, type, options, meta: { touched
     </option>
   ))
   return (
-    <div className="form-group">
-      <label className="form-control-label" htmlFor={input.name}>
-        {label}
-      </label>
-      <select className="form-control" {...input} type={type}>
-        <option value="">Valitse...</option>
-        {optionList}
-      </select>
-      {touched && error && <span className="text-danger">{error}</span>}
+    <div className="form-group form-inline">
+      <div className="row">
+        <div className="col-md-2">
+          <label className="form-control-label" htmlFor={input.name}>
+            {label}
+          </label>
+        </div>
+        <div className="col-md-10">
+          <select className="form-control" {...input} type={type}>
+            <option value="">Valitse...</option>
+            {optionList}
+          </select>
+          {touched && error && <span className="text-danger">{error}</span>}
+        </div>
+      </div>
     </div>
   )
 }

@@ -7,6 +7,8 @@ const valmistajaDropdown = valms => valms.map(v => ({ name: v.valmistaja, value:
 const moldDropdown = molds => molds.map(m => ({ name: m.kiekko, value: m.id }))
 const muoviDropdown = muovit => muovit.map(m => ({ name: m.muovi, value: m.id }))
 const variDropdown = varit => varit.map(v => ({ name: v.vari, value: v.id }))
+const tussiDropdown = kunto => kunto.map(v => ({ name: v.nimi, value: v.id }))
+const kuntoDropdown = kunto => kunto.map(v => ({ name: v.nimi, value: v.id }))
 
 const KiekkoEditForm = props => (
   <form onSubmit={props.handleSubmit}>
@@ -38,6 +40,20 @@ const KiekkoEditForm = props => (
       type="select"
       component={RenderSelectInput}
       options={variDropdown(props.dropdowns.varit)}
+    />
+    <Field
+      name="kunto"
+      label="Kunto"
+      type="select"
+      component={RenderSelectInput}
+      options={kuntoDropdown(props.dropdowns.kunto)}
+    />
+    <Field
+      name="tussit"
+      label="Tussit"
+      type="select"
+      component={RenderSelectInput}
+      options={tussiDropdown(props.dropdowns.tussit)}
     />
     <Field name="paino" label="Paino" component={RenderTextInput} type="text" />
     <Field name="muuta" label="Muuta" component={RenderTextInput} type="text" />
