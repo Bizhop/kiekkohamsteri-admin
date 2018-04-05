@@ -47,7 +47,9 @@ const KiekkoContainer = props => (
         </button>
       </div>
     </div>
-    <h1>Kiekot</h1>
+    <h1>
+      Kiekot ({props.totalFiltered} / {props.total})
+    </h1>
     <PredicatesForm onSubmit={props.applyPredicates} />
     {!props.loggedIn && <Redirect to="/" />}
     <KiekkoTable
@@ -78,6 +80,8 @@ const KiekkoEditModal = props => (
 const mapStateToProps = state => ({
   loggedIn: R.path(["user", "token"], state),
   kiekot: R.pathOr([], ["kiekko", "kiekotFiltered"], state),
+  total: R.length(R.pathOr([], ["kiekko", "kiekot"], state)),
+  totalFiltered: R.length(R.pathOr([], ["kiekko", "kiekotFiltered"], state)),
   sortColumn: R.path(["kiekko", "sortColumn"], state),
   isEditOpen: R.path(["kiekko", "isEditOpen"], state),
   kiekkoInEdit: R.path(["kiekko", "kiekkoInEdit"], state),
