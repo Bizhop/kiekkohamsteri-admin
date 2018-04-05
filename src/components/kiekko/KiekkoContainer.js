@@ -52,6 +52,7 @@ const KiekkoContainer = props => (
     {!props.loggedIn && <Redirect to="/" />}
     <KiekkoTable
       kiekot={props.kiekot}
+      updateKiekot={props.updateKiekot}
       toggleEditModal={props.toggleEditModal}
       deleteDisc={props.deleteDisc}
     />
