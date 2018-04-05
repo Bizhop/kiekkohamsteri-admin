@@ -19,12 +19,14 @@ const KiekkoContainer = props => (
         action: props.buyDisc,
         label: "Osta"
       }}
+      username={props.username}
     />
   </div>
 )
 
 const mapStateToProps = state => ({
   loggedIn: R.path(["user", "token"], state),
+  username: R.path(["user", "user", "username"], state),
   kiekot: R.pathOr([], ["myytavat", "kiekot"], state),
   sortColumn: R.path(["myytavat", "sortColumn"], state)
 })

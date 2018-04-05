@@ -20,7 +20,12 @@ const MyytavatTable = props => (
     </thead>
     <tbody>
       {props.kiekot.map(p => (
-        <Kiekko key={p.id} kiekko={p} action={{ ...props.action, id: p.id }} />
+        <Kiekko
+          key={p.id}
+          kiekko={p}
+          action={{ ...props.action, id: p.id }}
+          username={props.username}
+        />
       ))}
     </tbody>
   </table>
@@ -49,7 +54,11 @@ const Kiekko = props => {
       <td>{kiekko.swirly ? <img className="on-table" src={check} alt="" /> : ""}</td>
       <td>{kiekko.spessu ? <img className="on-table" src={check} alt="" /> : ""}</td>
       <td>
-        <button className="btn btn-primary" onClick={() => props.action.action(props.action.id)}>
+        <button
+          className="btn btn-primary"
+          disabled={kiekko.omistaja === props.username}
+          onClick={() => props.action.action(props.action.id)}
+        >
           {props.action.label}
         </button>
       </td>
