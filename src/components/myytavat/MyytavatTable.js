@@ -48,6 +48,7 @@ const Kiekko = props => {
         {kiekko.nopeus} / {kiekko.liito} / {kiekko.vakaus} / {kiekko.feidi}
       </td>
       <td>{kiekko.kunto} / 10</td>
+      <td>{tussit[kiekko.tussit - 1]}</td>
       <td>{kiekko.paino}</td>
       <td>{kiekko.dyed ? <img className="on-table" src={check} alt="" /> : ""}</td>
       <td>{kiekko.hohto ? <img className="on-table" src={check} alt="" /> : ""}</td>
@@ -92,6 +93,9 @@ const tableHeaders = [
     label: "Kunto"
   },
   {
+    label: "Tussit"
+  },
+  {
     label: "Paino",
     sort: "paino,asc"
   },
@@ -115,5 +119,7 @@ const tableHeaders = [
     label: "Osta"
   }
 ]
+
+const tussit = ["Ei ole", "Rimmissä", "Pohjassa", "Rimmi + pohja", "Kannessa", "Kaikkialla"]
 
 export default MyytavatTable

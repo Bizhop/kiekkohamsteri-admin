@@ -7,7 +7,7 @@ import { getMyytavat } from "./myytavatActions"
 import { buyDisc } from "../osto/ostoActions"
 import MyytavatTable from "./MyytavatTable"
 
-const KiekkoContainer = props => (
+const MyytavatContainer = props => (
   <div className="container">
     <h1>Myytävät</h1>
     {!props.loggedIn && <Redirect to="/" />}
@@ -42,4 +42,4 @@ const mapDispatchToProps = dispatch => ({
   buyDisc: id => dispatch(buyDisc(id))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(KiekkoContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(MyytavatContainer)
