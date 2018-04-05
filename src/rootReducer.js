@@ -8,6 +8,7 @@ import dropdownReducer from "./components/dropdown/dropdownReducer"
 import muoviReducer from "./components/muovi/muoviReducer"
 import myytavatReducer from "./components/myytavat/myytavatReducer"
 import ratingReducer from "./components/rating/ratingReducer"
+import ostoReducer from "./components/osto/ostoReducer"
 
 const rootReducer = combineReducers({
   form: formReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
   muovi: muoviReducer,
   dropdowns: dropdownReducer,
   myytavat: myytavatReducer,
-  rating: ratingReducer
+  rating: ratingReducer,
+  osto: ostoReducer
 })
 
 export default rootReducer

@@ -4,7 +4,10 @@ import { connect } from "react-redux"
 import GoogleLogin from "react-google-login"
 
 import { login, loginError, toggleEditModal, requestUpdateMe } from "../user/userActions"
+import { getOmat, peruutaOsto, hyvaksyOsto } from "../osto/ostoActions"
 import UserEditModal from "../user/UserEditModal"
+import OstoTable from "./OstoTable"
+import MyyntiTable from "./MyyntiTable"
 
 const DashContainer = props => (
   <div className="container">
@@ -38,6 +41,21 @@ const DashContainer = props => (
               Muokkaa
             </button>
           </div>
+          <h1>Omat ostot</h1>
+          {props.kaupat && (
+            <OstoTable
+              ostot={props.kaupat.ostajana}
+              action={{ action: props.peruuta, label: "Peruuta" }}
+            />
+          )}
+          <h1>Omat myynnit</h1>
+          {props.kaupat && (
+            <MyyntiTable
+              ostot={props.kaupat.myyjana}
+              accept={{ action: props.accept, label: "Hyväksy" }}
+              cancel={{ action: props.peruuta, label: "Peruuta" }}
+            />
+          )}
         </div>
       )
     ) : (
@@ -58,10 +76,14 @@ const mapStateToProps = state => ({
   user: R.path(["user", "user"], state),
   error: R.path(["user", "error"], state),
   isEditOpen: R.path(["user", "isEditModalOpen"], state),
-  userInEdit: R.path(["user", "userInEdit"], state)
+  userInEdit: R.path(["user", "userInEdit"], state),
+  kaupat: R.path(["osto", "data"], state)
 })
 
 const mapDispatchToProps = dispatch => ({
+  ostot: dispatch(getOmat()),
+  accept: id => dispatch(hyvaksyOsto(id)),
+  peruuta: id => dispatch(peruutaOsto(id)),
   login: response => dispatch(login(response)),
   loginError: response => dispatch(loginError(response)),
   toggleEditModal: user => dispatch(toggleEditModal(user)),

@@ -19,6 +19,7 @@ import {
   getUserDetails,
   UPDATE_ME
 } from "./userActions"
+import { getOmat } from "../osto/ostoActions"
 
 function* login(action) {
   try {
@@ -31,6 +32,7 @@ function* login(action) {
     localStorage.setItem("hamsteri-token", token)
     localStorage.setItem("hamsteri-email", response.email)
     yield put(loginSuccess(response))
+    yield put(getOmat())
   } catch (e) {
     yield put(loginError(e))
   }
