@@ -10,22 +10,22 @@ const MyyntiTable = props => (
       <tr>{tableHeaders.map(t => <ThWithButton {...t} key={t.label} />)}</tr>
     </thead>
     <tbody>
-      {props.ostot.map(p => (
-        <Myynti key={p.id} osto={p} accept={props.accept} cancel={props.cancel} />
+      {props.myynnit.map(p => (
+        <Myynti key={p.id} myynti={p} accept={props.accept} cancel={props.cancel} />
       ))}
     </tbody>
   </table>
 )
 
 const Myynti = props => {
-  const kiekko = props.osto.kiekko
+  const kiekko = props.myynti.kiekko
   return (
     <tr>
       <td>
         <ReactImageMagnify {...magnify(kiekko.kuva)} />
       </td>
-      <td>{props.osto.id}</td>
-      <td>{props.osto.myyja.username}</td>
+      <td>{props.myynti.id}</td>
+      <td>{props.myynti.ostaja.username}</td>
       <td>{kiekko.hinta} €</td>
       <td>
         {kiekko.mold.valmistaja.valmistaja} {kiekko.muovi.muovi} {kiekko.mold.kiekko}
@@ -40,12 +40,12 @@ const Myynti = props => {
       <td>{kiekko.swirly ? <img className="on-table" src={check} alt="" /> : ""}</td>
       <td>{kiekko.spessu ? <img className="on-table" src={check} alt="" /> : ""}</td>
       <td>
-        <button className="btn btn-primary" onClick={() => props.accept.action(props.osto.id)}>
+        <button className="btn btn-primary" onClick={() => props.accept.action(props.myynti.id)}>
           {props.accept.label}
         </button>
       </td>
       <td>
-        <button className="btn btn-primary" onClick={() => props.cancel.action(props.osto.id)}>
+        <button className="btn btn-primary" onClick={() => props.cancel.action(props.myynti.id)}>
           {props.cancel.label}
         </button>
       </td>
@@ -61,7 +61,7 @@ const tableHeaders = [
     label: "Id"
   },
   {
-    label: "Myyjä"
+    label: "Ostaja"
   },
   {
     label: "Hinta"

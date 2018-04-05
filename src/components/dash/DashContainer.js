@@ -51,7 +51,7 @@ const DashContainer = props => (
           <h1>Omat myynnit</h1>
           {props.kaupat && (
             <MyyntiTable
-              ostot={props.kaupat.myyjana}
+              myynnit={props.kaupat.myyjana}
               accept={{ action: props.accept, label: "Hyväksy" }}
               cancel={{ action: props.peruuta, label: "Peruuta" }}
             />
