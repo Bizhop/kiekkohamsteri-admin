@@ -6,7 +6,8 @@ import {
   TOGGLE_EDIT_MODAL,
   UPDATE_FAILURE,
   LOGOUT,
-  LOGIN_ERROR
+  LOGIN_ERROR,
+  LEADERS_SUCCESS
 } from "./userActions"
 
 const initialState = {
@@ -15,7 +16,8 @@ const initialState = {
   users: [],
   error: null,
   isEditModalOpen: false,
-  userInEdit: {}
+  userInEdit: {},
+  leaders: []
 }
 
 const userReducer = (state = initialState, action) => {
@@ -65,6 +67,11 @@ const userReducer = (state = initialState, action) => {
         ...state,
         user: null,
         token: null
+      }
+    case LEADERS_SUCCESS:
+      return {
+        ...state,
+        leaders: action.leaders
       }
     default:
       return state

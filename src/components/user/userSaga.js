@@ -17,7 +17,11 @@ import {
   DEMOTE_USER,
   GET_USER_DETAILS,
   getUserDetails,
-  UPDATE_ME
+  UPDATE_ME,
+  leadersSuccess,
+  leadersError,
+  LEADERS_REQUEST,
+  getLeaders
 } from "./userActions"
 import { getOmat } from "../osto/ostoActions"
 
@@ -85,9 +89,10 @@ function* updateMe(action) {
     yield call(
       Api.patch,
       `api/user/${action.user.id}`,
-      R.pick(["username", "etunimi", "sukunimi", "pdga_num"], action.user)
+      R.pick(["username", "etunimi", "sukunimi", "pdga_num", "publicDiscCount"], action.user)
     )
     yield put(getUserDetails())
+    yield put(getLeaders())
   } catch (e) {
     yield put(updateUserError(e))
   }
@@ -111,6 +116,19 @@ function* demoteUserSaga(action) {
   }
 }
 
+function* getLeadersSaga(action) {
+  try {
+    const response = yield call(Api.get, "api/user/leaders")
+    yield put(leadersSuccess(response))
+  } catch (e) {
+    if (e.response.status === 403) {
+      yield put(logout())
+    } else {
+      yield put(leadersError(e))
+    }
+  }
+}
+
 function* userSaga() {
   yield [
     takeEvery(LOGIN_REQUEST, login),
@@ -119,7 +137,8 @@ function* userSaga() {
     takeEvery(PROMOTE_USER, promoteUserSaga),
     takeEvery(DEMOTE_USER, demoteUserSaga),
     takeEvery(GET_USER_DETAILS, getUserDetailsSaga),
-    takeEvery(UPDATE_ME, updateMe)
+    takeEvery(UPDATE_ME, updateMe),
+    takeEvery(LEADERS_REQUEST, getLeadersSaga)
   ]
 }
 

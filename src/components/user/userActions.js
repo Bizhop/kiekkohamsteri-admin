@@ -12,6 +12,9 @@ export const PROMOTE_USER = "PROMOTE_USER"
 export const DEMOTE_USER = "DEMOTE_USER"
 export const GET_USER_DETAILS = "GET_USER_DETAILS"
 export const UPDATE_ME = "UPDATE_ME"
+export const LEADERS_REQUEST = "LEADERS_REQUEST"
+export const LEADERS_SUCCESS = "LEADERS_SUCCESS"
+export const LEADERS_FAILURE = "LEADERS_FAILURE"
 
 export const login = params => ({
   type: LOGIN_REQUEST,
@@ -78,4 +81,18 @@ export const demoteUser = userId => ({
 
 export const getUserDetails = () => ({
   type: GET_USER_DETAILS
+})
+
+export const getLeaders = () => ({
+  type: LEADERS_REQUEST
+})
+
+export const leadersSuccess = leaders => ({
+  type: LEADERS_SUCCESS,
+  leaders
+})
+
+export const leadersError = error => ({
+  type: LEADERS_FAILURE,
+  error
 })
