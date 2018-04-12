@@ -85,11 +85,11 @@ const tableHeaders = [
   },
   {
     label: "Id",
-    sort: "id,asc"
+    sort: "id,desc"
   },
   {
     label: "Valmistaja",
-    sort: "mold.valmistaja.valmistaja,asc"
+    sort: "mold.valmistaja.valmistaja,asc&sort=mold.kiekko,asc"
   },
   {
     label: "Mold",

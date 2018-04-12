@@ -42,12 +42,7 @@ const updateFields = [
 
 function* getKiekotSaga(action) {
   try {
-    const response = yield call(Api.get, "api/kiekot", {
-      params: {
-        size: 1000,
-        sort: R.path(["params", "sort"], action)
-      }
-    })
+    const response = yield call(Api.get, `api/kiekot?size=1000&sort=${action.params.sort}`)
     yield put(
       kiekotSuccess({
         kiekot: response.content,

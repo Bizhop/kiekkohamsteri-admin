@@ -57,6 +57,7 @@ const KiekkoContainer = props => (
       updateKiekot={props.updateKiekot}
       toggleEditModal={props.toggleEditModal}
       deleteDisc={props.deleteDisc}
+      sortColumn={props.sortColumn}
     />
   </div>
 )
@@ -94,8 +95,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   getKiekot: dispatch(
     getKiekot({
-      sort: "id,asc",
-      newSortColumn: "Id"
+      sort: "mold.valmistaja.valmistaja,asc&sort=mold.kiekko,asc",
+      newSortColumn: "Valmistaja"
     })
   ),
   updateKiekot: params => dispatch(getKiekot(params)),
