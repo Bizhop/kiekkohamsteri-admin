@@ -7,6 +7,7 @@ import UserContainer from "./user/UserContainer"
 import MoldContainer from "./mold/MoldContainer"
 import MuoviContainer from "./muovi/MuoviContainer"
 import KiekkoContainer from "./kiekko/KiekkoContainer"
+import YksiKiekkoContainer from "./kiekko/YksiKiekkoContainer"
 import MyytavatContainer from "./myytavat/MyytavatContainer"
 import RatingContainer from "./rating/RatingContainer"
 
@@ -24,6 +25,7 @@ const Routes = () => (
       <Route exact path="/" component={DashContainer} />
       <Route exact path="/users" component={UserContainer} />
       <Route exact path="/kiekot" component={KiekkoContainer} />
+      <Route exact path="/kiekot/:id" component={YksiKiekkoContainer} />
       <Route exact path="/molds" component={MoldContainer} />
       <Route exact path="/muovit" component={MuoviContainer} />
       <Route exact path="/myytavat" component={MyytavatContainer} />

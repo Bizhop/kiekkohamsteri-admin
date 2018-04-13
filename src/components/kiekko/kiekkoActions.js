@@ -1,6 +1,9 @@
 export const KIEKOT_REQUEST = "KIEKOT_REQUEST"
 export const KIEKOT_SUCCESS = "KIEKOT_SUCCESS"
 export const KIEKOT_FAILURE = "KIEKOT_FAILURE"
+export const KIEKKO_REQUEST = "KIEKKO_REQUEST"
+export const KIEKKO_SUCCESS = "KIEKKO_SUCCESS"
+export const KIEKKO_FAILURE = "KIEKKO_FAILURE"
 export const TOGGLE_KIEKKO_EDIT_MODAL = "TOGGLE_KIEKKO_EDIT_MODAL"
 export const UPDATE_KIEKKO_REQUEST = "UPDATE_KIEKKO_REQUEST"
 export const UPDATE_KIEKKO_FAILURE = "UPDATE_KIEKKO_FAILURE"
@@ -25,6 +28,21 @@ export const kiekotSuccess = params => ({
 
 export const kiekotError = error => ({
   type: KIEKOT_FAILURE,
+  error
+})
+
+export const getKiekko = id => ({
+  type: KIEKKO_REQUEST,
+  id
+})
+
+export const kiekkoSuccess = kiekko => ({
+  type: KIEKKO_SUCCESS,
+  kiekko
+})
+
+export const kiekkoError = error => ({
+  type: KIEKKO_FAILURE,
   error
 })
 

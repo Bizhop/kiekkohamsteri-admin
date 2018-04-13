@@ -2,6 +2,7 @@ import React from "react"
 import ReactImageMagnify from "react-image-magnify"
 import { confirmAlert } from "react-confirm-alert"
 import "react-confirm-alert/src/react-confirm-alert.css"
+import { NavLink } from "react-router-dom"
 
 import ThWithButton from "../shared/ThWithButton"
 import { edit, del, magnify } from "../shared/images"
@@ -42,7 +43,11 @@ const Kiekko = props => {
       <td>
         <ReactImageMagnify {...magnify(kiekko.kuva)} />
       </td>
-      <td>{kiekko.id}</td>
+      <td>
+        <NavLink to={`/kiekot/${kiekko.id}`} className="nav-link nav-item" activeClassName="active">
+          {kiekko.id}
+        </NavLink>
+      </td>
       <td>{kiekko.valmistaja}</td>
       <td>{kiekko.mold}</td>
       <td>{kiekko.muovi}</td>

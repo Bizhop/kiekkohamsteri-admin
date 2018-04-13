@@ -6,11 +6,15 @@ import {
   CHOOSE_IMAGE,
   UPLOAD_SUCCESS,
   APPLY_PREDICATES,
-  FILTER_KIEKOT
+  FILTER_KIEKOT,
+  KIEKKO_SUCCESS,
+  KIEKOT_REQUEST,
+  KIEKKO_REQUEST
 } from "./kiekkoActions"
 
 const initialState = {
   kiekot: [],
+  kiekko: null,
   kiekotFiltered: [],
   isEditOpen: false,
   kiekkoInEdit: null,
@@ -21,6 +25,12 @@ const initialState = {
 
 const kiekkoReducer = (state = initialState, action) => {
   switch (action.type) {
+    case KIEKOT_REQUEST:
+      return {
+        ...state,
+        kiekot: [],
+        kiekotFiltered: []
+      }
     case KIEKOT_SUCCESS:
       return {
         ...state,
@@ -33,6 +43,16 @@ const kiekkoReducer = (state = initialState, action) => {
         isEditOpen: false,
         kiekkoInEdit: null,
         image: null
+      }
+    case KIEKKO_REQUEST:
+      return {
+        ...state,
+        kiekko: null
+      }
+    case KIEKKO_SUCCESS:
+      return {
+        ...state,
+        kiekko: action.kiekko
       }
     case TOGGLE_KIEKKO_EDIT_MODAL:
       return {

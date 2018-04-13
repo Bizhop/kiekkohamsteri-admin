@@ -16,7 +16,10 @@ import {
   deleteKiekkoFailure,
   DELETE_DISC,
   APPLY_PREDICATES,
-  filterKiekot
+  filterKiekot,
+  KIEKKO_REQUEST,
+  kiekkoSuccess,
+  kiekkoError
 } from "./kiekkoActions"
 import { logout } from "../user/userActions"
 import { getDropdownsByValmistaja } from "../dropdown/dropdownActions"
@@ -54,6 +57,19 @@ function* getKiekotSaga(action) {
       yield put(logout())
     } else {
       yield put(kiekotError(e))
+    }
+  }
+}
+
+function* getKiekkoSaga(action) {
+  try {
+    const response = yield call(Api.get, `api/kiekot/${action.id}`)
+    yield put(kiekkoSuccess(response))
+  } catch (e) {
+    if (e.response.status === 403) {
+      yield put(logout())
+    } else {
+      yield put(kiekkoError(e))
     }
   }
 }
@@ -127,7 +143,8 @@ function* kiekkoSaga() {
     takeEvery(TOGGLE_KIEKKO_EDIT_MODAL, toggleEditModalSaga),
     takeEvery(UPLOAD_IMAGE, uploadImageSaga),
     takeEvery(DELETE_DISC, deleteDiscSaga),
-    takeEvery(APPLY_PREDICATES, applyPredicatesSaga)
+    takeEvery(APPLY_PREDICATES, applyPredicatesSaga),
+    takeEvery(KIEKKO_REQUEST, getKiekkoSaga)
   ]
 }
 
