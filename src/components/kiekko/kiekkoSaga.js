@@ -66,11 +66,7 @@ function* getKiekkoSaga(action) {
     const response = yield call(Api.get, `api/kiekot/${action.id}`)
     yield put(kiekkoSuccess(response))
   } catch (e) {
-    if (e.response.status === 403) {
-      yield put(logout())
-    } else {
-      yield put(kiekkoError(e))
-    }
+    yield put(kiekkoError(e))
   }
 }
 

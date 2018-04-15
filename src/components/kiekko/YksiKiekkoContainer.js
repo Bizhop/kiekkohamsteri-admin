@@ -8,6 +8,7 @@ import { imageUrl, check } from "../shared/images"
 
 const YksiKiekkoContainer = props => (
   <div className="container">
+    {!props.loggedIn && <Redirect to="/" />}
     {props.kiekko ? (
       <div>
         <h1>
