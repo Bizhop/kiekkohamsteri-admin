@@ -6,6 +6,7 @@ import { NavLink } from "react-router-dom"
 
 import ThWithButton from "../shared/ThWithButton"
 import { edit, del, magnify } from "../shared/images"
+import { defaultSort } from "../shared/text"
 
 const KiekkoTable = props => (
   <table className="table table-striped custom-table">
@@ -94,7 +95,7 @@ const tableHeaders = [
   },
   {
     label: "Valmistaja",
-    sort: "mold.valmistaja.valmistaja,asc&sort=mold.kiekko,asc"
+    sort: defaultSort.sort
   },
   {
     label: "Mold",

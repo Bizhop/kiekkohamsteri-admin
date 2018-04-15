@@ -19,6 +19,7 @@ import KiekkoEditForm from "./KiekkoEditForm"
 import ThWithButton from "../shared/ThWithButton"
 import PredicatesForm from "./PredicatesForm"
 import KiekkoTable from "./KiekkoTable"
+import { defaultSort } from "../shared/text"
 
 const KiekkoContainer = props => (
   <div className="container">
@@ -93,12 +94,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getKiekot: dispatch(
-    getKiekot({
-      sort: "mold.valmistaja.valmistaja,asc&sort=mold.kiekko,asc",
-      newSortColumn: "Valmistaja"
-    })
-  ),
+  getKiekot: dispatch(getKiekot(defaultSort)),
   updateKiekot: params => dispatch(getKiekot(params)),
   getDropdowns: dispatch(getDropdowns()),
   getDropdownsByValmistaja: valmId => dispatch(getDropdownsByValmistaja(valmId)),

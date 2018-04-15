@@ -23,6 +23,7 @@ import {
 } from "./kiekkoActions"
 import { logout } from "../user/userActions"
 import { getDropdownsByValmistaja } from "../dropdown/dropdownActions"
+import { defaultSort } from "../shared/text"
 
 const updateFields = [
   "valmId",
@@ -74,12 +75,7 @@ function* getKiekkoSaga(action) {
 function* updateKiekkoSaga(action) {
   try {
     yield call(Api.put, `api/kiekot/${action.kiekko.id}`, R.pick(updateFields, action.kiekko))
-    yield put(
-      getKiekot({
-        sort: "id,asc",
-        newSortColumn: "id"
-      })
-    )
+    yield put(getKiekot(defaultSort))
   } catch (e) {
     if (e.response.status === 403) {
       yield put(logout())
@@ -114,12 +110,7 @@ function* uploadImageSaga(action) {
 function* deleteDiscSaga(action) {
   try {
     yield call(Api.delete, `api/kiekot/${action.id}`)
-    yield put(
-      getKiekot({
-        sort: "id,asc",
-        newSortColumn: "id"
-      })
-    )
+    yield put(getKiekot(defaultSort))
   } catch (e) {
     if (e.response.status === 403) {
       yield put(logout())
