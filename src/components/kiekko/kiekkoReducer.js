@@ -9,7 +9,8 @@ import {
   FILTER_KIEKOT,
   KIEKKO_SUCCESS,
   KIEKOT_REQUEST,
-  KIEKKO_REQUEST
+  KIEKKO_REQUEST,
+  KIEKKO_FAILURE
 } from "./kiekkoActions"
 
 const initialState = {
@@ -20,7 +21,8 @@ const initialState = {
   kiekkoInEdit: null,
   image: null,
   sortColumn: "Id",
-  predicates: null
+  predicates: null,
+  oneDiscText: ""
 }
 
 const kiekkoReducer = (state = initialState, action) => {
@@ -47,12 +49,20 @@ const kiekkoReducer = (state = initialState, action) => {
     case KIEKKO_REQUEST:
       return {
         ...state,
-        kiekko: null
+        kiekko: null,
+        oneDiscText: "Haetaan..."
       }
     case KIEKKO_SUCCESS:
       return {
         ...state,
-        kiekko: action.kiekko
+        kiekko: action.kiekko,
+        oneDiscText: ""
+      }
+    case KIEKKO_FAILURE:
+      return {
+        ...state,
+        kiekko: null,
+        oneDiscText: "Ei saatavilla"
       }
     case TOGGLE_KIEKKO_EDIT_MODAL:
       return {

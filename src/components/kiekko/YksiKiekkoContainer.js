@@ -5,6 +5,7 @@ import { Redirect } from "react-router-dom"
 
 import { getKiekko } from "./kiekkoActions"
 import { imageUrl, check } from "../shared/images"
+import { tussit } from "../shared/text"
 
 const YksiKiekkoContainer = props => (
   <div className="container">
@@ -84,16 +85,15 @@ const YksiKiekkoContainer = props => (
         </div>
       </div>
     ) : (
-      <h1>Ei saatavilla</h1>
+      <h1>{props.oneDiscText}</h1>
     )}
   </div>
 )
 
-const tussit = ["Ei ole", "Rimmissä", "Pohjassa", "Rimmi + pohja", "Kannessa", "Kaikkialla"]
-
 const mapStateToProps = state => ({
   loggedIn: R.path(["user", "token"], state),
-  kiekko: R.path(["kiekko", "kiekko"], state)
+  kiekko: R.path(["kiekko", "kiekko"], state),
+  oneDiscText: R.path(["kiekko", "oneDiscText"], state)
 })
 
 const mapDispatchToProps = (dispatch, ownProps) => {

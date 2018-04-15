@@ -31,6 +31,7 @@ const UserContainer = props => (
           <th>Etunimi</th>
           <th>Sukunimi</th>
           <th>PDGA numero</th>
+          <th>Kiekkoja</th>
           <th>Oikeudet</th>
           <th />
           <th />
@@ -62,6 +63,7 @@ const User = props => {
       <td>{user.etunimi}</td>
       <td>{user.sukunimi}</td>
       <td>{user.pdga_num}</td>
+      <td>{user.discCount}</td>
       <td>{user.level}</td>
       <td>
         <div className="btn-group">

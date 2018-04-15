@@ -40,7 +40,8 @@ const updateFields = [
   "myynnissa",
   "spessu",
   "swirly",
-  "hinta"
+  "hinta",
+  "publicDisc"
 ]
 
 function* getKiekotSaga(action) {

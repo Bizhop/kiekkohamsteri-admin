@@ -3,6 +3,7 @@ import ReactImageMagnify from "react-image-magnify"
 
 import ThWithButton from "../shared/ThWithButton"
 import { imageUrl, magnify, check } from "../shared/images"
+import { tussit } from "../shared/text"
 
 const MyytavatTable = props => (
   <table className="table table-striped custom-table">
@@ -119,7 +120,5 @@ const tableHeaders = [
     label: "Osta"
   }
 ]
-
-const tussit = ["Ei ole", "Rimmissä", "Pohjassa", "Rimmi + pohja", "Kannessa", "Kaikkialla"]
 
 export default MyytavatTable

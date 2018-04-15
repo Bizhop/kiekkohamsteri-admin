@@ -106,6 +106,13 @@ const KiekkoEditForm = props => (
       type="checkbox"
       normalize={v => !!v}
     />
+    <Field
+      name="publicDisc"
+      label="Julkinen"
+      component={RenderCheckbox}
+      type="checkbox"
+      normalize={v => !!v}
+    />
     {props.editFormValues &&
       props.editFormValues.myynnissa && (
         <Field name="hinta" label="Hinta" component={RenderTextInput} type="text" />
