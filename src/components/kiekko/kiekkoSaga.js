@@ -19,7 +19,10 @@ import {
   filterKiekot,
   KIEKKO_REQUEST,
   kiekkoSuccess,
-  kiekkoError
+  kiekkoError,
+  UPDATE_IMAGE,
+  updateImageSuccess,
+  updateImageFailure
 } from "./kiekkoActions"
 import { logout } from "../user/userActions"
 import { getDropdownsByValmistaja } from "../dropdown/dropdownActions"
@@ -124,6 +127,22 @@ function* applyPredicatesSaga() {
   yield put(filterKiekot())
 }
 
+function* updateImageSaga(action) {
+  try {
+    yield call(Api.patch, `api/kiekot/${action.params.id}/update-image`, {
+      name: "",
+      data: action.params.image
+    })
+    yield put(getKiekot(defaultSort))
+  } catch (e) {
+    if (e.response.status === 403) {
+      yield put(logout())
+    } else {
+      yield put(updateImageFailure(e))
+    }
+  }
+}
+
 function* kiekkoSaga() {
   yield [
     takeEvery(KIEKOT_REQUEST, getKiekotSaga),
@@ -132,7 +151,8 @@ function* kiekkoSaga() {
     takeEvery(UPLOAD_IMAGE, uploadImageSaga),
     takeEvery(DELETE_DISC, deleteDiscSaga),
     takeEvery(APPLY_PREDICATES, applyPredicatesSaga),
-    takeEvery(KIEKKO_REQUEST, getKiekkoSaga)
+    takeEvery(KIEKKO_REQUEST, getKiekkoSaga),
+    takeEvery(UPDATE_IMAGE, updateImageSaga)
   ]
 }
 

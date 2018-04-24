@@ -5,7 +5,7 @@ import "react-confirm-alert/src/react-confirm-alert.css"
 import { NavLink } from "react-router-dom"
 
 import ThWithButton from "../shared/ThWithButton"
-import { edit, del, magnify } from "../shared/images"
+import { edit, del, magnify, upload } from "../shared/images"
 import { defaultSort } from "../shared/text"
 
 const KiekkoTable = props => (
@@ -22,6 +22,7 @@ const KiekkoTable = props => (
         ))}
         <th />
         <th />
+        <th />
       </tr>
     </thead>
     <tbody>
@@ -31,6 +32,8 @@ const KiekkoTable = props => (
           kiekko={p}
           toggleEditModal={props.toggleEditModal}
           deleteDisc={props.deleteDisc}
+          updateImage={props.updateImage}
+          image={props.image}
         />
       ))}
     </tbody>
@@ -57,6 +60,21 @@ const Kiekko = props => {
       <td>{kiekko.vakaus}</td>
       <td>{kiekko.feidi}</td>
       <td>{kiekko.paino}</td>
+      <td>
+        <input
+          type="image"
+          alt="upload"
+          src={upload}
+          height="15"
+          width="15"
+          disabled={props.image === null}
+          onClick={() =>
+            props.updateImage({
+              id: kiekko.id,
+              image: props.image
+            })}
+        />
+      </td>
       <td>
         <input
           type="image"

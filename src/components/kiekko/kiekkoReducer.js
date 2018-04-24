@@ -10,7 +10,10 @@ import {
   KIEKKO_SUCCESS,
   KIEKOT_REQUEST,
   KIEKKO_REQUEST,
-  KIEKKO_FAILURE
+  KIEKKO_FAILURE,
+  UPDATE_CROP,
+  COMPLETE_CROP,
+  UPDATE_IMAGE_SUCCESS
 } from "./kiekkoActions"
 
 const initialState = {
@@ -22,7 +25,35 @@ const initialState = {
   image: null,
   sortColumn: "Id",
   predicates: null,
-  oneDiscText: ""
+  oneDiscText: "",
+  crop: {
+    aspect: 1
+  },
+  croppedImage: null
+}
+
+const processCrop = (pixelCrop, base64) => {
+  const canvas = document.createElement("canvas")
+  canvas.width = pixelCrop.width
+  canvas.height = pixelCrop.height
+  const ctx = canvas.getContext("2d")
+
+  var image = new Image()
+  image.src = base64
+
+  ctx.drawImage(
+    image,
+    pixelCrop.x,
+    pixelCrop.y,
+    pixelCrop.width,
+    pixelCrop.height,
+    0,
+    0,
+    pixelCrop.width,
+    pixelCrop.height
+  )
+
+  return canvas.toDataURL("image/jpeg")
 }
 
 const kiekkoReducer = (state = initialState, action) => {
@@ -44,7 +75,11 @@ const kiekkoReducer = (state = initialState, action) => {
         sortColumn: action.params.newSortColumn,
         isEditOpen: false,
         kiekkoInEdit: null,
-        image: null
+        image: null,
+        crop: {
+          aspect: 1
+        },
+        croppedImage: null
       }
     case KIEKKO_REQUEST:
       return {
@@ -91,6 +126,16 @@ const kiekkoReducer = (state = initialState, action) => {
       return {
         ...state,
         kiekotFiltered: R.filter(R.allPass(state.predicates), state.kiekot)
+      }
+    case UPDATE_CROP:
+      return {
+        ...state,
+        crop: action.crop
+      }
+    case COMPLETE_CROP:
+      return {
+        ...state,
+        croppedImage: processCrop(action.pixelCrop, state.image.base64)
       }
     default:
       return state

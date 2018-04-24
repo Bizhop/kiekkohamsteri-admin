@@ -3,6 +3,8 @@ import R from "ramda"
 import { connect } from "react-redux"
 import { Redirect } from "react-router-dom"
 import FileBase64 from "react-file-base64"
+import ReactCrop from "react-image-crop"
+import "react-image-crop/lib/ReactCrop.scss"
 
 import {
   getKiekot,
@@ -11,7 +13,10 @@ import {
   chooseImage,
   uploadImage,
   deleteDisc,
-  applyPredicates
+  applyPredicates,
+  updateCrop,
+  completeCrop,
+  updateImage
 } from "./kiekkoActions"
 import { getDropdowns, getDropdownsByValmistaja } from "../dropdown/dropdownActions"
 import Modal from "../shared/Modal"
@@ -20,6 +25,7 @@ import ThWithButton from "../shared/ThWithButton"
 import PredicatesForm from "./PredicatesForm"
 import KiekkoTable from "./KiekkoTable"
 import { defaultSort } from "../shared/text"
+import { upload } from "../shared/images"
 
 const KiekkoContainer = props => (
   <div className="container">
@@ -31,23 +37,39 @@ const KiekkoContainer = props => (
       dropdowns={props.dropdowns}
       getDropdownsByValmistaja={props.getDropdownsByValmistaja}
       editFormValues={props.editFormValues}
+      image={props.image}
     />
-    <h1>Uusi kiekko</h1>
-    <div className="row">
-      <div className="col-md-1">Kuva</div>
+    <h1>Kuvan valinta</h1>
+    <div className="row mb-10">
       <div className="col-md-3">
         <FileBase64 multiple={false} onDone={props.chooseImage} />
       </div>
       <div className="col-md-2">
         <button
           className="btn btn-primary btn-block"
-          onClick={() => props.uploadImage(props.image.base64)}
+          onClick={() => props.uploadImage(props.croppedImage)}
           disabled={props.image === null}
         >
-          Luo uusi
+          Luo uusi kiekko
         </button>
       </div>
     </div>
+    <p>Kiekon lisäys: valitse ensin kuva, tee rajaus ja paina nappia "Lisää uusi kiekko"</p>
+    <p>
+      Kuvan päivitys: valitse ensin kuva, tee rajaus ja paina sitten haluamasi kiekon kohdalta
+      upload-nappia <img alt="kuva" src={upload} />
+    </p>
+    {props.image && (
+      <div>
+        <h2>Esikatselu</h2>
+        <ReactCrop
+          src={props.image.base64}
+          onChange={props.updateCrop}
+          crop={props.crop}
+          onComplete={props.completeCrop}
+        />
+      </div>
+    )}
     <h1>
       Kiekot ({props.totalFiltered} / {props.total})
     </h1>
@@ -59,6 +81,8 @@ const KiekkoContainer = props => (
       toggleEditModal={props.toggleEditModal}
       deleteDisc={props.deleteDisc}
       sortColumn={props.sortColumn}
+      updateImage={props.updateImage}
+      image={props.croppedImage}
     />
   </div>
 )
@@ -90,7 +114,9 @@ const mapStateToProps = state => ({
   dropdowns: R.path(["dropdowns", "dropdowns"], state),
   editFormValues: R.path(["form", "kiekkoEditForm", "values"], state),
   predicates: R.path(["kiekko", "predicates"], state),
-  image: R.path(["kiekko", "image"], state)
+  image: R.path(["kiekko", "image"], state),
+  crop: R.path(["kiekko", "crop"], state),
+  croppedImage: R.path(["kiekko", "croppedImage"], state)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -103,7 +129,10 @@ const mapDispatchToProps = dispatch => ({
   chooseImage: image => dispatch(chooseImage(image)),
   uploadImage: data => dispatch(uploadImage(data)),
   deleteDisc: id => dispatch(deleteDisc(id)),
-  applyPredicates: form => dispatch(applyPredicates(form))
+  applyPredicates: form => dispatch(applyPredicates(form)),
+  updateCrop: crop => dispatch(updateCrop(crop)),
+  completeCrop: (crop, pixelCrop) => dispatch(completeCrop(crop, pixelCrop)),
+  updateImage: params => dispatch(updateImage(params))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(KiekkoContainer)

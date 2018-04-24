@@ -15,6 +15,10 @@ export const DELETE_DISC = "DELETE_DISC"
 export const DELETE_DISC_FAILURE = "DELETE_DISC_FAILURE"
 export const APPLY_PREDICATES = "APPLY_PREDICATES"
 export const FILTER_KIEKOT = "FILTER_KIEKOT"
+export const UPDATE_CROP = "UPDATE_CROP"
+export const COMPLETE_CROP = "COMPLETE_CROP"
+export const UPDATE_IMAGE = "UPDATE_IMAGE"
+export const UPDATE_IMAGE_FAILURE = "UPDATE_IMAGE_FAILURE"
 
 export const getKiekot = params => ({
   type: KIEKOT_REQUEST,
@@ -98,4 +102,25 @@ export const applyPredicates = form => ({
 
 export const filterKiekot = () => ({
   type: FILTER_KIEKOT
+})
+
+export const updateCrop = crop => ({
+  type: UPDATE_CROP,
+  crop
+})
+
+export const completeCrop = (crop, pixelCrop) => ({
+  type: COMPLETE_CROP,
+  crop,
+  pixelCrop
+})
+
+export const updateImage = params => ({
+  type: UPDATE_IMAGE,
+  params
+})
+
+export const updateImageFailure = error => ({
+  type: UPDATE_IMAGE_FAILURE,
+  error
 })
