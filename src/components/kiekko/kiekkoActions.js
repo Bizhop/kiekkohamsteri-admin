@@ -19,6 +19,7 @@ export const UPDATE_CROP = "UPDATE_CROP"
 export const COMPLETE_CROP = "COMPLETE_CROP"
 export const UPDATE_IMAGE = "UPDATE_IMAGE"
 export const UPDATE_IMAGE_FAILURE = "UPDATE_IMAGE_FAILURE"
+export const RESIZE_COMPLETE = "RESIZE_COMPLETE"
 
 export const getKiekot = params => ({
   type: KIEKOT_REQUEST,
@@ -123,4 +124,9 @@ export const updateImage = params => ({
 export const updateImageFailure = error => ({
   type: UPDATE_IMAGE_FAILURE,
   error
+})
+
+export const resizeComplete = image => ({
+  type: RESIZE_COMPLETE,
+  image
 })

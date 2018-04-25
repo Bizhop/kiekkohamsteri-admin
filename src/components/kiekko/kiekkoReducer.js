@@ -3,7 +3,7 @@ import R from "ramda"
 import {
   KIEKOT_SUCCESS,
   TOGGLE_KIEKKO_EDIT_MODAL,
-  CHOOSE_IMAGE,
+  RESIZE_COMPLETE,
   UPLOAD_SUCCESS,
   APPLY_PREDICATES,
   FILTER_KIEKOT,
@@ -105,7 +105,7 @@ const kiekkoReducer = (state = initialState, action) => {
         isEditOpen: !state.isEditOpen,
         kiekkoInEdit: action.kiekko
       }
-    case CHOOSE_IMAGE:
+    case RESIZE_COMPLETE:
       return {
         ...state,
         image: action.image

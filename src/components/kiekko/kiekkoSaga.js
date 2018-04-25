@@ -22,7 +22,9 @@ import {
   kiekkoError,
   UPDATE_IMAGE,
   updateImageSuccess,
-  updateImageFailure
+  updateImageFailure,
+  CHOOSE_IMAGE,
+  resizeComplete
 } from "./kiekkoActions"
 import { logout } from "../user/userActions"
 import { getDropdownsByValmistaja } from "../dropdown/dropdownActions"
@@ -47,6 +49,30 @@ const updateFields = [
   "hinta",
   "publicDisc"
 ]
+
+const resizeOriginalImage = image =>
+  new Promise((resolve, reject) => {
+    const img = new Image()
+    img.src = image.base64
+    img.onload = function() {
+      try {
+        const ratio = this.naturalWidth / this.naturalHeight
+        const width = ratio > 1 ? 600 : Math.round(600 / ratio)
+        const height = Math.round(600 / ratio)
+
+        const canvas = document.createElement("canvas")
+        canvas.width = width
+        canvas.height = height
+        const ctx = canvas.getContext("2d")
+
+        ctx.drawImage(img, 0, 0, width, height)
+        image.base64 = canvas.toDataURL("image/jpeg")
+        resolve(image)
+      } catch (e) {
+        reject(e)
+      }
+    }
+  })
 
 function* getKiekotSaga(action) {
   try {
@@ -143,6 +169,15 @@ function* updateImageSaga(action) {
   }
 }
 
+function* resizeImageSaga(action) {
+  try {
+    const resized = yield call(resizeOriginalImage, action.image)
+    yield put(resizeComplete(resized))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 function* kiekkoSaga() {
   yield [
     takeEvery(KIEKOT_REQUEST, getKiekotSaga),
@@ -152,7 +187,8 @@ function* kiekkoSaga() {
     takeEvery(DELETE_DISC, deleteDiscSaga),
     takeEvery(APPLY_PREDICATES, applyPredicatesSaga),
     takeEvery(KIEKKO_REQUEST, getKiekkoSaga),
-    takeEvery(UPDATE_IMAGE, updateImageSaga)
+    takeEvery(UPDATE_IMAGE, updateImageSaga),
+    takeEvery(CHOOSE_IMAGE, resizeImageSaga)
   ]
 }
 
