@@ -62,6 +62,9 @@ const KiekkoContainer = props => (
     {props.image && (
       <div>
         <h2>Esikatselu</h2>
+        <p>
+          Valinta-alue: {props.pixelCrop.width} x {props.pixelCrop.height}
+        </p>
         <ReactCrop
           src={props.image.base64}
           onChange={props.updateCrop}
@@ -116,7 +119,8 @@ const mapStateToProps = state => ({
   predicates: R.path(["kiekko", "predicates"], state),
   image: R.path(["kiekko", "image"], state),
   crop: R.path(["kiekko", "crop"], state),
-  croppedImage: R.path(["kiekko", "croppedImage"], state)
+  croppedImage: R.path(["kiekko", "croppedImage"], state),
+  pixelCrop: R.path(["kiekko", "pixelCrop"], state)
 })
 
 const mapDispatchToProps = dispatch => ({

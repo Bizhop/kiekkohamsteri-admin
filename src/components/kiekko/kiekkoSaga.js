@@ -54,14 +54,18 @@ const resizeImage = image =>
     img.src = image
     img.onload = function() {
       try {
-        const canvas = document.createElement("canvas")
-        canvas.width = 600
-        canvas.height = 600
-        const ctx = canvas.getContext("2d")
+        if (this.naturalWidth > 600) {
+          const canvas = document.createElement("canvas")
+          canvas.width = 600
+          canvas.height = 600
+          const ctx = canvas.getContext("2d")
 
-        ctx.drawImage(this, 0, 0, 600, 600)
+          ctx.drawImage(this, 0, 0, 600, 600)
 
-        resolve(canvas.toDataURL("image/jpeg"))
+          resolve(canvas.toDataURL("image/jpeg"))
+        } else {
+          resolve(this.src)
+        }
       } catch (e) {
         reject(e)
       }

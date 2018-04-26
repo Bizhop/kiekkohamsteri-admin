@@ -30,7 +30,11 @@ const initialState = {
   crop: {
     aspect: 1
   },
-  croppedImage: null
+  croppedImage: null,
+  pixelCrop: {
+    widht: "",
+    height: ""
+  }
 }
 
 const processCrop = (pixelCrop, base64) => {
@@ -131,12 +135,17 @@ const kiekkoReducer = (state = initialState, action) => {
     case UPDATE_CROP:
       return {
         ...state,
-        crop: action.crop
+        crop: action.crop,
+        pixelCrop: {
+          widht: "",
+          height: ""
+        }
       }
     case COMPLETE_CROP:
       return {
         ...state,
-        croppedImage: processCrop(action.pixelCrop, state.image.base64)
+        croppedImage: processCrop(action.pixelCrop, state.image.base64),
+        pixelCrop: action.pixelCrop
       }
     default:
       return state
