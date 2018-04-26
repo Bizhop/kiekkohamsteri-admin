@@ -22,9 +22,7 @@ import {
   kiekkoError,
   UPDATE_IMAGE,
   updateImageSuccess,
-  updateImageFailure,
-  CHOOSE_IMAGE,
-  resizeComplete
+  updateImageFailure
 } from "./kiekkoActions"
 import { logout } from "../user/userActions"
 import { getDropdownsByValmistaja } from "../dropdown/dropdownActions"
@@ -50,24 +48,20 @@ const updateFields = [
   "publicDisc"
 ]
 
-const resizeOriginalImage = image =>
+const resizeImage = image =>
   new Promise((resolve, reject) => {
     const img = new Image()
-    img.src = image.base64
+    img.src = image
     img.onload = function() {
       try {
-        const ratio = this.naturalWidth / this.naturalHeight
-        const width = ratio > 1 ? 600 : Math.round(600 / ratio)
-        const height = Math.round(600 / ratio)
-
         const canvas = document.createElement("canvas")
-        canvas.width = width
-        canvas.height = height
+        canvas.width = 600
+        canvas.height = 600
         const ctx = canvas.getContext("2d")
 
-        ctx.drawImage(img, 0, 0, width, height)
-        image.base64 = canvas.toDataURL("image/jpeg")
-        resolve(image)
+        ctx.drawImage(this, 0, 0, 600, 600)
+
+        resolve(canvas.toDataURL("image/jpeg"))
       } catch (e) {
         reject(e)
       }
@@ -122,9 +116,10 @@ function* toggleEditModalSaga(action) {
 
 function* uploadImageSaga(action) {
   try {
+    const resized = yield call(resizeImage, action.data)
     const response = yield call(Api.post, "api/kiekot", {
       name: "",
-      data: action.data
+      data: resized
     })
     yield put(uploadSuccess(response))
   } catch (e) {
@@ -155,9 +150,10 @@ function* applyPredicatesSaga() {
 
 function* updateImageSaga(action) {
   try {
+    const resized = yield call(resizeImage, action.params.image)
     yield call(Api.patch, `api/kiekot/${action.params.id}/update-image`, {
       name: "",
-      data: action.params.image
+      data: resized
     })
     yield put(getKiekot(defaultSort))
   } catch (e) {
@@ -166,15 +162,6 @@ function* updateImageSaga(action) {
     } else {
       yield put(updateImageFailure(e))
     }
-  }
-}
-
-function* resizeImageSaga(action) {
-  try {
-    const resized = yield call(resizeOriginalImage, action.image)
-    yield put(resizeComplete(resized))
-  } catch (e) {
-    console.log(e)
   }
 }
 
@@ -187,8 +174,7 @@ function* kiekkoSaga() {
     takeEvery(DELETE_DISC, deleteDiscSaga),
     takeEvery(APPLY_PREDICATES, applyPredicatesSaga),
     takeEvery(KIEKKO_REQUEST, getKiekkoSaga),
-    takeEvery(UPDATE_IMAGE, updateImageSaga),
-    takeEvery(CHOOSE_IMAGE, resizeImageSaga)
+    takeEvery(UPDATE_IMAGE, updateImageSaga)
   ]
 }
 

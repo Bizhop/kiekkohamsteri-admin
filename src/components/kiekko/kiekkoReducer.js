@@ -3,7 +3,7 @@ import R from "ramda"
 import {
   KIEKOT_SUCCESS,
   TOGGLE_KIEKKO_EDIT_MODAL,
-  RESIZE_COMPLETE,
+  CHOOSE_IMAGE,
   UPLOAD_SUCCESS,
   APPLY_PREDICATES,
   FILTER_KIEKOT,
@@ -15,6 +15,7 @@ import {
   COMPLETE_CROP,
   UPDATE_IMAGE_SUCCESS
 } from "./kiekkoActions"
+import { defaultSort } from "../shared/text"
 
 const initialState = {
   kiekot: [],
@@ -23,7 +24,7 @@ const initialState = {
   isEditOpen: false,
   kiekkoInEdit: null,
   image: null,
-  sortColumn: "Id",
+  sortColumn: defaultSort.newSortColumn,
   predicates: null,
   oneDiscText: "",
   crop: {
@@ -105,7 +106,7 @@ const kiekkoReducer = (state = initialState, action) => {
         isEditOpen: !state.isEditOpen,
         kiekkoInEdit: action.kiekko
       }
-    case RESIZE_COMPLETE:
+    case CHOOSE_IMAGE:
       return {
         ...state,
         image: action.image
