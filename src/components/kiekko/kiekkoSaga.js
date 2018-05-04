@@ -22,7 +22,10 @@ import {
   kiekkoError,
   UPDATE_IMAGE,
   updateImageSuccess,
-  updateImageFailure
+  updateImageFailure,
+  JULKISET_REQUEST,
+  julkisetSuccess,
+  julkisetFailure
 } from "./kiekkoActions"
 import { logout } from "../user/userActions"
 import { getDropdownsByValmistaja } from "../dropdown/dropdownActions"
@@ -169,6 +172,19 @@ function* updateImageSaga(action) {
   }
 }
 
+function* getJulkisetSaga(action) {
+  try {
+    const response = yield call(Api.get, "api/kiekot/public-lists")
+    yield put(julkisetSuccess(response))
+  } catch (e) {
+    if (e.response.status === 403) {
+      yield put(logout())
+    } else {
+      yield put(julkisetFailure(e))
+    }
+  }
+}
+
 function* kiekkoSaga() {
   yield [
     takeEvery(KIEKOT_REQUEST, getKiekotSaga),
@@ -178,7 +194,8 @@ function* kiekkoSaga() {
     takeEvery(DELETE_DISC, deleteDiscSaga),
     takeEvery(APPLY_PREDICATES, applyPredicatesSaga),
     takeEvery(KIEKKO_REQUEST, getKiekkoSaga),
-    takeEvery(UPDATE_IMAGE, updateImageSaga)
+    takeEvery(UPDATE_IMAGE, updateImageSaga),
+    takeEvery(JULKISET_REQUEST, getJulkisetSaga)
   ]
 }
 

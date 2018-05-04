@@ -20,6 +20,11 @@ export const COMPLETE_CROP = "COMPLETE_CROP"
 export const UPDATE_IMAGE = "UPDATE_IMAGE"
 export const UPDATE_IMAGE_FAILURE = "UPDATE_IMAGE_FAILURE"
 export const RESIZE_COMPLETE = "RESIZE_COMPLETE"
+export const JULKISET_REQUEST = "JULKISET_REQUEST"
+export const JULKISET_SUCCESS = "JULKISET_SUCCESS"
+export const JULKISET_FAILURE = "JULKISET_FAILURE"
+export const JULKISET_LAAJENNA = "JULKISET_LAAJENNA"
+export const JULKISET_SUPISTA = "JULKISET_SUPISTA"
 
 export const getKiekot = params => ({
   type: KIEKOT_REQUEST,
@@ -129,4 +134,28 @@ export const updateImageFailure = error => ({
 export const resizeComplete = image => ({
   type: RESIZE_COMPLETE,
   image
+})
+
+export const getJulkiset = () => ({
+  type: JULKISET_REQUEST
+})
+
+export const julkisetSuccess = response => ({
+  type: JULKISET_SUCCESS,
+  response
+})
+
+export const julkisetFailure = error => ({
+  type: JULKISET_FAILURE,
+  error
+})
+
+export const laajenna = username => ({
+  type: JULKISET_LAAJENNA,
+  username
+})
+
+export const supista = username => ({
+  type: JULKISET_SUPISTA,
+  username
 })

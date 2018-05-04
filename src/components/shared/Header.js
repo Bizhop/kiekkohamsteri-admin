@@ -23,13 +23,18 @@ const Header = props => (
                 </NavLink>
               </div>
               <div className="col-md-1 col-xs-12">
-                <NavLink to="/myytavat" className="nav-link nav-item" activeClassName="active">
-                  Myytävät
+                <NavLink to="/kaupat" className="nav-link nav-item" activeClassName="active">
+                  Kaupat
                 </NavLink>
               </div>
               <div className="col-md-1 col-xs-12">
                 <NavLink to="/rating" className="nav-link nav-item" activeClassName="active">
                   Rating
+                </NavLink>
+              </div>
+              <div className="col-md-1 col-xs-12">
+                <NavLink to="/muut" className="nav-link nav-item" activeClassName="active">
+                  Muut
                 </NavLink>
               </div>
             </div>

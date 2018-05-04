@@ -10,6 +10,7 @@ import KiekkoContainer from "./kiekko/KiekkoContainer"
 import YksiKiekkoContainer from "./kiekko/YksiKiekkoContainer"
 import MyytavatContainer from "./myytavat/MyytavatContainer"
 import RatingContainer from "./rating/RatingContainer"
+import MuutContainer from "./muut/MuutContainer"
 
 const NotFound = () => (
   <div className="container">
@@ -28,8 +29,9 @@ const Routes = () => (
       <Route exact path="/kiekot/:id" component={YksiKiekkoContainer} />
       <Route exact path="/molds" component={MoldContainer} />
       <Route exact path="/muovit" component={MuoviContainer} />
-      <Route exact path="/myytavat" component={MyytavatContainer} />
+      <Route exact path="/kaupat" component={MyytavatContainer} />
       <Route exact path="/rating" component={RatingContainer} />
+      <Route exact path="/muut" component={MuutContainer} />
       <Route component={NotFound} />
     </Switch>
   </div>

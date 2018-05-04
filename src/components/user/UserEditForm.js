@@ -16,6 +16,13 @@ const UserEditForm = props => (
       type="checkbox"
       normalize={v => !!v}
     />
+    <Field
+      name="publicList"
+      label="Julkinen listaus"
+      component={RenderCheckbox}
+      type="checkbox"
+      normalize={v => !!v}
+    />
     <button
       type="submit"
       className="btn btn-primary btn-block"

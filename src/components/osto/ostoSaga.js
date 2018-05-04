@@ -34,6 +34,7 @@ function* getOmatSaga(action) {
 function* buyDiscSaga(action) {
   try {
     yield call(Api.post, `api/kiekot/${action.id}/buy`)
+    yield put(getOmat())
     yield put(buyDiscSuccess())
   } catch (e) {
     if (e.response.status === 403) {

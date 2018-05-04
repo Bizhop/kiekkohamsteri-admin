@@ -10,11 +10,7 @@ import {
   requestUpdateMe,
   getLeaders
 } from "../user/userActions"
-import { getOmat, peruutaOsto, hyvaksyOsto } from "../osto/ostoActions"
 import UserEditModal from "../user/UserEditModal"
-import OstoTable from "./OstoTable"
-import MyyntiTable from "./MyyntiTable"
-import LeaderTable from "./LeaderTable"
 
 const DashContainer = props => (
   <div className="container">
@@ -51,34 +47,16 @@ const DashContainer = props => (
             <div className="col-md-2">Näytä lkm</div>
             <div className="col-md-5">{props.user.publicDiscCount ? "Kyllä" : "Ei"}</div>
           </div>
+          <div className="row">
+            <div className="col-md-2">Julkinen listaus</div>
+            <div className="col-md-5">{props.user.publicList ? "Kyllä" : "Ei"}</div>
+          </div>
           <div className="btn-group">
             <button className="btn btn-primary" onClick={() => props.toggleEditModal(props.user)}>
               Muokkaa
             </button>
           </div>
-          <h1>Omat ostot</h1>
-          {props.kaupat && (
-            <OstoTable
-              ostot={props.kaupat.ostajana}
-              action={{ action: props.peruuta, label: "Peruuta" }}
-            />
-          )}
-          <h1>Omat myynnit</h1>
-          {props.kaupat && (
-            <MyyntiTable
-              myynnit={props.kaupat.myyjana}
-              accept={{ action: props.accept, label: "Hyväksy" }}
-              cancel={{ action: props.peruuta, label: "Peruuta" }}
-            />
-          )}
-          <h1>Kunniataulukko</h1>
-          {props.leaders && (
-            <div className="row">
-              <div className="col-md-6">
-                <LeaderTable leaders={props.leaders} />
-              </div>
-            </div>
-          )}
+          <p>Huom! Listauksen julkaiseminen tekee kaikista kiekoistasi myös julkisia</p>
         </div>
       )
     ) : (
@@ -99,16 +77,10 @@ const mapStateToProps = state => ({
   user: R.path(["user", "user"], state),
   error: R.path(["user", "error"], state),
   isEditOpen: R.path(["user", "isEditModalOpen"], state),
-  userInEdit: R.path(["user", "userInEdit"], state),
-  kaupat: R.path(["osto", "data"], state),
-  leaders: R.path(["user", "leaders"], state)
+  userInEdit: R.path(["user", "userInEdit"], state)
 })
 
 const mapDispatchToProps = dispatch => ({
-  getOstot: dispatch(getOmat()),
-  getLeaders: dispatch(getLeaders()),
-  accept: id => dispatch(hyvaksyOsto(id)),
-  peruuta: id => dispatch(peruutaOsto(id)),
   login: response => dispatch(login(response)),
   loginError: response => dispatch(loginError(response)),
   toggleEditModal: user => dispatch(toggleEditModal(user)),

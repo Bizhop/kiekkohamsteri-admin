@@ -20,8 +20,7 @@ import {
   UPDATE_ME,
   leadersSuccess,
   leadersError,
-  LEADERS_REQUEST,
-  getLeaders
+  LEADERS_REQUEST
 } from "./userActions"
 import { getOmat } from "../osto/ostoActions"
 
@@ -89,10 +88,12 @@ function* updateMe(action) {
     yield call(
       Api.patch,
       `api/user/${action.user.id}`,
-      R.pick(["username", "etunimi", "sukunimi", "pdga_num", "publicDiscCount"], action.user)
+      R.pick(
+        ["username", "etunimi", "sukunimi", "pdga_num", "publicDiscCount", "publicList"],
+        action.user
+      )
     )
     yield put(getUserDetails())
-    yield put(getLeaders())
   } catch (e) {
     yield put(updateUserError(e))
   }

@@ -13,7 +13,11 @@ import {
   KIEKKO_FAILURE,
   UPDATE_CROP,
   COMPLETE_CROP,
-  UPDATE_IMAGE_SUCCESS
+  UPDATE_IMAGE_SUCCESS,
+  JULKISET_SUCCESS,
+  JULKISET_LAAJENNA,
+  JULKISET_REQUEST,
+  JULKISET_SUPISTA
 } from "./kiekkoActions"
 import { defaultSort } from "../shared/text"
 
@@ -34,7 +38,9 @@ const initialState = {
   pixelCrop: {
     widht: "",
     height: ""
-  }
+  },
+  julkiset: [],
+  julkisetVisible: []
 }
 
 const processCrop = (pixelCrop, base64) => {
@@ -146,6 +152,26 @@ const kiekkoReducer = (state = initialState, action) => {
         ...state,
         croppedImage: processCrop(action.pixelCrop, state.image.base64),
         pixelCrop: action.pixelCrop
+      }
+    case JULKISET_REQUEST:
+      return {
+        ...state,
+        julkisetVisible: []
+      }
+    case JULKISET_SUCCESS:
+      return {
+        ...state,
+        julkiset: action.response
+      }
+    case JULKISET_LAAJENNA:
+      return {
+        ...state,
+        julkisetVisible: R.uniq(R.append(action.username, state.julkisetVisible))
+      }
+    case JULKISET_SUPISTA:
+      return {
+        ...state,
+        julkisetVisible: R.without(action.username, state.julkisetVisible)
       }
     default:
       return state

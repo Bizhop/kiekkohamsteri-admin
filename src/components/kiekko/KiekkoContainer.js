@@ -86,6 +86,7 @@ const KiekkoContainer = props => (
       sortColumn={props.sortColumn}
       updateImage={props.updateImage}
       image={props.croppedImage}
+      editable={true}
     />
   </div>
 )

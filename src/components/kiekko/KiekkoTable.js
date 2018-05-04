@@ -12,14 +12,16 @@ const KiekkoTable = props => (
   <table className="table table-striped custom-table">
     <thead>
       <tr>
-        {tableHeaders.map(t => (
-          <ThWithButton
-            {...t}
-            key={t.label}
-            update={props.updateKiekot}
-            sortColumn={props.sortColumn}
-          />
-        ))}
+        {props.editable
+          ? tableHeaders.map(t => (
+              <ThWithButton
+                {...t}
+                key={t.label}
+                update={props.updateKiekot}
+                sortColumn={props.sortColumn}
+              />
+            ))
+          : tableHeaders.map(t => <ThWithButton {...t} sort={null} key={t.label} />)}
         <th />
         <th />
         <th />
@@ -34,6 +36,7 @@ const KiekkoTable = props => (
           deleteDisc={props.deleteDisc}
           updateImage={props.updateImage}
           image={props.image}
+          editable={props.editable}
         />
       ))}
     </tbody>
@@ -48,7 +51,12 @@ const Kiekko = props => {
         <ReactImageMagnify {...magnify(kiekko.kuva)} />
       </td>
       <td>
-        <NavLink to={`/kiekot/${kiekko.id}`} className="nav-link nav-item" activeClassName="active">
+        <NavLink
+          to={`/kiekot/${kiekko.id}`}
+          target="_disc"
+          className="nav-link nav-item"
+          activeClassName="active"
+        >
           {kiekko.id}
         </NavLink>
       </td>
@@ -61,43 +69,49 @@ const Kiekko = props => {
       <td>{kiekko.feidi}</td>
       <td>{kiekko.paino}</td>
       <td>
-        <input
-          type="image"
-          alt="upload"
-          src={upload}
-          height="15"
-          width="15"
-          disabled={props.image === null}
-          onClick={() =>
-            props.updateImage({
-              id: kiekko.id,
-              image: props.image
-            })}
-        />
+        {props.editable && (
+          <input
+            type="image"
+            alt="upload"
+            src={upload}
+            height="15"
+            width="15"
+            disabled={props.image === null}
+            onClick={() =>
+              props.updateImage({
+                id: kiekko.id,
+                image: props.image
+              })}
+          />
+        )}
       </td>
       <td>
-        <input
-          type="image"
-          alt="edit"
-          src={edit}
-          height="15"
-          width="15"
-          onClick={() => props.toggleEditModal(kiekko)}
-        />
+        {props.editable && (
+          <input
+            type="image"
+            alt="edit"
+            src={edit}
+            height="15"
+            width="15"
+            onClick={() => props.toggleEditModal(kiekko)}
+          />
+        )}
       </td>
       <td>
-        <input
-          type="image"
-          alt="delete"
-          src={del}
-          height="15"
-          width="15"
-          onClick={() =>
-            handleDelete({
-              id: kiekko.id,
-              confirm: props.deleteDisc
-            })}
-        />
+        {props.editable && (
+          <input
+            type="image"
+            alt="delete"
+            src={del}
+            height="15"
+            width="15"
+            onClick={() =>
+              handleDelete({
+                id: kiekko.id,
+                confirm: props.deleteDisc
+              })}
+          />
+        )}
       </td>
     </tr>
   )
