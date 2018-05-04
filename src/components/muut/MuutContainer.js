@@ -8,6 +8,7 @@ import { getLeaders } from "../user/userActions"
 import { getJulkiset, laajenna, supista } from "../kiekko/kiekkoActions"
 import KiekkoTable from "../kiekko/KiekkoTable"
 import { plus, minus } from "../shared/images"
+import { defaultSort } from "../shared/text"
 
 const MuutContainer = props => (
   <div className="container">
@@ -27,6 +28,8 @@ const MuutContainer = props => (
         julkisetVisible={props.julkisetVisible}
         laajenna={props.laajenna}
         supista={props.supista}
+        updateKiekot={props.updateKiekot}
+        sortColumn={props.sortColumn}
       />
     ))}
     {!props.loggedIn && <Redirect to="/" />}
@@ -54,7 +57,12 @@ const Julkiset = props => (
             width="30"
             onClick={() => props.supista(props.lista.username)}
           />
-          <KiekkoTable kiekot={props.lista.kiekot} editable={false} />
+          <KiekkoTable
+            kiekot={props.lista.kiekot}
+            editable={false}
+            updateKiekot={props.updateKiekot}
+            sortColumn={props.sortColumn}
+          />
         </div>
       )}
     </div>
@@ -65,14 +73,16 @@ const mapStateToProps = state => ({
   loggedIn: R.path(["user", "token"], state),
   leaders: R.path(["user", "leaders"], state),
   julkiset: R.path(["kiekko", "julkiset"], state),
-  julkisetVisible: R.path(["kiekko", "julkisetVisible"], state)
+  julkisetVisible: R.path(["kiekko", "julkisetVisible"], state),
+  sortColumn: R.path(["kiekko", "sortColumn"], state)
 })
 
 const mapDispatchToProps = dispatch => ({
   getLeaders: dispatch(getLeaders()),
-  getJulkiset: dispatch(getJulkiset()),
+  getJulkiset: dispatch(getJulkiset(defaultSort)),
   laajenna: username => dispatch(laajenna(username)),
-  supista: username => dispatch(supista(username))
+  supista: username => dispatch(supista(username)),
+  updateKiekot: params => dispatch(getJulkiset(params))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MuutContainer)

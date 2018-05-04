@@ -174,8 +174,16 @@ function* updateImageSaga(action) {
 
 function* getJulkisetSaga(action) {
   try {
-    const response = yield call(Api.get, "api/kiekot/public-lists")
-    yield put(julkisetSuccess(response))
+    const response = yield call(
+      Api.get,
+      `api/kiekot/public-lists?size=1000&sort=${action.params.sort}`
+    )
+    yield put(
+      julkisetSuccess({
+        julkiset: response,
+        newSortColumn: action.params.newSortColumn
+      })
+    )
   } catch (e) {
     if (e.response.status === 403) {
       yield put(logout())

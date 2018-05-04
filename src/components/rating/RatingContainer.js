@@ -40,11 +40,6 @@ const RatingContainer = props => (
   </div>
 )
 
-const pad = number => {
-  var s = "0" + number
-  return s.substring(s.length - 2)
-}
-
 const mapStateToProps = state => ({
   loggedIn: R.path(["user", "token"], state),
   user: R.path(["user", "user"], state),

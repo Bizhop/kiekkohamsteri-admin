@@ -136,13 +136,14 @@ export const resizeComplete = image => ({
   image
 })
 
-export const getJulkiset = () => ({
-  type: JULKISET_REQUEST
+export const getJulkiset = params => ({
+  type: JULKISET_REQUEST,
+  params
 })
 
-export const julkisetSuccess = response => ({
+export const julkisetSuccess = params => ({
   type: JULKISET_SUCCESS,
-  response
+  params
 })
 
 export const julkisetFailure = error => ({

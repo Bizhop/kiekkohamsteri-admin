@@ -12,16 +12,14 @@ const KiekkoTable = props => (
   <table className="table table-striped custom-table">
     <thead>
       <tr>
-        {props.editable
-          ? tableHeaders.map(t => (
-              <ThWithButton
-                {...t}
-                key={t.label}
-                update={props.updateKiekot}
-                sortColumn={props.sortColumn}
-              />
-            ))
-          : tableHeaders.map(t => <ThWithButton {...t} sort={null} key={t.label} />)}
+        {tableHeaders.map(t => (
+          <ThWithButton
+            {...t}
+            key={t.label}
+            update={props.updateKiekot}
+            sortColumn={props.sortColumn}
+          />
+        ))}
         <th />
         <th />
         <th />

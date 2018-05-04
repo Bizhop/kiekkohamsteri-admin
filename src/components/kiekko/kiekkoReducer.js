@@ -156,12 +156,13 @@ const kiekkoReducer = (state = initialState, action) => {
     case JULKISET_REQUEST:
       return {
         ...state,
-        julkisetVisible: []
+        julkiset: []
       }
     case JULKISET_SUCCESS:
       return {
         ...state,
-        julkiset: action.response
+        julkiset: action.params.julkiset,
+        sortColumn: action.params.newSortColumn
       }
     case JULKISET_LAAJENNA:
       return {
