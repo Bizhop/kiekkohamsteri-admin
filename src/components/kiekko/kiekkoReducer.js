@@ -24,7 +24,7 @@ import { defaultSort } from "../shared/text"
 const initialState = {
   kiekot: [],
   kiekko: null,
-  kiekotFiltered: [],
+  kiekotFiltered: null,
   isEditOpen: false,
   kiekkoInEdit: null,
   image: null,
@@ -39,7 +39,7 @@ const initialState = {
     widht: "",
     height: ""
   },
-  julkiset: [],
+  julkiset: null,
   julkisetVisible: []
 }
 
@@ -73,7 +73,7 @@ const kiekkoReducer = (state = initialState, action) => {
       return {
         ...state,
         kiekot: [],
-        kiekotFiltered: []
+        kiekotFiltered: null
       }
     case KIEKOT_SUCCESS:
       return {
@@ -156,7 +156,7 @@ const kiekkoReducer = (state = initialState, action) => {
     case JULKISET_REQUEST:
       return {
         ...state,
-        julkiset: []
+        julkiset: null
       }
     case JULKISET_SUCCESS:
       return {

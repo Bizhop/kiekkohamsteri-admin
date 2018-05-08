@@ -3,42 +3,50 @@ import ReactImageMagnify from "react-image-magnify"
 import { confirmAlert } from "react-confirm-alert"
 import "react-confirm-alert/src/react-confirm-alert.css"
 import { NavLink } from "react-router-dom"
+import { Spinner } from "react-activity"
+import "react-activity/dist/react-activity.css"
 
 import ThWithButton from "../shared/ThWithButton"
 import { edit, del, magnify, upload } from "../shared/images"
 import { defaultSort } from "../shared/text"
 
 const KiekkoTable = props => (
-  <table className="table table-striped custom-table">
-    <thead>
-      <tr>
-        {tableHeaders.map(t => (
-          <ThWithButton
-            {...t}
-            key={t.label}
-            update={props.updateKiekot}
-            sortColumn={props.sortColumn}
-          />
-        ))}
-        <th />
-        <th />
-        <th />
-      </tr>
-    </thead>
-    <tbody>
-      {props.kiekot.map(p => (
-        <Kiekko
-          key={p.id}
-          kiekko={p}
-          toggleEditModal={props.toggleEditModal}
-          deleteDisc={props.deleteDisc}
-          updateImage={props.updateImage}
-          image={props.image}
-          editable={props.editable}
-        />
-      ))}
-    </tbody>
-  </table>
+  <div>
+    {props.kiekot ? (
+      <table className="table table-striped custom-table">
+        <thead>
+          <tr>
+            {tableHeaders.map(t => (
+              <ThWithButton
+                {...t}
+                key={t.label}
+                update={props.updateKiekot}
+                sortColumn={props.sortColumn}
+              />
+            ))}
+            <th />
+            <th />
+            <th />
+          </tr>
+        </thead>
+        <tbody>
+          {props.kiekot.map(p => (
+            <Kiekko
+              key={p.id}
+              kiekko={p}
+              toggleEditModal={props.toggleEditModal}
+              deleteDisc={props.deleteDisc}
+              updateImage={props.updateImage}
+              image={props.image}
+              editable={props.editable}
+            />
+          ))}
+        </tbody>
+      </table>
+    ) : (
+      <Spinner />
+    )}
+  </div>
 )
 
 const Kiekko = props => {

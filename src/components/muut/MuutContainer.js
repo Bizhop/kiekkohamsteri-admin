@@ -2,6 +2,8 @@ import React from "react"
 import R from "ramda"
 import { connect } from "react-redux"
 import { Redirect } from "react-router-dom"
+import { Spinner } from "react-activity"
+import "react-activity/dist/react-activity.css"
 
 import LeaderTable from "./LeaderTable"
 import { getLeaders } from "../user/userActions"
@@ -21,17 +23,21 @@ const MuutContainer = props => (
       </div>
     )}
     <h1>Julkiset listat</h1>
-    {props.julkiset.map(j => (
-      <Julkiset
-        lista={j}
-        key={j.username}
-        julkisetVisible={props.julkisetVisible}
-        laajenna={props.laajenna}
-        supista={props.supista}
-        updateKiekot={props.updateKiekot}
-        sortColumn={props.sortColumn}
-      />
-    ))}
+    {props.julkiset ? (
+      props.julkiset.map(j => (
+        <Julkiset
+          lista={j}
+          key={j.username}
+          julkisetVisible={props.julkisetVisible}
+          laajenna={props.laajenna}
+          supista={props.supista}
+          updateKiekot={props.updateKiekot}
+          sortColumn={props.sortColumn}
+        />
+      ))
+    ) : (
+      <Spinner />
+    )}
     {!props.loggedIn && <Redirect to="/" />}
   </div>
 )

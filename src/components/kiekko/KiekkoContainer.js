@@ -109,7 +109,7 @@ const KiekkoEditModal = props => (
 
 const mapStateToProps = state => ({
   loggedIn: R.path(["user", "token"], state),
-  kiekot: R.pathOr([], ["kiekko", "kiekotFiltered"], state),
+  kiekot: R.path(["kiekko", "kiekotFiltered"], state),
   total: R.length(R.pathOr([], ["kiekko", "kiekot"], state)),
   totalFiltered: R.length(R.pathOr([], ["kiekko", "kiekotFiltered"], state)),
   sortColumn: R.path(["kiekko", "sortColumn"], state),
