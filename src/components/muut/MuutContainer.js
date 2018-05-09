@@ -11,6 +11,8 @@ import { getJulkiset, laajenna, supista } from "../kiekko/kiekkoActions"
 import KiekkoTable from "../kiekko/KiekkoTable"
 import { plus, minus } from "../shared/images"
 import { defaultSort } from "../shared/text"
+import { getStats } from "./muutActions"
+import StatsTable from "./StatsTable"
 
 const MuutContainer = props => (
   <div className="container">
@@ -21,6 +23,20 @@ const MuutContainer = props => (
           <LeaderTable leaders={props.leaders} />
         </div>
       </div>
+    )}
+    <h1>Statistiikat</h1>
+    {props.stats ? (
+      <div className="row">
+        <div className="col-md-6">
+          <StatsTable
+            stats={props.stats}
+            sortColumn={props.statsSortColumn}
+            update={props.updateStats}
+          />
+        </div>
+      </div>
+    ) : (
+      <Spinner />
     )}
     <h1>Julkiset listat</h1>
     {props.julkiset ? (
@@ -80,15 +96,24 @@ const mapStateToProps = state => ({
   leaders: R.path(["user", "leaders"], state),
   julkiset: R.path(["kiekko", "julkiset"], state),
   julkisetVisible: R.path(["kiekko", "julkisetVisible"], state),
-  sortColumn: R.path(["kiekko", "sortColumn"], state)
+  sortColumn: R.path(["kiekko", "sortColumn"], state),
+  statsSortColumn: R.path(["muut", "sortColumn"], state),
+  stats: R.path(["muut", "stats"], state)
 })
 
 const mapDispatchToProps = dispatch => ({
   getLeaders: dispatch(getLeaders()),
   getJulkiset: dispatch(getJulkiset(defaultSort)),
+  getStats: dispatch(
+    getStats({
+      sort: "year,desc&sort=month,desc",
+      newSortColumn: "Kuukausi"
+    })
+  ),
   laajenna: username => dispatch(laajenna(username)),
   supista: username => dispatch(supista(username)),
-  updateKiekot: params => dispatch(getJulkiset(params))
+  updateKiekot: params => dispatch(getJulkiset(params)),
+  updateStats: params => dispatch(getStats(params))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MuutContainer)

@@ -8,6 +8,7 @@ import kiekkoSaga from "./components/kiekko/kiekkoSaga"
 import myytavatSaga from "./components/myytavat/myytavatSaga"
 import ratingSaga from "./components/rating/ratingSaga"
 import ostoSaga from "./components/osto/ostoSaga"
+import muutSaga from "./components/muut/muutSaga"
 
 function* rootSaga() {
   yield [
@@ -18,7 +19,8 @@ function* rootSaga() {
     fork(kiekkoSaga),
     fork(myytavatSaga),
     fork(ratingSaga),
-    fork(ostoSaga)
+    fork(ostoSaga),
+    fork(muutSaga)
   ]
 }
 
