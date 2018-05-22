@@ -100,15 +100,22 @@ const KiekkoEditForm = props => (
       normalize={v => !!v}
     />
     <Field
-      name="myynnissa"
-      label="Myynnissä"
+      name="publicDisc"
+      label="Julkinen"
       component={RenderCheckbox}
       type="checkbox"
       normalize={v => !!v}
     />
     <Field
-      name="publicDisc"
-      label="Julkinen"
+      name="lost"
+      label="Kadonnut"
+      component={RenderCheckbox}
+      type="checkbox"
+      normalize={v => !!v}
+    />
+    <Field
+      name="myynnissa"
+      label="Myynnissä"
       component={RenderCheckbox}
       type="checkbox"
       normalize={v => !!v}

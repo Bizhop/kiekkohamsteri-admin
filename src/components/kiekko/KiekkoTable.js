@@ -7,7 +7,7 @@ import { Spinner } from "react-activity"
 import "react-activity/dist/react-activity.css"
 
 import ThWithButton from "../shared/ThWithButton"
-import { edit, del, magnify, upload } from "../shared/images"
+import { edit, del, magnify, upload, check } from "../shared/images"
 import { defaultSort } from "../shared/text"
 
 const KiekkoTable = props => (
@@ -24,6 +24,15 @@ const KiekkoTable = props => (
                 sortColumn={props.sortColumn}
               />
             ))}
+            {props.lostDiscs && (
+              <ThWithButton
+                label="Pvm"
+                sort="createdAt,desc"
+                update={props.updateKiekot}
+                sortColumn={props.sortColumn}
+              />
+            )}
+            {props.lostDiscs && <ThWithButton label="Löytynyt" />}
             <th />
             <th />
             <th />
@@ -39,6 +48,9 @@ const KiekkoTable = props => (
               updateImage={props.updateImage}
               image={props.image}
               editable={props.editable}
+              lostDiscs={props.lostDiscs}
+              username={props.username}
+              found={props.found}
             />
           ))}
         </tbody>
@@ -74,6 +86,21 @@ const Kiekko = props => {
       <td>{kiekko.vakaus}</td>
       <td>{kiekko.feidi}</td>
       <td>{kiekko.paino}</td>
+      {props.lostDiscs && <td>{kiekko.createdAt}</td>}
+      {props.lostDiscs && (
+        <td>
+          {props.username === kiekko.omistaja && (
+            <input
+              type="image"
+              alt="found"
+              src={check}
+              height="15"
+              width="15"
+              onClick={() => props.found(kiekko.id)}
+            />
+          )}
+        </td>
+      )}
       <td>
         {props.editable && (
           <input

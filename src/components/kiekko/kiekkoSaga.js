@@ -25,7 +25,11 @@ import {
   updateImageFailure,
   JULKISET_REQUEST,
   julkisetSuccess,
-  julkisetFailure
+  julkisetFailure,
+  LOST_REQUEST,
+  lostSuccess,
+  FOUND_REQUEST,
+  getLost
 } from "./kiekkoActions"
 import { logout } from "../user/userActions"
 import { getDropdownsByValmistaja } from "../dropdown/dropdownActions"
@@ -48,7 +52,8 @@ const updateFields = [
   "spessu",
   "swirly",
   "hinta",
-  "publicDisc"
+  "publicDisc",
+  "lost"
 ]
 
 const resizeImage = image =>
@@ -193,6 +198,38 @@ function* getJulkisetSaga(action) {
   }
 }
 
+function* getLostSaga(action) {
+  try {
+    const response = yield call(Api.get, `api/kiekot/lost?size=1000&sort=${action.params.sort}`)
+    yield put(
+      lostSuccess({
+        lost: response.content,
+        newSortColumn: action.params.newSortColumn
+      })
+    )
+  } catch (e) {
+    if (e.response.status === 403) {
+      yield put(logout())
+    } else {
+      yield put(lostFailure(e))
+    }
+  }
+}
+
+function* foundSaga(action) {
+  try {
+    yield call(Api.patch, `api/kiekot/${action.id}/found`)
+    yield put(
+      getLost({
+        sort: "updatedAt,desc",
+        newSortColumn: "Pvm"
+      })
+    )
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 function* kiekkoSaga() {
   yield [
     takeEvery(KIEKOT_REQUEST, getKiekotSaga),
@@ -203,7 +240,9 @@ function* kiekkoSaga() {
     takeEvery(APPLY_PREDICATES, applyPredicatesSaga),
     takeEvery(KIEKKO_REQUEST, getKiekkoSaga),
     takeEvery(UPDATE_IMAGE, updateImageSaga),
-    takeEvery(JULKISET_REQUEST, getJulkisetSaga)
+    takeEvery(JULKISET_REQUEST, getJulkisetSaga),
+    takeEvery(LOST_REQUEST, getLostSaga),
+    takeEvery(FOUND_REQUEST, foundSaga)
   ]
 }
 

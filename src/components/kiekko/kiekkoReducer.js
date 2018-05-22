@@ -17,7 +17,9 @@ import {
   JULKISET_SUCCESS,
   JULKISET_LAAJENNA,
   JULKISET_REQUEST,
-  JULKISET_SUPISTA
+  JULKISET_SUPISTA,
+  LOST_REQUEST,
+  LOST_SUCCESS
 } from "./kiekkoActions"
 import { defaultSort } from "../shared/text"
 
@@ -40,7 +42,9 @@ const initialState = {
     height: ""
   },
   julkiset: null,
-  julkisetVisible: []
+  julkisetVisible: [],
+  lost: null,
+  lostSortColumn: null
 }
 
 const processCrop = (pixelCrop, base64) => {
@@ -173,6 +177,17 @@ const kiekkoReducer = (state = initialState, action) => {
       return {
         ...state,
         julkisetVisible: R.without(action.username, state.julkisetVisible)
+      }
+    case LOST_REQUEST:
+      return {
+        ...state,
+        lost: null
+      }
+    case LOST_SUCCESS:
+      return {
+        ...state,
+        lost: action.params.lost,
+        lostSortColumn: action.params.newSortColumn
       }
     default:
       return state

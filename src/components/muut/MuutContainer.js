@@ -7,7 +7,7 @@ import "react-activity/dist/react-activity.css"
 
 import LeaderTable from "./LeaderTable"
 import { getLeaders } from "../user/userActions"
-import { getJulkiset, laajenna, supista } from "../kiekko/kiekkoActions"
+import { getJulkiset, laajenna, supista, getLost, found } from "../kiekko/kiekkoActions"
 import KiekkoTable from "../kiekko/KiekkoTable"
 import { plus, minus } from "../shared/images"
 import { defaultSort } from "../shared/text"
@@ -54,6 +54,20 @@ const MuutContainer = props => (
     ) : (
       <Spinner />
     )}
+    <h1>Kadonneet</h1>
+    {props.lost ? (
+      <KiekkoTable
+        kiekot={props.lost}
+        editable={false}
+        lostDiscs={true}
+        updateKiekot={props.updateLost}
+        sortColumn={props.lostSortColumn}
+        username={props.username}
+        found={props.found}
+      />
+    ) : (
+      <Spinner />
+    )}
     {!props.loggedIn && <Redirect to="/" />}
   </div>
 )
@@ -93,12 +107,15 @@ const Julkiset = props => (
 
 const mapStateToProps = state => ({
   loggedIn: R.path(["user", "token"], state),
+  username: R.path(["user", "user", "username"], state),
   leaders: R.path(["user", "leaders"], state),
   julkiset: R.path(["kiekko", "julkiset"], state),
   julkisetVisible: R.path(["kiekko", "julkisetVisible"], state),
   sortColumn: R.path(["kiekko", "sortColumn"], state),
   statsSortColumn: R.path(["muut", "sortColumn"], state),
-  stats: R.path(["muut", "stats"], state)
+  stats: R.path(["muut", "stats"], state),
+  lost: R.path(["kiekko", "lost"], state),
+  lostSortColumn: R.path(["kiekko", "lostSortColumn"], state)
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -110,10 +127,18 @@ const mapDispatchToProps = dispatch => ({
       newSortColumn: "Kuukausi"
     })
   ),
+  getLost: dispatch(
+    getLost({
+      sort: "updatedAt,desc",
+      newSortColumn: "Pvm"
+    })
+  ),
   laajenna: username => dispatch(laajenna(username)),
   supista: username => dispatch(supista(username)),
   updateKiekot: params => dispatch(getJulkiset(params)),
-  updateStats: params => dispatch(getStats(params))
+  updateLost: params => dispatch(getLost(params)),
+  updateStats: params => dispatch(getStats(params)),
+  found: id => dispatch(found(id))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(MuutContainer)

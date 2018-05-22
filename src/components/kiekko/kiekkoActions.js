@@ -25,6 +25,10 @@ export const JULKISET_SUCCESS = "JULKISET_SUCCESS"
 export const JULKISET_FAILURE = "JULKISET_FAILURE"
 export const JULKISET_LAAJENNA = "JULKISET_LAAJENNA"
 export const JULKISET_SUPISTA = "JULKISET_SUPISTA"
+export const LOST_REQUEST = "LOST_REQUEST"
+export const LOST_SUCCESS = "LOST_SUCCESS"
+export const LOST_FAILURE = "LOST_FAILURE"
+export const FOUND_REQUEST = "FOUND_REQUEST"
 
 export const getKiekot = params => ({
   type: KIEKOT_REQUEST,
@@ -159,4 +163,24 @@ export const laajenna = username => ({
 export const supista = username => ({
   type: JULKISET_SUPISTA,
   username
+})
+
+export const getLost = params => ({
+  type: LOST_REQUEST,
+  params
+})
+
+export const lostSuccess = params => ({
+  type: LOST_SUCCESS,
+  params
+})
+
+export const lostFailure = error => ({
+  type: LOST_FAILURE,
+  error
+})
+
+export const found = id => ({
+  type: FOUND_REQUEST,
+  id
 })
