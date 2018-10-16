@@ -25,9 +25,9 @@ export const ratingError = error => ({
   error
 })
 
-export const getCustomRating = rounds => ({
+export const getCustomRating = form => ({
   type: CUSTOM_RATING_REQUEST,
-  rounds
+  form
 })
 
 export const customRatingSuccess = response => ({

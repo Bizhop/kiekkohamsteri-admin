@@ -47,6 +47,15 @@ const RatingContainer = props => (
       </div>
     )}
 
+    {props.customRating && (
+      <div className="row rating">
+        <div className="col-md-2">
+          <strong>Spekuloitu rating</strong>
+        </div>
+        <div className="col-md-2">{props.customRating}</div>
+      </div>
+    )}
+
     {!props.loggedIn && <Redirect to="/" />}
   </div>
 )
@@ -56,6 +65,7 @@ const mapStateToProps = state => ({
   user: R.path(["user", "user"], state),
   error: R.path(["rating", "error"], state),
   nextRating: R.path(["rating", "nextRating"], state),
+  customRating: R.path(["rating", "customRating"], state),
   rating: R.pathOr({}, ["rating"], state),
   fetching: R.path(["rating", "fetching"], state),
   roundsValues: R.pathOr({}, ["form", "roundsForm", "values"], state)
@@ -64,7 +74,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   init: dispatch(initRating()),
   getRating: pdga => dispatch(getRating(pdga)),
-  getCustomRating: rounds => dispatch(getCustomRating(rounds))
+  getCustomRating: form => dispatch(getCustomRating(form))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RatingContainer)

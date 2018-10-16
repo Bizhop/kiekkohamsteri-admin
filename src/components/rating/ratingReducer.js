@@ -1,4 +1,12 @@
-import { RATING_SUCCESS, RATING_FAILURE, RATING_REQUEST, INIT_RATING } from "./ratingActions"
+import {
+  RATING_SUCCESS,
+  RATING_FAILURE,
+  RATING_REQUEST,
+  INIT_RATING,
+  CUSTOM_RATING_REQUEST,
+  CUSTOM_RATING_SUCCESS,
+  CUSTOM_RATING_FAILURE
+} from "./ratingActions"
 
 const initialState = {
   rounds: [],
@@ -22,6 +30,7 @@ const ratingReducer = (state = initialState, action) => {
       return {
         ...state,
         nextRating: null,
+        customRating: null,
         error: null,
         fetching: true,
         rounds: []
@@ -42,6 +51,17 @@ const ratingReducer = (state = initialState, action) => {
         customRating: null,
         error: "Tietojen haku ei onnistunut",
         fetching: false
+      }
+    case CUSTOM_RATING_REQUEST:
+    case CUSTOM_RATING_FAILURE:
+      return {
+        ...state,
+        customRating: null
+      }
+    case CUSTOM_RATING_SUCCESS:
+      return {
+        ...state,
+        customRating: action.response
       }
     default:
       return state

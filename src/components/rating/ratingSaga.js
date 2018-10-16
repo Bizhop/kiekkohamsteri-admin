@@ -1,7 +1,14 @@
 import { call, put, takeEvery } from "redux-saga/effects"
 
 import Api from "../Api"
-import { RATING_REQUEST, ratingSuccess, ratingError } from "./ratingActions"
+import {
+  RATING_REQUEST,
+  ratingSuccess,
+  ratingError,
+  CUSTOM_RATING_REQUEST,
+  customRatingSuccess,
+  customRatingFailure
+} from "./ratingActions"
 
 function* getRatingSaga(action) {
   try {
@@ -12,8 +19,20 @@ function* getRatingSaga(action) {
   }
 }
 
+function* getCustomRatingSaga(action) {
+  try {
+    const response = yield call(Api.post, "api/rating", action.form.rounds)
+    yield put(customRatingSuccess(response))
+  } catch (e) {
+    yield put(customRatingFailure(e))
+  }
+}
+
 function* ratingSaga() {
-  yield [takeEvery(RATING_REQUEST, getRatingSaga)]
+  yield [
+    takeEvery(RATING_REQUEST, getRatingSaga),
+    takeEvery(CUSTOM_RATING_REQUEST, getCustomRatingSaga)
+  ]
 }
 
 export default ratingSaga
