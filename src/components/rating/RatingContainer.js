@@ -5,7 +5,8 @@ import { Redirect } from "react-router-dom"
 import { Spinner } from "react-activity"
 import "react-activity/dist/react-activity.css"
 
-import { getRating } from "./ratingActions"
+import { getRating, getCustomRating } from "./ratingActions"
+import RoundsForm from "./RoundsForm"
 
 const RatingContainer = props => (
   <div className="container">
@@ -20,6 +21,7 @@ const RatingContainer = props => (
         </button>
       </div>
     </div>
+
     {props.error && (
       <div className="row rating">
         <div className="col-md-4">
@@ -27,15 +29,24 @@ const RatingContainer = props => (
         </div>
       </div>
     )}
+
     {props.fetching && <Spinner />}
     {props.nextRating && (
-      <div className="row rating">
-        <div className="col-md-2">
-          <strong>Uusi rating</strong>
+      <div>
+        <div className="row rating">
+          <div className="col-md-2">
+            <strong>Uusi rating</strong>
+          </div>
+          <div className="col-md-2">{props.nextRating}</div>
         </div>
-        <div className="col-md-2">{props.nextRating}</div>
+        <RoundsForm
+          onSubmit={props.getCustomRating}
+          initialValues={props.rating}
+          roundsValues={props.roundsValues}
+        />
       </div>
     )}
+
     {!props.loggedIn && <Redirect to="/" />}
   </div>
 )
@@ -45,11 +56,14 @@ const mapStateToProps = state => ({
   user: R.path(["user", "user"], state),
   error: R.path(["rating", "error"], state),
   nextRating: R.path(["rating", "nextRating"], state),
-  fetching: R.path(["rating", "fetching"], state)
+  rating: R.pathOr({}, ["rating"], state),
+  fetching: R.path(["rating", "fetching"], state),
+  roundsValues: R.pathOr({}, ["form", "roundsForm", "values"], state)
 })
 
 const mapDispatchToProps = dispatch => ({
-  getRating: pdga => dispatch(getRating(pdga))
+  getRating: pdga => dispatch(getRating(pdga)),
+  getCustomRating: rounds => dispatch(getCustomRating(rounds))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(RatingContainer)

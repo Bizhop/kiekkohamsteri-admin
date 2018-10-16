@@ -1,6 +1,9 @@
 export const RATING_REQUEST = "RATING_REQUEST"
 export const RATING_SUCCESS = "RATING_SUCCESS"
 export const RATING_FAILURE = "RATING_FAILURE"
+export const CUSTOM_RATING_REQUEST = "CUSTOM_RATING_REQUEST"
+export const CUSTOM_RATING_SUCCESS = "CUSTOM_RATING_SUCCESS"
+export const CUSTOM_RATING_FAILURE = "CUSTOM_RATING_FAILURE"
 
 export const getRating = pdga => ({
   type: RATING_REQUEST,
@@ -14,5 +17,20 @@ export const ratingSuccess = response => ({
 
 export const ratingError = error => ({
   type: RATING_FAILURE,
+  error
+})
+
+export const getCustomRating = rounds => ({
+  type: CUSTOM_RATING_REQUEST,
+  rounds
+})
+
+export const customRatingSuccess = response => ({
+  type: CUSTOM_RATING_SUCCESS,
+  response
+})
+
+export const customRatingFailure = error => ({
+  type: CUSTOM_RATING_FAILURE,
   error
 })
