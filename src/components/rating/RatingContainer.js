@@ -5,19 +5,19 @@ import { Redirect } from "react-router-dom"
 import { Spinner } from "react-activity"
 import "react-activity/dist/react-activity.css"
 
-import { getRating, getCustomRating } from "./ratingActions"
+import { getRating, getCustomRating, initRating } from "./ratingActions"
 import RoundsForm from "./RoundsForm"
 
 const RatingContainer = props => (
   <div className="container">
-    <h1>Rating noppa</h1>
+    <h1>Rating-laskuri</h1>
     <div className="row">
       <div className="col-md-2">
         <button
           className="btn btn-primary btn-block"
           onClick={() => props.getRating(props.user.pdga_num)}
         >
-          Arvo rating
+          Hae kierrokset
         </button>
       </div>
     </div>
@@ -35,7 +35,7 @@ const RatingContainer = props => (
       <div>
         <div className="row rating">
           <div className="col-md-2">
-            <strong>Uusi rating</strong>
+            <strong>Laskettu rating</strong>
           </div>
           <div className="col-md-2">{props.nextRating}</div>
         </div>
@@ -62,6 +62,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
+  init: dispatch(initRating()),
   getRating: pdga => dispatch(getRating(pdga)),
   getCustomRating: rounds => dispatch(getCustomRating(rounds))
 })

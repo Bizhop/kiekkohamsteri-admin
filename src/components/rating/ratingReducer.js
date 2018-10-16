@@ -1,4 +1,4 @@
-import { RATING_SUCCESS, RATING_FAILURE, RATING_REQUEST } from "./ratingActions"
+import { RATING_SUCCESS, RATING_FAILURE, RATING_REQUEST, INIT_RATING } from "./ratingActions"
 
 const initialState = {
   rounds: [],
@@ -10,6 +10,14 @@ const initialState = {
 
 const ratingReducer = (state = initialState, action) => {
   switch (action.type) {
+    case INIT_RATING:
+      return {
+        ...state,
+        nextRating: null,
+        error: null,
+        fetching: false,
+        rounds: []
+      }
     case RATING_REQUEST:
       return {
         ...state,
