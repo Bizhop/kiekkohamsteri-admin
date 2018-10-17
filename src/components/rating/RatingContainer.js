@@ -20,6 +20,16 @@ const RatingContainer = props => (
           Hae kierrokset
         </button>
       </div>
+      {props.nextRating && (
+        <div className="col-md-4">
+          <div className="row">
+            <div className="col-md-6">
+              <strong>Laskettu rating</strong>
+            </div>
+            <div className="col-md-6">{props.nextRating}</div>
+          </div>
+        </div>
+      )}
     </div>
 
     {props.error && (
@@ -33,26 +43,12 @@ const RatingContainer = props => (
     {props.fetching && <Spinner />}
     {props.nextRating && (
       <div>
-        <div className="row rating">
-          <div className="col-md-2">
-            <strong>Laskettu rating</strong>
-          </div>
-          <div className="col-md-2">{props.nextRating}</div>
-        </div>
         <RoundsForm
           onSubmit={props.getCustomRating}
           initialValues={props.rating}
           roundsValues={props.roundsValues}
+          customRating={props.customRating}
         />
-      </div>
-    )}
-
-    {props.customRating && (
-      <div className="row rating">
-        <div className="col-md-2">
-          <strong>Spekuloitu rating</strong>
-        </div>
-        <div className="col-md-2">{props.customRating}</div>
       </div>
     )}
 
