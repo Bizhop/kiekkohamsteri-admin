@@ -45,7 +45,11 @@ function* getMyDetailsSaga() {
     const response = yield call(Api.get, "api/user/me")
     yield put(userDetailsSuccess(response))
   } catch (e) {
-    yield put(userDetailsFailure(e))
+    if (e.response.status === 403) {
+      yield put(logout())
+    } else {
+      yield put(userDetailsFailure(e))
+    }
   }
 }
 
