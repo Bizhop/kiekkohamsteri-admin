@@ -7,7 +7,8 @@ import {
   UPDATE_FAILURE,
   LOGOUT,
   LOGIN_ERROR,
-  LEADERS_SUCCESS
+  LEADERS_SUCCESS,
+  USER_DETAILS_SUCCESS
 } from "./userActions"
 
 const initialState = {
@@ -37,6 +38,11 @@ const userReducer = (state = initialState, action) => {
         error: null,
         isEditModalOpen: false
       }
+    case USER_DETAILS_SUCCESS:
+      return {
+        ...state,
+        user: action.user
+      }
     case USERS_FAILURE:
       return {
         ...state,
@@ -62,7 +68,6 @@ const userReducer = (state = initialState, action) => {
     case LOGOUT:
     case LOGIN_ERROR:
       localStorage.removeItem("hamsteri-token")
-      localStorage.removeItem("hamsteri-email")
       return {
         ...state,
         user: null,

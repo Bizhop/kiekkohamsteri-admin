@@ -15,14 +15,15 @@ import {
   logout,
   PROMOTE_USER,
   DEMOTE_USER,
-  GET_USER_DETAILS,
-  getUserDetails,
   UPDATE_ME,
   leadersSuccess,
   leadersError,
-  LEADERS_REQUEST
+  LEADERS_REQUEST,
+  GET_MY_DETAILS,
+  getMyDetails,
+  userDetailsSuccess,
+  userDetailsFailure
 } from "./userActions"
-import { getOmat } from "../osto/ostoActions"
 
 function* login(action) {
   try {
@@ -32,28 +33,19 @@ function* login(action) {
         Authorization: token
       }
     })
-    localStorage.setItem("hamsteri-token", token)
-    localStorage.setItem("hamsteri-email", response.email)
+    localStorage.setItem("hamsteri-token", response.jwt)
     yield put(loginSuccess(response))
-    yield put(getOmat())
   } catch (e) {
     yield put(loginError(e))
   }
 }
 
-function* getUserDetailsSaga() {
+function* getMyDetailsSaga() {
   try {
-    const token = localStorage.getItem("hamsteri-token")
-    const response = yield call(Api.getRaw, "api/auth/login", {
-      headers: {
-        Authorization: token
-      }
-    })
-    localStorage.setItem("hamsteri-token", token)
-    localStorage.setItem("hamsteri-email", response.email)
-    yield put(loginSuccess(response))
+    const response = yield call(Api.get, "api/user/me")
+    yield put(userDetailsSuccess(response))
   } catch (e) {
-    yield put(loginError(e))
+    yield put(userDetailsFailure(e))
   }
 }
 
@@ -93,7 +85,7 @@ function* updateMe(action) {
         action.user
       )
     )
-    yield put(getUserDetails())
+    yield put(getMyDetails())
   } catch (e) {
     yield put(updateUserError(e))
   }
@@ -137,9 +129,9 @@ function* userSaga() {
     takeEvery(UPDATE_REQUEST, update),
     takeEvery(PROMOTE_USER, promoteUserSaga),
     takeEvery(DEMOTE_USER, demoteUserSaga),
-    takeEvery(GET_USER_DETAILS, getUserDetailsSaga),
     takeEvery(UPDATE_ME, updateMe),
-    takeEvery(LEADERS_REQUEST, getLeadersSaga)
+    takeEvery(LEADERS_REQUEST, getLeadersSaga),
+    takeEvery(GET_MY_DETAILS, getMyDetailsSaga)
   ]
 }
 

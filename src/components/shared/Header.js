@@ -3,7 +3,7 @@ import R from "ramda"
 import { NavLink } from "react-router-dom"
 import { connect } from "react-redux"
 
-import { logout, getUserDetails } from "../user/userActions"
+import { logout, getMyDetails } from "../user/userActions"
 
 const Header = props => (
   <div>
@@ -83,7 +83,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getUserDetails: dispatch(getUserDetails()),
+  getMyDetails: dispatch(getMyDetails()),
   logout: () => dispatch(logout())
 })
 

@@ -10,7 +10,9 @@ export const UPDATE_FAILURE = "UPDATE_FAILURE"
 export const LOGOUT = "LOGOUT"
 export const PROMOTE_USER = "PROMOTE_USER"
 export const DEMOTE_USER = "DEMOTE_USER"
-export const GET_USER_DETAILS = "GET_USER_DETAILS"
+export const GET_MY_DETAILS = "GET_MY_DETAILS"
+export const USER_DETAILS_SUCCESS = "USER_DETAILS_SUCCESS"
+export const USER_DETAILS_FAILURE = "USER_DETAILS_FAILURE"
 export const UPDATE_ME = "UPDATE_ME"
 export const LEADERS_REQUEST = "LEADERS_REQUEST"
 export const LEADERS_SUCCESS = "LEADERS_SUCCESS"
@@ -79,8 +81,18 @@ export const demoteUser = userId => ({
   userId
 })
 
-export const getUserDetails = () => ({
-  type: GET_USER_DETAILS
+export const getMyDetails = () => ({
+  type: GET_MY_DETAILS
+})
+
+export const userDetailsSuccess = user => ({
+  type: USER_DETAILS_SUCCESS,
+  user
+})
+
+export const userDetailsFailure = error => ({
+  type: USER_DETAILS_FAILURE,
+  error
 })
 
 export const getLeaders = () => ({

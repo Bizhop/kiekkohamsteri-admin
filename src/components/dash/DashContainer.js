@@ -3,13 +3,7 @@ import R from "ramda"
 import { connect } from "react-redux"
 import GoogleLogin from "react-google-login"
 
-import {
-  login,
-  loginError,
-  toggleEditModal,
-  requestUpdateMe,
-  getLeaders
-} from "../user/userActions"
+import { login, loginError, toggleEditModal, requestUpdateMe } from "../user/userActions"
 import UserEditModal from "../user/UserEditModal"
 
 const DashContainer = props => (
