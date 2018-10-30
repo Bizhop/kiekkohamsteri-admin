@@ -41,7 +41,9 @@ const userReducer = (state = initialState, action) => {
     case USER_DETAILS_SUCCESS:
       return {
         ...state,
-        user: action.user
+        user: action.user,
+        error: null,
+        isEditModalOpen: false
       }
     case USERS_FAILURE:
       return {
@@ -69,8 +71,7 @@ const userReducer = (state = initialState, action) => {
     case LOGIN_ERROR:
       localStorage.removeItem("hamsteri-token")
       return {
-        ...state,
-        user: null,
+        ...initialState,
         token: null
       }
     case LEADERS_SUCCESS:
