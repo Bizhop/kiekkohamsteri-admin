@@ -2,12 +2,23 @@ import R from "ramda"
 import React from "react"
 import { FieldArray, Field, reduxForm } from "redux-form"
 
-import { RenderCheckbox, RenderTextInput } from "../shared/FormInput"
+import { RenderCheckbox } from "../shared/FormInput"
 
 const RoundsForm = props => {
   return (
     <form onSubmit={props.handleSubmit}>
       <FieldArray name="rounds" component={Rounds} />
+      <div className="row rating">
+        <div className="col-md-6">
+          <Field
+            name="byRoundsOnly"
+            component={RenderCheckbox}
+            type="checkbox"
+            normalize={v => !!v}
+            label="Ohita väylien määrä laskussa"
+          />
+        </div>
+      </div>
       <div className="row rating">
         <div className="col-md-2">
           <button

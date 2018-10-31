@@ -21,7 +21,8 @@ function* getRatingSaga(action) {
 
 function* getCustomRatingSaga(action) {
   try {
-    const response = yield call(Api.post, "api/rating", action.form.rounds)
+    const param = action.form.byRoundsOnly ? "?byRoundsOnly=true" : ""
+    const response = yield call(Api.post, "api/rating" + param, action.form.rounds)
     yield put(customRatingSuccess(response))
   } catch (e) {
     yield put(customRatingFailure(e))
